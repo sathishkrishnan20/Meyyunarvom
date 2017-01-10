@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ukapadippu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:background="@mipmap/bg"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="3dp"
+    tools:context="com.avs.meyyunarvom.Ukapadippu">
+
+
+
+    <TextView
+        android:text="@string/ukapadippu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/DarkBlack"
+        android:id="@+id/ukapadipputitleid" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_below="@id/ukapadipputitleid">
+
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/ukapadippucontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+
+                android:id="@+id/textView4"
+                android:layout_weight="1" />
+
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

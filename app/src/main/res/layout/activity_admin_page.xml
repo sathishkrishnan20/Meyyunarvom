@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_admin_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="3dp"
+    android:paddingRight="2dp"
+    tools:context="com.avs.meyyunarvom.AdminPage">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+    <TextView
+        android:text="Question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/questionText"
+        android:textColor="@color/DarkBlack"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/title"
+        android:layout_gravity="center"/>
+
+
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+    android:id="@+id/spinneranswer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_below="@id/questionText"
+    android:layout_marginTop="50dp"
+    app:ms_multiline="true"
+    app:ms_hintColor="@color/colordoubt"
+    app:ms_hint="@string/spinneranswer"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinneranswer"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:id="@+id/fulldoubt_text"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@color/btn_unpress_color"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:textSize="20sp"
+        android:layout_alignEnd="@id/fulldoubt_text"
+        android:layout_alignRight="@id/fulldoubt_text"
+        android:id="@+id/delete_question_by_admin"
+        android:layout_below="@id/fulldoubt_text"
+        android:text="Delete" />
+
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/materialanswerfordoubt"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/delete_question_by_admin">
+
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Answer the Question"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/delete_question_by_admin"
+        android:id="@+id/answerfordoubt" />
+</android.support.design.widget.TextInputLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/Sendanswer"
+        android:layout_below="@id/materialanswerfordoubt"
+        android:text="Send"/>
+
+   </RelativeLayout>
+</ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HistoryAyyaVaikundar">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:background="@color/colordoubt"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:id="@+id/ayya_histry_title"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ayya_histry_title">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/relative_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:layout_marginBottom="45dp"
+            android:textIsSelectable="true"
+            style="@style/AlertDialog.AppCompat.Light"
+            android:textSize="15sp"
+            android:id="@+id/ayya_history_content"/>
+
+    </RelativeLayout>
+    </ScrollView>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/relative_content">
+
+            <TableRow
+                android:background="@color/white">
+
+                <Button
+                    android:text="Previous"
+                    android:layout_weight="1"
+                    style="?buttonBarButtonStyle"
+                    android:padding="2dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ayya_history_previousbtn"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/white"/>
+
+                <Button
+                    android:text="Next"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    style="?buttonBarButtonStyle"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/white"
+                    android:id="@+id/ayya_history_nextbtn"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+</RelativeLayout>

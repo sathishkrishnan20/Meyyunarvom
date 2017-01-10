@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#69696b</color>
+    <color name="colorPrimaryDark">#fc5a91</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="layoutbg">#5fc9f2</color>
+    <color name="colordoubt">#535356</color>
+    <color name="colorhis">#37b59d</color>
+    <color name="white">#FFFFFF</color>
+    <color name="DarkBlack">#000000</color>
+
+
+    <color name="doubt_tab">#aae7dcdc</color>
+    <color name="answer_tab">#aae7dcdc</color>
+
+
+
+    <color name="spinner_color">#fa9bd9</color>
+
+</resources>
