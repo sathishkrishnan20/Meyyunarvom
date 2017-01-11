@@ -10,20 +10,13 @@
     tools:context="com.avs.meyyunarvom.Temples">
 
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/temples"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/templenameid"
-    android:textSize="@dimen/title"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
+        android:background="@mipmap/bgfortemples"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
         android:id="@+id/imageViewShow" />
 
 
@@ -33,11 +26,12 @@
         android:layout_below="@id/imageViewShow">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
 
 
-        <TableRow
+    <TableRow
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/table1"
@@ -49,6 +43,8 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginLeft="16dp"
+        android:textStyle="bold"
+
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:id="@+id/tnameid" />
@@ -80,7 +76,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:id="@+id/tplaceid" />
+            android:id="@+id/tplaceid"
+            android:textStyle="bold"/>
 
         <TextView
             android:text=""
@@ -108,7 +105,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:id="@+id/tdescid" />
+            android:id="@+id/tdescid"
+            android:textStyle="bold"/>
 
 
     </TableRow>
@@ -130,6 +128,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/table3">
 

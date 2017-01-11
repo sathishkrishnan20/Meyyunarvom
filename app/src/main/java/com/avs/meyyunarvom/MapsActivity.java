@@ -229,14 +229,14 @@ private void checkForGooglePlayService() {
             String latlong= ""+latitude+ ","+longitude;
             if(addresses != null) {
                 Address returnedAddress = addresses.get(0);
-                strReturnedAddress = new StringBuilder("Address:\n");
-                strReturnedAddress.append("\n"+returnedAddress.getLocality()+";");
-                strReturnedAddress.append("\n"+returnedAddress.getFeatureName()+";");
-                strReturnedAddress.append("\n"+returnedAddress.getAdminArea()+";");
-                strReturnedAddress.append("\n"+returnedAddress.getCountryName()+";");
+                //strReturnedAddress = new StringBuilder("Address:\n");
+                strReturnedAddress.append(returnedAddress.getLocality()+";");
+                strReturnedAddress.append(returnedAddress.getSubAdminArea()+";");
+                strReturnedAddress.append(returnedAddress.getAdminArea()+";");
+                strReturnedAddress.append(returnedAddress.getCountryName()+";");
 
 
-                  Toast.makeText(this,latlong+" "+strReturnedAddress.toString(),Toast.LENGTH_LONG).show();
+                 // Toast.makeText(this,latlong+" "+strReturnedAddress.toString(),Toast.LENGTH_LONG).show();
                   Intent intent =new Intent(this, AddTemple.class);
                   intent.putExtra("location",strReturnedAddress.toString());
                   intent.putExtra("lattitude",latitude);

@@ -82,7 +82,56 @@
         android:gravity="center"
         android:background="@drawable/edittext_style"/>
 
-        <TextView
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/taddrsline1"
+                    android:hint="Address Line"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginStart="85dp"
+                    android:layout_marginTop="1dp"/>
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/taddrsdistrict"
+                    android:hint="District"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginStart="85dp"
+                    android:layout_marginTop="1dp" />
+
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/taddrsstate"
+                    android:hint="State"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginStart="85dp"
+                    android:layout_marginTop="1dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:ems="10"
+                    android:id="@+id/taddrscountry"
+                    android:hint="Country"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginStart="85dp"
+                    android:layout_marginTop="1dp" />
+
+
+
+
+
+                <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description  :"
@@ -170,6 +219,8 @@
             android:ems="10"
             android:id="@+id/tdescaboutaddtemp"
             android:hint="About"
+            android:layout_gravity="start"
+            android:gravity="top"
             android:layout_marginLeft="85dp"
             android:layout_marginStart="85dp"
             android:layout_marginTop="6dp" />

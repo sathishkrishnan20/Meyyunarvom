@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), AddTemple.class);
+                Intent intent=new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
 
             }
