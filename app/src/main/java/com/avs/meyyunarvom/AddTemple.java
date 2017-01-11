@@ -44,13 +44,14 @@ import java.util.Map;
 public class AddTemple extends AppCompatActivity implements View.OnClickListener
 {
 
-    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout;
+    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout, tempPhNo;
     String tempDesc;
 
     String locationByMap;
     Double lattitude, longitude;
 
    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templePhNo;
+    private EditText templeAddressLine, templeDistrict, templeState, templeCountry;
 
 
    private MultiAutoCompleteTextView templeDesc;
@@ -60,9 +61,9 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
    private Bitmap bitmap;
 
-   private String UPLOAD_URL = URL.url + "/setTemple.php";
+  // private String UPLOAD_URL = URL.url + "/setTemple.php";
 
-  //  private String UPLOAD_URL = "http://192.168.1.4/Meyyunarvom/setTemple.php";
+    private String UPLOAD_URL = "http://192.168.1.8/Meyyunarvom/setTemple.php";
 
 
    private int PICK_IMAGE_REQUEST = 1;
@@ -80,7 +81,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
    SQLiteDatabase db;
 
    int imageUploadCount = 0;
-
+    String[] locationSplit = new String[4];
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,14 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
        templeName = (EditText) findViewById(R.id.tnameaddtemp);
        templePlace = (EditText) findViewById(R.id.tplaceaddtemp);
+
+       templeAddressLine =(EditText)findViewById(R.id.taddrsline1);
+       templeDistrict =(EditText)findViewById(R.id.taddrsdistrict);
+       templeState= (EditText)findViewById(R.id.taddrsstate);
+       templeCountry =(EditText)findViewById(R.id.taddrscountry);
+
+
+
        templeSpl = (EditText) findViewById(R.id.tdescspladdtemp);
        templeSplDays= (EditText) findViewById(R.id.tdescspldaysaddtemp);
        templeVehicle= (EditText) findViewById(R.id.tdescvehiclessaddtemp);
@@ -104,7 +113,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
        lattitude = intent.getDoubleExtra("lattitude",0.0);
        longitude = intent.getDoubleExtra("longitude", 0.0);
 
-       templePlace.setText(locationByMap);
+      // templePlace.setText(locationByMap);
 
 
 
@@ -115,16 +124,27 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
        chooseImage.setOnClickListener(this);
        uploadImage.setOnClickListener(this);
 
+       locationSplit= locationByMap.split(";");
 
+       if (locationSplit[0].equals("null"))
+           templeAddressLine.setText("");
+       else
+           templeAddressLine.setText(locationSplit[0]);
 
+       if (locationSplit[1].equals("null"))
+           templeDistrict.setText("");
+       else
+           templeDistrict.setText(locationSplit[1]);
+
+       templeState.setText(locationSplit[2]);
+       templeCountry.setText(locationSplit[3]);
 
 
    }
 
    public void onBackPressed()
    {
-      Intent i=new Intent(getApplicationContext(),MainActivity.class);
-      startActivity(i);
+      finish();
 
    }
 
@@ -272,13 +292,57 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
    @Override
    public void onClick(View view) {
       if (view == chooseImage) {
-         showFileChooser();
+           showFileChooser();
       }
       if (view == uploadImage) {
          StringBuilder templeData = new StringBuilder();
 
-         tempName = templeName.getText().toString().trim();
-         tempPlace = templePlace.getText().toString().trim();
+
+          tempName = templeName.getText().toString().trim();
+          tempPlace = templePlace.getText().toString().trim();
+
+          tempSpl = templeSpl.getText().toString().trim();
+           tempSplDays = templeSplDays.getText().toString().trim();
+          tempVehicle =templeVehicle.getText().toString().trim();
+          tempPhNo =templePhNo.getText().toString().trim();
+          tempAbout =templeAbout.getText().toString().trim();
+
+
+
+          if(tempName.length()==0){
+              Snackbar.make(view, "Enter Temple Name", Snackbar.LENGTH_SHORT).show();
+            return;}
+
+            //  templeName.setError("Enter Temple Name"); return;}
+          if (tempPlace.length()==0) {
+              Snackbar.make(view, "Enter Temple Place", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+          if(tempSplDays.length()==0) {
+              // templeSplDays.setError("Enter Spl Days");
+              Snackbar.make(view, "Enter Temple SplDays", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+          if(tempVehicle.length()==0) {
+              // templeSplDays.setError("Enter Vehicle");return;}
+              Snackbar.make(view, "Enter Temple Vehicle", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+          if(tempAbout.length()==0) {
+            //  templeAbout.setError("Enter something about temple"); return; }
+              Snackbar.make(view, "Enter Temple About", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+          if(tempPhNo.length()<5) {
+              //templePhNo.setError("Enter Correct Mobile No");return;
+              Snackbar.make(view, "Enter Correct Mobile No", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+
           templeData.append(templeSplDays.getText().toString().trim()+";");
           templeData.append(templeVehicle.getText().toString().trim()+";");
           templeData.append(templeAbout.getText().toString().trim()+";");
@@ -296,14 +360,14 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
             return;
          }
 
-          if (!tempName.isEmpty() && !tempPlace.isEmpty() && !tempDesc.isEmpty() && imageUploadCount == 1) {
 
-            uploadImage();
-         } else {
-            Snackbar.make(view, "Please fill all the Fields", Snackbar.LENGTH_SHORT)
-                    .show();
-         }
+          if (/*!tempName.isEmpty() && !tempPlace.isEmpty() && !tempDesc.isEmpty() &&*/ imageUploadCount == 0) {
+              Snackbar.make(view, "Please Choose the file", Snackbar.LENGTH_SHORT)
+                      .show();
 
+          }
+          else
+                uploadImage();
 
       }
 
