@@ -63,7 +63,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
   // private String UPLOAD_URL = URL.url + "/setTemple.php";
 
-    private String UPLOAD_URL = "http://192.168.1.8/Meyyunarvom/setTemple.php";
+    private String UPLOAD_URL = "http://192.168.1.5/Meyyunarvom/setTemple.php";
 
 
    private int PICK_IMAGE_REQUEST = 1;
@@ -318,6 +318,13 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
               Snackbar.make(view, "Enter Temple Place", Snackbar.LENGTH_SHORT).show();
               return;
           }
+
+          if(tempSpl.length()==0) {
+              // templeSplDays.setError("Enter Spl Days");
+              Snackbar.make(view, "Enter Temple Spl", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
           if(tempSplDays.length()==0) {
               // templeSplDays.setError("Enter Spl Days");
               Snackbar.make(view, "Enter Temple SplDays", Snackbar.LENGTH_SHORT).show();
@@ -342,11 +349,12 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
               return;
           }
 
-
+          templeData.append(templeSpl.getText().toString().trim()+";");
           templeData.append(templeSplDays.getText().toString().trim()+";");
           templeData.append(templeVehicle.getText().toString().trim()+";");
-          templeData.append(templeAbout.getText().toString().trim()+";");
           templeData.append(templePhNo.getText().toString().trim()+";");
+          templeData.append(templeAbout.getText().toString().trim()+";");
+
 
           tempDesc = templeData.toString();
 

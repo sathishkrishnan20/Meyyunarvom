@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -63,8 +65,9 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
     private Button buttonMovePrevious;
     private ImageView imageView;
     //private final String GET_URL = com.avs.db.URL.url + "/getTemple.php";
-     private final String GET_URL ="http://192.168.1.8/Meyyunarvom/getTemple.php";
-    @Override
+     private final String GET_URL ="http://192.168.1.5/Meyyunarvom/getTemple.php";
+
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temples);
@@ -79,8 +82,17 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
         setTempleName=(TextView)findViewById(R.id.tNameSetId);
         setTemplePlace=(TextView)findViewById(R.id.tPlaceSetId);
         setTempleDesc = (TextView)findViewById(R.id.tDescSetId);
-
         getTemplesFromDB();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void checkConnection()
@@ -159,11 +171,12 @@ private void getTempleData()
  {
 try {
 
-   String templeDesc[]=tdesc.split(";");
+   String templeDesc[]=new String[5];
+    templeDesc= tdesc.split(";");
 
     setTempleName.setText(tname);
     setTemplePlace.setText(tplace);
-   // setTempleDesc.setText("Special :"+templeDesc[0]+"\nSpecial Days  :"+templeDesc[1]+"\nVehicles"+templeDesc[2]+"\nPh.No"+templeDesc[3]+"\nAbout"+templeDesc[4]);
+    setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
     Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
 }
 catch(Exception e)
