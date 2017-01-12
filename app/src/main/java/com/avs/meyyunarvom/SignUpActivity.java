@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
@@ -155,6 +156,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         loading.dismiss();
                         Toast.makeText(SignUpActivity.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
                         resetField();
+                        Intent intent =new Intent(getApplicationContext(),LoginActivity.class);
+                        startActivity(intent);
+
                     }
                 },
                 new Response.ErrorListener() {
