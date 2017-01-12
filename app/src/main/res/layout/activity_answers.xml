@@ -44,7 +44,7 @@
 
 
         <TextView
-            android:text=" Have Any Doubts"
+            android:text="சந்தேகங்கள்"
             android:layout_width="match_parent"
             android:layout_height="35sp"
             android:background="@color/answer_tab"
@@ -102,7 +102,7 @@
             android:orientation="vertical"
             android:layout_margin="5dp">
         <TextView
-            android:text="Answers"
+            android:text="பதில்கள்"
             android:layout_width="match_parent"
             android:layout_height="35sp"
             android:id="@+id/answersText"

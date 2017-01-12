@@ -38,7 +38,7 @@
             <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pathi Name  :"
+            android:text="பதியின் பெயர்"
             android:id="@+id/ddd"
             android:textSize="20sp"/>
 
@@ -47,7 +47,7 @@
         android:layout_height="40dp"
         android:inputType="textPersonName"
         android:id="@+id/tnameaddtemp"
-        android:hint="  Pathi name"
+        android:hint="  பதியின் பெயர்"
         android:layout_marginLeft="55dp"
         android:layout_marginStart="55dp"
         android:layout_marginTop="5dp"
@@ -60,7 +60,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pathi Place  :"
+            android:text="பதியின் ஊர்"
             android:layout_marginTop="15dp"
             android:layout_below="@id/tnameaddtemp"
             android:textSize="20sp"
@@ -71,7 +71,7 @@
         android:layout_height="40dp"
         android:inputType="textPersonName"
         android:id="@+id/tplaceaddtemp"
-        android:hint="Place"
+        android:hint="பதியின் ஊர்"
         android:layout_marginLeft="55dp"
         android:layout_marginStart="55dp"
         android:layout_marginTop="5dp"
@@ -131,10 +131,10 @@
 
 
 
-                <TextView
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description  :"
+            android:text="பதி"
             android:layout_below="@id/tnameaddtemp"
             android:textSize="20sp"
             android:id="@+id/desc"/>
@@ -150,7 +150,7 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/tdescspladdtemp"
-        android:hint="Special"
+        android:hint="சிறப்புகள்"
         android:layout_marginLeft="85dp"
         android:layout_marginStart="85dp"
         android:layout_marginTop="6dp"
@@ -168,7 +168,7 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/tdescspldaysaddtemp"
-            android:hint="Special Days"
+            android:hint="திருவிளாக்கள்"
             android:layout_marginLeft="85dp"
             android:layout_marginStart="85dp"
             android:layout_marginTop="6dp" />
@@ -184,7 +184,7 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/tdescvehiclessaddtemp"
-            android:hint="Vehicle"
+            android:hint="வாகனங்கள்"
             android:layout_marginLeft="85dp"
             android:layout_marginStart="85dp"
             android:layout_marginTop="6dp" />
@@ -200,7 +200,7 @@
                         android:inputType="number"
                         android:ems="10"
                         android:id="@+id/tdescphnoaddtemp"
-                        android:hint="Ph. No"
+                        android:hint="தொடர்புக்கு"
                         android:layout_marginLeft="85dp"
                         android:layout_marginStart="85dp"
                         android:layout_marginTop="6dp" />
@@ -218,7 +218,7 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/tdescaboutaddtemp"
-            android:hint="About"
+            android:hint="பதியை பற்றி"
             android:layout_gravity="start"
             android:gravity="top"
             android:layout_marginLeft="85dp"
@@ -271,11 +271,6 @@
         android:text="Upload Image"
         android:isScrollContainer="true"
         android:layout_marginTop="460dp"
-        android:layout_below="@+id/line"
         android:id="@+id/tuploadbtnaddtemp"/>
-
-
-
-
 
 </RelativeLayout>

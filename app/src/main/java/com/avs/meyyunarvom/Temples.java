@@ -176,7 +176,7 @@ try {
 
     setTempleName.setText(tname);
     setTemplePlace.setText(tplace);
-    setTempleDesc.setText("Special :"+templeDesc[0]+"\nSpecial Days :"+templeDesc[1]+"\nVehicles"+templeDesc[2]+"\nPh.No"+templeDesc[3]+"\nAbout"+templeDesc[4]);
+    setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
     Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
 }
 catch(Exception e)
