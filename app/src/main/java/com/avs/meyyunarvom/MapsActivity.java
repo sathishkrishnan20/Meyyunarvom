@@ -241,7 +241,9 @@ private void checkForGooglePlayService() {
                   intent.putExtra("location",strReturnedAddress.toString());
                   intent.putExtra("lattitude",latitude);
                   intent.putExtra("longitude", longitude);
-                  startActivity(intent);
+                intent.putExtra("latLng", latlong);
+
+                startActivity(intent);
 
               //  myAddress.setText(strReturnedAddress.toString());
             }

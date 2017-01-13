@@ -47,7 +47,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
     String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout, tempPhNo;
     String tempDesc;
 
-    String locationByMap;
+    String locationByMap, latLng;
     Double lattitude, longitude;
 
    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templePhNo;
@@ -63,7 +63,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
   // private String UPLOAD_URL = URL.url + "/setTemple.php";
 
-    private String UPLOAD_URL = "http://192.168.1.5/Meyyunarvom/setTemple.php";
+    private String UPLOAD_URL = "http://192.168.1.3/Meyyunarvom/setTemple.php";
 
 
    private int PICK_IMAGE_REQUEST = 1;
@@ -112,6 +112,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
        locationByMap = intent.getStringExtra("location");
        lattitude = intent.getDoubleExtra("lattitude",0.0);
        longitude = intent.getDoubleExtra("longitude", 0.0);
+       latLng = intent.getStringExtra("latLng");
 
       // templePlace.setText(locationByMap);
 
@@ -279,7 +280,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
             params.put(KEY_PLACE, tempPlace);
             params.put(KEY_DESC, tempDesc);
             params.put(KEY_IMAGE, tempImage);
-
+            params.put("LatLng", latLng);
             return params;
          }
       };
