@@ -280,7 +280,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
             params.put(KEY_PLACE, tempPlace);
             params.put(KEY_DESC, tempDesc);
             params.put(KEY_IMAGE, tempImage);
-            params.put("LatLng", latLng);
+            params.put("latLng", latLng);
             return params;
          }
       };
