@@ -65,7 +65,7 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
     private Button buttonMovePrevious;
     private ImageView imageView;
     //private final String GET_URL = com.avs.db.URL.url + "/getTemple.php";
-     private final String GET_URL ="http://192.168.1.5/Meyyunarvom/getTemple.php";
+     private final String GET_URL ="http://192.168.1.3/Meyyunarvom/getTemple.php";
 
      @Override
     protected void onCreate(Bundle savedInstanceState) {
