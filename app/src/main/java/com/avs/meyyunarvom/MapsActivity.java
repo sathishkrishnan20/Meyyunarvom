@@ -81,6 +81,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleApiClient googleApiClient;
 
+       String redirectPage="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             requestStoragePermission();
         }
 
+        Intent intent=getIntent();
+        redirectPage = intent.getStringExtra("redirectPage");
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -235,15 +238,20 @@ private void checkForGooglePlayService() {
                 strReturnedAddress.append(returnedAddress.getAdminArea()+";");
                 strReturnedAddress.append(returnedAddress.getCountryName()+";");
 
-
+                Intent intent;
                  // Toast.makeText(this,latlong+" "+strReturnedAddress.toString(),Toast.LENGTH_LONG).show();
-                  Intent intent =new Intent(this, AddTemple.class);
-                  intent.putExtra("location",strReturnedAddress.toString());
-                  intent.putExtra("lattitude",latitude);
-                  intent.putExtra("longitude", longitude);
-                intent.putExtra("latLng", latlong);
+                if(redirectPage.equals("temple"))
+                    intent = new Intent(this, AddTemple.class);
+                else
+                    intent = new Intent(this, AdminPage.class);
 
-                startActivity(intent);
+
+                    intent.putExtra("location", strReturnedAddress.toString());
+                    intent.putExtra("lattitude", latitude);
+                    intent.putExtra("longitude", longitude);
+                    intent.putExtra("latLng", latlong);
+
+                    startActivity(intent);
 
               //  myAddress.setText(strReturnedAddress.toString());
             }

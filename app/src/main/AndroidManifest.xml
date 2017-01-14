@@ -191,9 +191,8 @@
             android:value="@string/google_places_key" />
 
         <activity android:name=".ConnectionError" />
-
-        <activity
-            android:name=".MapsActivity"/>
+        <activity android:name=".MapsActivity" />
+        <activity android:name=".AdminTempleReview"></activity>
     </application>
 
 </manifest>

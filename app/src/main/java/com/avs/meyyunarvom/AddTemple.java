@@ -63,7 +63,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
   // private String UPLOAD_URL = URL.url + "/setTemple.php";
 
-    private String UPLOAD_URL = "http://192.168.1.3/Meyyunarvom/setTemple.php";
+    private String UPLOAD_URL = "http://192.168.1.2/Meyyunarvom/setTemple.php";
 
 
    private int PICK_IMAGE_REQUEST = 1;
@@ -280,7 +280,8 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
             params.put(KEY_PLACE, tempPlace);
             params.put(KEY_DESC, tempDesc);
             params.put(KEY_IMAGE, tempImage);
-            params.put("latLng", latLng);
+            params.put("latitude", lattitude.toString());
+            params.put("longitude",longitude.toString());
             return params;
          }
       };

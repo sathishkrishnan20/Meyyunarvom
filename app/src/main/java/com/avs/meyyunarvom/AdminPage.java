@@ -89,7 +89,12 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         buttonSendAns.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
 
+        Intent intent=getIntent();
+
+
         getQustions();
+
+
     }
 
     public void onBackPressed()
