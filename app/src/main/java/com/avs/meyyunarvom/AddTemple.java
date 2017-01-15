@@ -45,12 +45,13 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 {
 
     String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout, tempPhNo;
-    String tempDesc;
+    private String tempAddressLine, tempDistrict, tempState, tempCountry;
+    String tempDesc , tempAddress;
 
     String locationByMap, latLng;
-    Double lattitude, longitude;
 
-   private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templePhNo;
+    Double lattitude, longitude;
+    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templePhNo;
     private EditText templeAddressLine, templeDistrict, templeState, templeCountry;
 
 
@@ -63,7 +64,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
   // private String UPLOAD_URL = URL.url + "/setTemple.php";
 
-    private String UPLOAD_URL = "http://192.168.1.2/Meyyunarvom/setTemple.php";
+    private String UPLOAD_URL = "http://192.168.1.4/Meyyunarvom/setTemple.php";
 
 
    private int PICK_IMAGE_REQUEST = 1;
@@ -73,6 +74,10 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
    private String KEY_PLACE = "tplace";
    private String KEY_DESC = "tdesc";
    private String KEY_IMAGE = "timage";
+    private String KEY_DIST = "tdist";
+    private String KEY_ADDRESS = "taddress";
+    private String KEY_LATTITUDE = "latitude";
+    private String KEY_LONGITIDE = "longitude";
    private String KEY_IMAGE_ENCODE = "tencode";
 
    private String loginUserEmail,loginUserName;
@@ -127,20 +132,38 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
        locationSplit= locationByMap.split(";");
 
-       if (locationSplit[0].equals("null"))
+       if (locationSplit[0].equals("null")) {
            templeAddressLine.setText("");
-       else
+       }
+       else {
+           tempAddressLine = locationSplit[0];
            templeAddressLine.setText(locationSplit[0]);
+       }
 
-       if (locationSplit[1].equals("null"))
+
+       if (locationSplit[1].equals("null")) {
            templeDistrict.setText("");
-       else
+       }
+       else {
+           tempDistrict = locationSplit[1];
            templeDistrict.setText(locationSplit[1]);
+       }
 
-       templeState.setText(locationSplit[2]);
-       templeCountry.setText(locationSplit[3]);
+       if (locationSplit[2].equals("null")) {
+           templeState.setText("");
+       }
+       else {
+           tempState =locationSplit[3];
+           templeState.setText(locationSplit[3]);
+       }
 
-
+       if(locationSplit[3].equals("null")) {
+           templeCountry.setText("");
+       }
+       else {
+           tempCountry = locationSplit[3];
+           templeCountry.setText(locationSplit[3]);
+       }
    }
 
    public void onBackPressed()
@@ -278,10 +301,12 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
             params.put(KEY_EMAIL, loginUserEmail);
             params.put(KEY_NAME, tempName);
             params.put(KEY_PLACE, tempPlace);
+            params.put(KEY_DIST, tempDistrict);
+            params.put(KEY_ADDRESS,tempAddress);
             params.put(KEY_DESC, tempDesc);
             params.put(KEY_IMAGE, tempImage);
-            params.put("latitude", lattitude.toString());
-            params.put("longitude",longitude.toString());
+            params.put(KEY_LATTITUDE, lattitude.toString());
+            params.put(KEY_LONGITIDE, longitude.toString());
             return params;
          }
       };
@@ -291,6 +316,8 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
    }
 
 
+
+
    @Override
    public void onClick(View view) {
       if (view == chooseImage) {
@@ -298,16 +325,24 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
       }
       if (view == uploadImage) {
          StringBuilder templeData = new StringBuilder();
-
+         StringBuilder templeFullAddress = new StringBuilder();
 
           tempName = templeName.getText().toString().trim();
           tempPlace = templePlace.getText().toString().trim();
 
           tempSpl = templeSpl.getText().toString().trim();
-           tempSplDays = templeSplDays.getText().toString().trim();
+          tempSplDays = templeSplDays.getText().toString().trim();
           tempVehicle =templeVehicle.getText().toString().trim();
           tempPhNo =templePhNo.getText().toString().trim();
           tempAbout =templeAbout.getText().toString().trim();
+
+
+          tempAddressLine = templeAddressLine.getText().toString().trim();
+          tempDistrict = templeDistrict.getText().toString().trim();
+          tempState =templeState.getText().toString().trim();
+          tempCountry =templeCountry.getText().toString().trim();
+
+
 
 
 
@@ -351,13 +386,24 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
               return;
           }
 
-          templeData.append(templeSpl.getText().toString().trim()+";");
-          templeData.append(templeSplDays.getText().toString().trim()+";");
-          templeData.append(templeVehicle.getText().toString().trim()+";");
-          templeData.append(templePhNo.getText().toString().trim()+";");
-          templeData.append(templeAbout.getText().toString().trim()+";");
+          if(tempDistrict.length()<5) {
+              //templePhNo.setError("Enter Correct Mobile No");return;
+              Snackbar.make(view, "Enter District", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
 
+          templeData.append(tempSpl+";");
+          templeData.append(tempSplDays+";");
+          templeData.append(tempVehicle+";");
+          templeData.append(tempPhNo+";");
+          templeData.append(tempAbout+";");
 
+          templeFullAddress.append(tempAddressLine+";");
+          templeFullAddress.append(tempDistrict+";");
+          templeFullAddress.append(tempState+";");
+          templeFullAddress.append(tempCountry+";");
+
+          tempAddress=templeFullAddress.toString();
           tempDesc = templeData.toString();
 
 

@@ -34,19 +34,24 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
     private ImageView adminTempImage;
 
-    String tname = "";
-    String tplace = "";
-    String tdesc = "";
-    String tImageUrl = "";
+
     String userName= "";
     String userEmail ="";
+    String userPlace = "";
+
+    String tname = "";
+    String tplace = "";
+    String tAddress= "";
+    String tdesc = "";
+    String tImageUrl = "";
     String latitude ="";
     String longitude="";
 
+    int tempId;
 
     //private final String GET_URL = com.avs.db.URL.url + "/getTempleAdmin.php";
 
-    private final String GET_URL ="http://192.168.1.2/Meyyunarvom/getTempleAdmin.php";
+    private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTempleAdmin.php";
     private int TRACK = 0;
     private JSONObject jsonObject;
     private JSONArray result;
@@ -142,7 +147,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
     }
 
-int templeDataLength=0;
+    int templeDataLength=0;
     private void showJSON(String response)
     {
         try
@@ -166,11 +171,13 @@ int templeDataLength=0;
         try {
 
             JSONObject templeData = result.getJSONObject(TRACK);
-
+            tempId = templeData.getInt("id");
             userName = templeData.getString("name");
             userEmail = templeData.getString("email");
+            userPlace= templeData.getString("place");
             tname =  templeData.getString("tname");
             tplace = templeData.getString("tplace");
+            tAddress=templeData.getString("taddress");
             tdesc =  templeData.getString("tdesc");
             tImageUrl = templeData.getString("timage");
             latitude = templeData.getString("latitude");
@@ -191,10 +198,20 @@ int templeDataLength=0;
         try {
 
             String templeDesc[]=new String[5];
-            templeDesc= tdesc.split(";");
+            String templeAddess[]=new String[4];
+
+            templeDesc = tdesc.split(";");
+            templeAddess = tAddress.split(";");
 
             templeName.setText(tname);
             templePlace.setText(tplace);
+
+            templeAddressLine.setText(templeAddess[0]);
+            templeDistrict.setText(templeAddess[1]);
+            templeState.setText(templeAddess[2]);
+            templeCountry.setText(templeAddess[3]);
+
+            latLng.setText(latitude+",\n"+longitude);
 
 
             templeSpl.setText(templeDesc[0]);
@@ -202,7 +219,6 @@ int templeDataLength=0;
             templeVehicle.setText(templeDesc[2]);
             templePhNo.setText(templeDesc[3]);
             templeAbout.setText(templeDesc[4]);
-
             Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(adminTempImage); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
         }
         catch(Exception e)
@@ -214,12 +230,48 @@ int templeDataLength=0;
 
 
 
-
-
-
-
-    @Override
     public void onClick(View v) {
 
+        if(v == buttonMoveNext){
+            resetFields();
+            moveNext();
+        }
+        if(v== buttonMovePrevious){
+            resetFields();
+            movePrevious();
+        }
     }
+
+    private void resetFields()
+    {
+        templeName.setText("");
+        templePlace.setText("");
+        templeSpl.setText("");
+        templeSplDays.setText("");
+
+        templeVehicle.setText("");
+        templeAbout.setText("");
+        templePhNo.setText("");
+        templeAddressLine.setText("");
+        templeDistrict.setText("");
+        templeState.setText("");
+        templeCountry.setText("");
+        latLng.setText("");
+    }
+
+
+    private void moveNext(){
+        if(TRACK < templeDataLength){
+            TRACK++;
+            getTempleData();
+        }
+    }
+
+    private void movePrevious(){
+        if(TRACK>0){
+            TRACK--;
+            getTempleData();
+        }
+    }
+
 }

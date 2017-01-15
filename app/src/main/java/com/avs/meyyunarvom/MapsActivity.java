@@ -238,21 +238,16 @@ private void checkForGooglePlayService() {
                 strReturnedAddress.append(returnedAddress.getAdminArea()+";");
                 strReturnedAddress.append(returnedAddress.getCountryName()+";");
 
-                Intent intent;
+
                  // Toast.makeText(this,latlong+" "+strReturnedAddress.toString(),Toast.LENGTH_LONG).show();
-                if(redirectPage.equals("temple"))
-                    intent = new Intent(this, AddTemple.class);
-                else
-                    intent = new Intent(this, AdminPage.class);
-
-
+                if(redirectPage.equals("temple")) {
+                    Intent intent = new Intent(this, AddTemple.class);
                     intent.putExtra("location", strReturnedAddress.toString());
                     intent.putExtra("lattitude", latitude);
                     intent.putExtra("longitude", longitude);
                     intent.putExtra("latLng", latlong);
-
                     startActivity(intent);
-
+                }
               //  myAddress.setText(strReturnedAddress.toString());
             }
             else {
@@ -262,7 +257,7 @@ private void checkForGooglePlayService() {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Toast.makeText(this,"Cannot get Address",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Cannot get Address  "+ e.toString() ,Toast.LENGTH_LONG).show();
         }
     }
 
