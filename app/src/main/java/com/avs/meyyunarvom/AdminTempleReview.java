@@ -47,8 +47,10 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
     String latitude ="";
     String longitude="";
 
+    String isPublish="";
     int tempId;
 
+    String userDetailsText="";
     //private final String GET_URL = com.avs.db.URL.url + "/getTempleAdmin.php";
 
     private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTempleAdmin.php";
@@ -182,6 +184,8 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
             tImageUrl = templeData.getString("timage");
             latitude = templeData.getString("latitude");
             longitude = templeData.getString("longitude");
+            isPublish = templeData.getString("active_flag_publish");
+
             setTempleData();
         }
 
@@ -199,10 +203,30 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
             String templeDesc[]=new String[5];
             String templeAddess[]=new String[4];
-
             templeDesc = tdesc.split(";");
             templeAddess = tAddress.split(";");
 
+
+            userDetailsText = userDetailsText +"     Name: " + userName+" \n";
+            userDetailsText = userDetailsText +"     Place: " +userPlace+"\n";
+            userDetailsText = userDetailsText +"     Mobile No: " +userEmail+"\n";
+
+            if(isPublish.equals("Y"))
+            {
+                userDetailsText = userDetailsText +"     Added: Yes\n";
+                addedBy.setText(userDetailsText);
+                addedBy.setTextColor(getResources().getColor(R.color.green));
+
+            }
+            else if(isPublish.equals("N"))
+            {
+                userDetailsText = userDetailsText +"     Added: No\n";
+                addedBy.setText(userDetailsText);
+                addedBy.setTextColor(getResources().getColor(R.color.red));
+            }
+
+
+            
             templeName.setText(tname);
             templePlace.setText(tplace);
 
@@ -227,6 +251,11 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         }
 
     }
+
+
+
+
+
 
 
 
@@ -257,6 +286,9 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         templeState.setText("");
         templeCountry.setText("");
         latLng.setText("");
+        adminTempImage.setImageResource(R.drawable.error);
+
+        userDetailsText="";
     }
 
 
