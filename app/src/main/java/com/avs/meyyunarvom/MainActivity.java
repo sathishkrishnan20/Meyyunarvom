@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), MapsActivity.class);
+                Intent intent=new Intent(getApplicationContext(), AdminTempleReview.class);
                 startActivity(intent);
 
             }
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera)
         {
-            Intent intent=new Intent(getApplicationContext(),AdminPage.class);
+            Intent intent=new Intent(getApplicationContext(),AdminMenu.class);
             startActivity(intent);
         }
 

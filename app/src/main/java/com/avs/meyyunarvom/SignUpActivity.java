@@ -36,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private AutoCompleteTextView mEmailView;
     private EditText mUserNameView;
+    private EditText mPlaceView;
     private EditText mPasswordView;
     Button register;
 
@@ -43,12 +44,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private static String dname="name";
     private static String demail="email";
+    private static String dplace="place";
     private static String dpassword="password";
 
 
 
     private String name;
     private String email;
+    private String place;
     private String password;
 
 
@@ -62,10 +65,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mUserNameView = (EditText) findViewById(R.id.name);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        mPlaceView =(EditText) findViewById(R.id.place);
         register = (Button) findViewById(R.id.email_sign_up_button);
-
-
-
 
 
         register.setOnClickListener(this);
@@ -84,7 +85,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                      name= mUserNameView.getText().toString().trim();
                      email = mEmailView.getText().toString().trim();
-                     password = mPasswordView.getText().toString();
+                     place = mPlaceView.getText().toString().trim();
+                        password = mPasswordView.getText().toString();
 
                      Network network=new Network();
                      if (!network.isOnline(SignUpActivity.this)) {
@@ -99,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                          return;
                      }
 
-                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty()) {
                          registerUser();
                      } else {
                          Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_LONG)
@@ -178,7 +180,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 Map <String,String> params=new HashMap<String,String>();
                 params.put(dname,name);
                 params.put(demail,email);
+                params.put(dplace, place);
                 params.put(dpassword,password);
+
                 return params;
 
 

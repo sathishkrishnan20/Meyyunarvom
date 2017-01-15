@@ -81,6 +81,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private GoogleApiClient googleApiClient;
 
+       String redirectPage="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             requestStoragePermission();
         }
 
+        Intent intent=getIntent();
+        redirectPage = intent.getStringExtra("redirectPage");
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -237,14 +240,14 @@ private void checkForGooglePlayService() {
 
 
                  // Toast.makeText(this,latlong+" "+strReturnedAddress.toString(),Toast.LENGTH_LONG).show();
-                  Intent intent =new Intent(this, AddTemple.class);
-                  intent.putExtra("location",strReturnedAddress.toString());
-                  intent.putExtra("lattitude",latitude);
-                  intent.putExtra("longitude", longitude);
-                intent.putExtra("latLng", latlong);
-
-                startActivity(intent);
-
+                if(redirectPage.equals("temple")) {
+                    Intent intent = new Intent(this, AddTemple.class);
+                    intent.putExtra("location", strReturnedAddress.toString());
+                    intent.putExtra("lattitude", latitude);
+                    intent.putExtra("longitude", longitude);
+                    intent.putExtra("latLng", latlong);
+                    startActivity(intent);
+                }
               //  myAddress.setText(strReturnedAddress.toString());
             }
             else {
@@ -254,7 +257,7 @@ private void checkForGooglePlayService() {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Toast.makeText(this,"Cannot get Address",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Cannot get Address  "+ e.toString() ,Toast.LENGTH_LONG).show();
         }
     }
 

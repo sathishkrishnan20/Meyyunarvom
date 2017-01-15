@@ -89,7 +89,12 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         buttonSendAns.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
 
+        Intent intent=getIntent();
+
+
         getQustions();
+
+
     }
 
     public void onBackPressed()
@@ -214,6 +219,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
             //Fetching name from that object
             userDetailsText = "Asked By: \n";
             userDetailsText = userDetailsText +"     Name: " + json.getString("name")+" \n";
+            userDetailsText = userDetailsText +"     Place: " +json.getString("place")+"\n";
             userDetailsText = userDetailsText +"     Mobile No: " +json.getString("email")+"\n";
             userDetailsText = userDetailsText +"     Asked_at: " +json.getString("created_at")+"\n";
 

@@ -15,6 +15,10 @@
     <color name="doubt_tab">#aae7dcdc</color>
     <color name="answer_tab">#aae7dcdc</color>
 
+    <color name="green">#2a9403</color>
+    <color name="red">#ff0000</color>
+
+
 <color name="sss">#69696b</color>
 
     <color name="spinner_color">#fa9bd9</color>

@@ -10,11 +10,11 @@
     tools:context="com.avs.meyyunarvom.SignUpActivity">
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:src="@mipmap/banner2"/>
-    <!-- Login progress -->
+    <!--    <ImageView
+         android:layout_width="match_parent"
+         android:layout_height="140dp"
+         android:src="@mipmap/banner2"/>
+   Login progress -->
 
     <ProgressBar
         android:id="@+id/login_progress"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="65dp"
         android:background="#aae7dcdc"
         android:elevation="4dp"
         android:orientation="vertical"
@@ -61,15 +61,35 @@
                     android:hint="Name"
                     android:drawableLeft="@drawable/ic_action_person"
                     android:drawableTint="#FF4081"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPersonName"
                     android:maxLines="1"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputLayout
+            <AutoCompleteTextView
+                android:id="@+id/place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_place"
+                android:drawableTint="#FF4081"
+                android:hint="Place"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+        <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

@@ -54,10 +54,12 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
     String tImageUrl = "";
     private int templeDataLength;
 
+    private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTemple.php";
     private int TRACK = 0;
 
     private JSONObject jsonObject;
     private JSONArray result;
+
 
 
     private TextView setTempleName, setTemplePlace, setTempleDesc;
@@ -65,9 +67,9 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
     private Button buttonMovePrevious;
     private ImageView imageView;
     //private final String GET_URL = com.avs.db.URL.url + "/getTemple.php";
-     private final String GET_URL ="http://192.168.1.3/Meyyunarvom/getTemple.php";
 
-     @Override
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temples);
@@ -89,6 +91,7 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
+                intent.putExtra("redirectPage","temple");
                 startActivity(intent);
             }
         });
@@ -190,16 +193,24 @@ catch(Exception e)
     public void onClick(View v) {
 
         if(v == buttonMoveNext){
+            resetFields();
             moveNext();
         }
         if(v== buttonMovePrevious){
+            resetFields();
             movePrevious();
         }
     }
 
+     private void resetFields()
+     {
+         setTempleName.setText("");
+         setTemplePlace.setText("");
+         setTempleDesc.setText("");
+     }
 
 
-    private void moveNext(){
+     private void moveNext(){
         if(TRACK < templeDataLength){
             TRACK++;
             getTempleData();
