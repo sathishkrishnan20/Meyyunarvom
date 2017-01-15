@@ -56,13 +56,26 @@
                      android:value=".MainActivity" />
              </activity>
         -->
+
+
+
         <activity
-            android:name=".ArulnoolMenu"
+            android:name=".AkilathirattuMenu"
             android:label="@string/akilathirattu"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name=".ArulnoolMenu"
+            android:label="@string/akilathirattu"
+            android:parentActivityName=".AkilathirattuMenu">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AkilathirattuMenu" />
         </activity>
 
         <!--
@@ -140,10 +153,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-
-
-
         <activity
             android:name=".AdminMenu"
             android:label="Admin"
@@ -160,8 +169,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
-
-
         <activity
             android:name=".AdminTempleReview"
             android:label="Admin Temple"
@@ -170,7 +177,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
-
         <activity
             android:name=".AdminPoemReview"
             android:label="Admin Poem"
@@ -179,11 +185,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
-
-
-
-
-
         <activity
             android:name=".ForgotPassword"
             android:label="Change Password"

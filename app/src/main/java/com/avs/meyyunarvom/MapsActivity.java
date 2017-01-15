@@ -109,6 +109,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+       @Override
+       public void onBackPressed() {
+
+           finish();
+       }
+
+
 
        private void checkConnection()
        {
@@ -248,6 +255,16 @@ private void checkForGooglePlayService() {
                     intent.putExtra("latLng", latlong);
                     startActivity(intent);
                 }
+
+                if(redirectPage.equals("adminTemple")) {
+                    Intent intent = new Intent(this, AdminTempleReview.class);
+                    intent.putExtra("location", strReturnedAddress.toString());
+                    intent.putExtra("lattitude", latitude);
+                    intent.putExtra("longitude", longitude);
+                    intent.putExtra("latLng", latlong);
+                    startActivity(intent);
+                }
+
               //  myAddress.setText(strReturnedAddress.toString());
             }
             else {
@@ -423,7 +440,7 @@ private void checkForGooglePlayService() {
     public void onMarkerDragStart(Marker marker) {
         latitude = marker.getPosition().latitude;
         longitude = marker.getPosition().longitude;
-        moveMap();
+       // moveMap();
     }
 
     @Override
@@ -431,7 +448,7 @@ private void checkForGooglePlayService() {
 
         latitude = marker.getPosition().latitude;
         longitude = marker.getPosition().longitude;
-        moveMap();
+       // moveMap();
     }
 
     @Override
@@ -440,7 +457,6 @@ private void checkForGooglePlayService() {
         latitude = marker.getPosition().latitude;
         longitude = marker.getPosition().longitude;
 
-        //Moving the map
         moveMap();
     }
 
