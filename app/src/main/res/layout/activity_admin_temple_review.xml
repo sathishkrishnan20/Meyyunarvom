@@ -16,19 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:paddingTop="4dp"
-
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Added By"
-            android:layout_below="@id/tnameaddtemp"
-            android:textSize="20sp"
-            android:id="@+id/addedBy"/>
-
 
 
 
@@ -45,6 +33,17 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="#aae7dcdc">
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Added By"
+                        android:textSize="20sp"
+                        android:id="@+id/addedBy"/>
+
+
 
 
 
@@ -96,27 +95,24 @@
                         android:background="@drawable/edittext_style"/>
 
 
-                    <EditText
+                    <MultiAutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:ems="10"
                         android:id="@+id/admintemplatlng"
-                        android:hint="Lattitude Longitude"
                         android:enabled="false"
+                        android:hint="Lattitude Longitude"
                         android:layout_marginLeft="85dp"
                         android:layout_marginStart="85dp"
                         android:layout_marginTop="1dp"/>
 
 
 
-                    <TextView
+                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
                         android:id="@+id/admintemplatlngedit"
                         android:hint="Edit"
-                        android:enabled="false"
                         android:layout_gravity="end"
                         android:textColor="#0d04f9"
                         android:layout_marginRight="20dp"
@@ -168,9 +164,6 @@
                         android:layout_marginLeft="85dp"
                         android:layout_marginStart="85dp"
                         android:layout_marginTop="1dp" />
-
-
-
 
 
                     <TextView
@@ -322,53 +315,53 @@
                         android:layout_weight="1"
                         android:isScrollContainer="true"
                         android:id="@+id/admintempdelete"/>
-</LinearLayout>
 
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="?android:textAppearanceSmall"
+                        android:text="Previous"
+                        android:layout_weight="1"
+                        android:background="#ec45a1"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:id="@+id/admintempbuttonPrev" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="?android:textAppearanceSmall"
+                        android:text="Next"
+                        android:layout_weight="1"
+                        android:background="#ec45a1"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:id="@+id/admintempbuttonNext" />
+
+
+
+</LinearLayout>
 
                 </LinearLayout>
 
             </RelativeLayout>
 
         </ScrollView>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:textAppearanceSmall"
-            android:text="Previous"
-            android:layout_weight="1"
-            android:background="#ec45a1"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp"
-            android:id="@+id/admintempbuttonPrev" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:textAppearanceSmall"
-            android:text="Next"
-            android:layout_weight="1"
-            android:background="#ec45a1"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:id="@+id/admintempbuttonNext" />
-
 
 
     </LinearLayout>

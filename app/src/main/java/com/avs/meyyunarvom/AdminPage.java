@@ -99,7 +99,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
     public void onBackPressed()
     {
-        Intent i=new Intent(getApplicationContext(),MainActivity.class);
+        Intent i=new Intent(getApplicationContext(),AdminMenu.class);
         startActivity(i);
 
     }

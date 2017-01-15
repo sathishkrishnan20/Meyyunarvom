@@ -19,8 +19,8 @@ public class ArulnoolMenu extends AppCompatActivity implements
                                     ArulFragPathiram.OnFragmentInteractionListener,
                                     ArulFragSivathandam.OnFragmentInteractionListener,
                                     ArulFragChattuNeetu.OnFragmentInteractionListener,
-                                    ArulFragKalyanaVazhthu.OnFragmentInteractionListener,
-        AkilathirattuAmmanai.OnFragmentInteractionListener
+                                    ArulFragKalyanaVazhthu.OnFragmentInteractionListener
+        //, AkilathirattuAmmanai.OnFragmentInteractionListener
 
 {
 
@@ -48,7 +48,7 @@ public class ArulnoolMenu extends AppCompatActivity implements
         adapter.addFragment(new ArulFragSivathandam(), "சிவதாண்ட அதிகார பத்திரம்");
         adapter.addFragment(new ArulFragChattuNeetu(), "சாட்டு நீட்டோலை");
         adapter.addFragment(new ArulFragKalyanaVazhthu(), "கல்யாண வாழ்த்து");
-        adapter.addFragment(new AkilathirattuAmmanai(), "கல்யாண");
+      //  adapter.addFragment(new AkilathirattuAmmanai(), "கல்யாண");
 
         viewPager.setAdapter(adapter);
     }

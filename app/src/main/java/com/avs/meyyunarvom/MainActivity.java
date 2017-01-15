@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
 
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), ArulnoolMenu.class);
+                Intent intent=new Intent(getApplicationContext(), AkilathirattuMenu.class);
                 startActivity(intent);
             }
 

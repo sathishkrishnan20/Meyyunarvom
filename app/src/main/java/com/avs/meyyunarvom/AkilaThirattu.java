@@ -64,7 +64,7 @@ public class AkilaThirattu extends AppCompatActivity // implements View.OnTouchL
         previous = (Button) findViewById(R.id.akilpreviousbtn);
 
 
-        db = openOrCreateDatabase("MeyyDB", Context.MODE_PRIVATE, null);
+        db = openOrCreateDatabase("MeyyDBAkil", Context.MODE_PRIVATE, null);
 
 
         db.execSQL("drop table if exists akilathirattu2");
