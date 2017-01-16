@@ -10,4 +10,158 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.avs.meyyunarvom.AdminPoemReview">
 
-</RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/relative_doubt"
+                android:layout_margin="10dp"
+                android:background="@color/doubt_tab">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linear_doubt"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:text="Poems"
+                        android:layout_width="match_parent"
+                        android:layout_height="35sp"
+                        android:background="@color/answer_tab"
+                        android:gravity="center"
+                        android:id="@+id/textView7"
+                        android:textSize="@dimen/title"
+                        android:textColor="@color/DarkBlack" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:id="@+id/addedBypoem"
+                        />
+
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/materialforqustiondoubt">
+
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Add Title"
+                            android:layout_marginTop="40dp"
+                            android:gravity="center"
+                            android:id="@+id/admin_title_add_poem" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <MultiAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_margin="5dp"
+                        android:id="@+id/admin_content_add_poem"
+                        android:hint="Add Your Poem"
+                        android:ellipsize="start"
+                        android:gravity="center"
+                        android:background="@drawable/edittext_style"/>
+
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="wrap_content">
+
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Upload Temple"
+                            android:layout_weight="1"
+                            android:isScrollContainer="true"
+                            android:id="@+id/adminpoemupload"/>
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="delete Temple"
+                            android:layout_weight="1"
+                            android:isScrollContainer="true"
+                            android:id="@+id/adminpoemdelete"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="wrap_content">
+
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:textAppearanceSmall"
+                            android:text="Previous"
+                            android:layout_weight="1"
+                            android:background="#ec45a1"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginRight="1dp"
+                            android:id="@+id/admin_buttonPrev_forpoem" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="?android:textAppearanceSmall"
+                            android:text="Next"
+                            android:layout_weight="1"
+                            android:background="#ec45a1"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:id="@+id/admin_buttonNext_forpoem"/>
+
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+
+            </RelativeLayout>
