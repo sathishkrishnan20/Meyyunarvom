@@ -69,12 +69,16 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
     int tempId;
 
     String userDetailsText="";
-    //private final String GET_URL = com.avs.db.URL.url + "/getTempleAdmin.php";
+    private final String GET_URL = com.avs.db.URL.url + "/getTempleAdmin.php";
+    private final String UPLOAD_URL =com.avs.db.URL.url + "/setTempleAdmin.php";
+    private final String DELETE_PERMANENT_URL =com.avs.db.URL.url +"/deleteTemplePermanentByAdmin.php";
+    private final String DELETE_FROM_ADMIN_URL=com.avs.db.URL.url +"/deleteTempleFromAdminPage.php";
 
-    private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTempleAdmin.php";
-    private final String UPLOAD_URL ="http://192.168.1.4/Meyyunarvom/setTempleAdmin.php";
-    private final String DELETE_PERMANENT_URL ="http://192.168.1.4/Meyyunarvom/deleteTemplePermanentByAdmin.php";
-    private final String DELETE_FROM_ADMIN_URL="http://192.168.1.4/Meyyunarvom/deleteTempleFromAdminPage.php";
+
+//    private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTempleAdmin.php";
+  //  private final String UPLOAD_URL ="http://192.168.1.4/Meyyunarvom/setTempleAdmin.php";
+  //  private final String DELETE_PERMANENT_URL ="http://192.168.1.4/Meyyunarvom/deleteTemplePermanentByAdmin.php";
+  //  private final String DELETE_FROM_ADMIN_URL="http://192.168.1.4/Meyyunarvom/deleteTempleFromAdminPage.php";
 
     private int TRACK = 0;
     private JSONObject jsonObject;
