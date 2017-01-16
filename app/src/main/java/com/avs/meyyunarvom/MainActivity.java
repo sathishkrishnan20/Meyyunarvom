@@ -146,18 +146,18 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-/*
+
         addTemple.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), AdminTempleReview.class);
+                Intent intent=new Intent(getApplicationContext(), ViewPoem.class);
                 startActivity(intent);
 
             }
         });
-*/
+
         temples.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 /*
         uchipadippu.setOnClickListener(new View.OnClickListener()
         {
