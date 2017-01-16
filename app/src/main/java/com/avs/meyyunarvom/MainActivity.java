@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
+/*
         addTemple.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
+*/
         temples.setOnClickListener(new View.OnClickListener()
         {
             @Override

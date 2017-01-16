@@ -54,7 +54,7 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
     String tImageUrl = "";
     private int templeDataLength;
 
-    private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTemple.php";
+  //  private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTemple.php";
     private int TRACK = 0;
 
     private JSONObject jsonObject;
@@ -66,7 +66,8 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
     private Button buttonMoveNext;
     private Button buttonMovePrevious;
     private ImageView imageView;
-    //private final String GET_URL = com.avs.db.URL.url + "/getTemple.php";
+
+     private final String GET_URL = com.avs.db.URL.url + "/getTemple.php";
 
 
     @Override
