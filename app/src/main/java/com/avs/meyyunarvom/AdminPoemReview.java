@@ -571,12 +571,8 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
             else {
                 Snackbar.make(view, "Please Add the Poem", Snackbar.LENGTH_SHORT)
                         .show();
-
             }
         }
-
-
-
     }
 
     private void resetFields()

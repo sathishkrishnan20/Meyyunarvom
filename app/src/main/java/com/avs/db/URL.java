@@ -1,8 +1,8 @@
 package com.avs.db;
 
-/**
- * Created by Sathish on 11/15/2016.
- */
+/*
+   * Created by Sathish on 11/15/2016
+*/
 
 public final class URL
 {

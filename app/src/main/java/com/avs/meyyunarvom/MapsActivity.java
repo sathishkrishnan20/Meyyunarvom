@@ -92,6 +92,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         checkConnection();
+        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
+        SharedPreferences.Editor editor = userdetails.edit();
+
+        if(!userdetails.getBoolean("isLogin" ,false))
+        {
+            Toast.makeText(this,"Please login and Contiue",Toast.LENGTH_SHORT).show();
+            Intent intent =new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
+
+
         checkIsLogin();
         checkForGooglePlayService();
 
