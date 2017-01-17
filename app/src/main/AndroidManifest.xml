@@ -189,8 +189,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-        <activity android:name=".GotoAkilathirattu" />
-        <activity android:name=".ProfilePage" />
+
         <activity
             android:name=".AnswerPopup"
             android:theme="@style/MyMaterialTheme.Base" />
@@ -223,6 +222,9 @@
             android:name="com.google.android.place.API_KEY"
             android:value="@string/google_places_key" />
 
+
+        <activity android:name=".GotoAkilathirattu" />
+        <activity android:name=".ProfilePage" />
         <activity android:name=".ConnectionError" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".ViewPoem" />

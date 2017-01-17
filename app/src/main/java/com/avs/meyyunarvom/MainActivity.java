@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity
 
         else if(id==R.id.profilelogout)
         {
-
+/*
             SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
             SharedPreferences.Editor editor=userdetails.edit();
             if(userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin"))
@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity
             {
                 Toast.makeText(getApplicationContext(),"Your are already Logged out",Toast.LENGTH_SHORT).show();
             }
-
+  */
         }
         else if (id == R.id.nav_share)
         {

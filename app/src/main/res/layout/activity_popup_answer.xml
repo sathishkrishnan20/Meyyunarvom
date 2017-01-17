@@ -9,31 +9,67 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/question_textview">
+        android:layout_height="wrap_content">
 
    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/rel_ans_pop"
+       android:background="#ec45a1">
+
+     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="#ec45a1"
         android:textColor="#ffffff"
         android:id="@+id/question_textview"/>
 
 
 
-        <TextView
+       <ImageView
+           android:id="@+id/doubt_update"
+           android:layout_below="@id/question_textview"
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:background="#ec45a1"
+           android:layout_alignParentRight="true"
+           android:layout_marginLeft="54dp"
+           android:layout_marginRight="54dp"
+           android:layout_marginTop="6dp"
+           android:src="@drawable/ic_action_edit" />
+
+
+       <ImageView
+           android:id="@+id/doubt_edit"
+           android:layout_below="@id/question_textview"
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:background="#ec45a1"
+           android:layout_alignParentRight="true"
+           android:layout_marginLeft="14dp"
+           android:layout_marginRight="14dp"
+           android:layout_marginTop="6dp"
+           android:src="@drawable/ic_action_discard" />
+
+
+
+
+
+   </RelativeLayout>
+
+       <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:textSize="18sp"
             android:textColor="@color/DarkBlack"
-            android:layout_below="@id/question_textview"
+            android:layout_below="@id/rel_ans_pop"
             android:id="@+id/answer_textview" />
 </RelativeLayout>
     </ScrollView>
