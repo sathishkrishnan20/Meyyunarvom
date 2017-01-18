@@ -62,7 +62,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
    private Bitmap bitmap;
 
-   private String UPLOAD_URL = URL.url + "/setTemple.php";
+   private String UPLOAD_URL = URL.url + "/setTempleByUser.php";
 
    // private String UPLOAD_URL = "http://192.168.1.4/Meyyunarvom/setTemple.php";
 

@@ -49,7 +49,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
     private final String GET_URL = com.avs.db.URL.url + "/getPoemAdmin.php";
     private final String UPLOAD_URL =com.avs.db.URL.url + "/setPoemByAdmin.php";
-    private final String DELETE_PERMANENT_URL =com.avs.db.URL.url +"/deletePoemByAdmin.php";
+    private final String DELETE_PERMANENT_URL =com.avs.db.URL.url +"/deletePoemPermanantlyByAdmin.php";
     private final String DELETE_FROM_ADMIN_URL=com.avs.db.URL.url +"/deletePoemFromAdminPage.php";
 
     private String KEY_ID = "id";
@@ -80,7 +80,6 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
         nextButton=(Button)findViewById(R.id.admin_buttonNext_forpoem);
         prevButton =(Button)findViewById(R.id.admin_buttonPrev_forpoem);
-
         nextButton.setOnClickListener(this);
         prevButton.setOnClickListener(this);
         deleteButton.setOnClickListener(this);

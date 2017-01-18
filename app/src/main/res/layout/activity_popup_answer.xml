@@ -46,7 +46,7 @@
 
 
        <ImageView
-           android:id="@+id/doubt_edit"
+           android:id="@+id/doubt_delete"
            android:layout_below="@id/question_textview"
            android:layout_width="30dp"
            android:layout_height="30dp"

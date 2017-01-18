@@ -37,7 +37,7 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
     private String KEY_TITLE = "title";
     private String KEY_CONTENT = "content";
 
-    private String UPLOAD_URL = com.avs.db.URL.url +"/setPoem.php";
+    private String UPLOAD_URL = com.avs.db.URL.url +"/setPoemByUser.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
