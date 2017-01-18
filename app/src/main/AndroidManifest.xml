@@ -104,10 +104,10 @@
         <activity
             android:name=".Answers"
             android:label="@string/doubts"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".ProfilePage">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ProfilePage" />
         </activity>
         <activity
             android:name=".Temples"
@@ -117,6 +117,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <activity android:name=".ViewPoem"
+            android:label="@string/poem"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+
         <activity
             android:name=".Uchipadippu"
             android:label="@string/uchipadippu"
@@ -181,6 +191,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
+
+        <activity android:name=".ProfilePage"
+            android:label="Profile"
+            android:parentActivityName=".MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
+
+
         <activity
             android:name=".ForgotPassword"
             android:label="Change Password"
@@ -189,10 +209,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
         <activity
             android:name=".AnswerPopup"
             android:theme="@style/MyMaterialTheme.Base" />
+
+        <activity android:name=".AnswersUpdatePopup"
+            android:theme="@style/MyMaterialTheme.Base" />
+
+        <activity android:name=".ConnectionError"
+         android:label="AVS"/>
 
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -222,13 +247,13 @@
             android:name="com.google.android.place.API_KEY"
             android:value="@string/google_places_key" />
 
-
         <activity android:name=".GotoAkilathirattu" />
-        <activity android:name=".ProfilePage" />
-        <activity android:name=".ConnectionError" />
+
+
         <activity android:name=".MapsActivity" />
-        <activity android:name=".ViewPoem" />
-        <activity android:name=".AddPoem"></activity>
+
+        <activity android:name=".AddPoem" />
+
     </application>
 
 </manifest>

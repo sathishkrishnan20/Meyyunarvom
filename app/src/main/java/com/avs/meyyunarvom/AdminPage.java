@@ -65,9 +65,9 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
     private static final String TAG_ANSWER = "answer";
 
 
-    private final String GET_URL = com.avs.db.URL.url + "/getDoubts.php";
+    private final String GET_URL = com.avs.db.URL.url + "/getDoubtsAdmin.php";
 
-    private final String SET_URL = com.avs.db.URL.url+"/setDoubts.php";
+    private final String SET_URL = com.avs.db.URL.url+"/setDoubtsByAdmin.php";
 
     private final String DELETE_URL = com.avs.db.URL.url+"/deleteDoubtByAdmin.php";
 
@@ -97,12 +97,6 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    public void onBackPressed()
-    {
-        Intent i=new Intent(getApplicationContext(),AdminMenu.class);
-        startActivity(i);
-
-    }
 
     private void checkConnection()
     {
@@ -253,7 +247,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
 
     }
-    boolean isCanceled =false;
+
     private void uploadAnswer()
     {
        // final ProgressDialog loading=ProgressDialog.show(this,"Uploading","Please Wait....",false,false);
@@ -290,6 +284,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        isCanceled = false;
                         loading.dismiss();
 
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
@@ -330,10 +325,38 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         rq.add(stringRequest);
     }
 
-
+    boolean isCanceled =false;
     private void deleteQuestion() {
 
-        final ProgressDialog loading=ProgressDialog.show(this,"Deleting","Please Wait....",false,false);
+        final ProgressDialog loading =new ProgressDialog(AdminPage.this);
+        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loading.setTitle("Please Wait..");
+        loading.setMessage("Loading.........");
+        //pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
+        loading.setIndeterminate(false);
+        loading.setCancelable(false);
+
+        loading.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
+            // Set a click listener for progress dialog cancel button
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                // dismiss the progress dialog
+                isCanceled = true;
+                loading.dismiss();
+                // Tell the system about cancellation
+
+            }
+        });
+
+        loading.show();
+
+        if(isCanceled) {
+
+            return;
+        }
+
+
+//        final ProgressDialog loading=ProgressDialog.show(this,"Deleting","Please Wait....",false,false);
         StringRequest stringRequest=new StringRequest(Request.Method.POST, DELETE_URL,
                 new Response.Listener<String>() {
                     @Override

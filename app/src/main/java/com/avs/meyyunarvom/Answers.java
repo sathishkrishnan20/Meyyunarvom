@@ -57,7 +57,7 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
 
    // MaterialSpinner spin;
     ArrayList quesarray=new ArrayList();
-    private static String URL = com.avs.db.URL.url + "/answers.php";
+    private static String URL = com.avs.db.URL.url + "/getDoubtsByUser.php";
 
     private String loginUserEmail ,loginUserName;
     boolean isLogin;
@@ -72,7 +72,7 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
     private Button buttonSend;
 
 
-    private String UPLOAD_URL = com.avs.db.URL.url +"/doubts.php";
+    private String UPLOAD_URL = com.avs.db.URL.url +"/setDoubtsByUser.php";
 
     ArrayAdapter questionArray;
     //Tags used in the JSON String
