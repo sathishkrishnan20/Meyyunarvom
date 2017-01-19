@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.ColorRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -210,12 +211,14 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
             //Getting object of given index
             JSONObject json = result.getJSONObject(position);
 
+    //        isAnswered = json.getString("is_answered");
             //Fetching name from that object
             userDetailsText = "Asked By: \n";
             userDetailsText = userDetailsText +"     Name: " + json.getString("name")+" \n";
             userDetailsText = userDetailsText +"     Place: " +json.getString("place")+"\n";
             userDetailsText = userDetailsText +"     Mobile No: " +json.getString("email")+"\n";
             userDetailsText = userDetailsText +"     Asked_at: " +json.getString("created_at")+"\n";
+            userDetailsText = userDetailsText +"     Answerd: " +json.getString("is_answered")+"\n";
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -237,8 +240,29 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
           }
 
           dbId=getId(position);
-          fullQuestion.setText(getQuestion(position)+"\n" + getUserDetails(position));
-         // answer.setText(dbId +" position "+ position);
+
+        try {
+            //Getting object of given index
+            JSONObject json = result.getJSONObject(position);
+
+           String isAnswered = json.getString("is_answered");
+           Toast.makeText(this, isAnswered,Toast.LENGTH_LONG).show();
+            if(isAnswered.equals("Y")) {
+                fullQuestion.setText(getQuestion(position) + "\n" + getUserDetails(position));
+                fullQuestion.setTextColor(getResources().getColor(R.color.green));
+            }
+
+         else if(isAnswered.equals("N"))
+            {
+                fullQuestion.setText(getQuestion(position) + "\n" + getUserDetails(position));
+                fullQuestion.setTextColor(getResources().getColor(R.color.red));
+            }
+
+
+        }  catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override

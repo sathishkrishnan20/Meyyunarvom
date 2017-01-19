@@ -12,9 +12,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,8 +49,13 @@ import java.net.URLConnection;
 
 public class Temples extends AppCompatActivity implements View.OnClickListener//SearchView.OnQueryTextListener
  {
+     private GestureDetector mGesture;
+     static final int SWIPE_MIN_DISTANCE = 120;
+     static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-    String tname = "";
+
+
+     String tname = "";
     String tplace = "";
     String tdesc = "";
     String tImageUrl = "";
@@ -75,6 +82,7 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temples);
         checkConnection();
+        mGesture = new GestureDetector(this, mOnGesture);
 
         imageView=(ImageView)findViewById(R.id.imageViewShow);
         buttonMoveNext = (Button) findViewById(R.id.buttonNext);
@@ -194,11 +202,19 @@ catch(Exception e)
     public void onClick(View v) {
 
         if(v == buttonMoveNext){
-            resetFields();
+
+            if(TRACK==templeDataLength-1)
+            {
+                Toast.makeText(this,"You Reached a limit", Toast.LENGTH_SHORT).show();
+            }
             moveNext();
         }
         if(v== buttonMovePrevious){
-            resetFields();
+
+            if(TRACK==0)
+            {
+                Toast.makeText(this,"You Reached a limit", Toast.LENGTH_SHORT).show();
+            }
             movePrevious();
         }
     }
@@ -212,18 +228,82 @@ catch(Exception e)
 
 
      private void moveNext(){
-        if(TRACK < templeDataLength){
+
+        if(TRACK < templeDataLength-1){
             TRACK++;
+            resetFields();
             getTempleData();
         }
     }
 
     private void movePrevious(){
+
         if(TRACK>0){
             TRACK--;
+            resetFields();
             getTempleData();
         }
     }
+
+
+
+     @Override
+     public boolean dispatchTouchEvent(MotionEvent ev) {
+         boolean handled = super.dispatchTouchEvent(ev);
+         handled = mGesture.onTouchEvent(ev);
+         return handled;
+     }
+
+
+     private GestureDetector.OnGestureListener mOnGesture = new GestureDetector.SimpleOnGestureListener() {
+
+         @Override
+         public boolean onDown(MotionEvent e) {
+             return false;
+         }
+
+         @Override
+         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+
+             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+
+                 if(TRACK==templeDataLength-1)
+                 {
+                     Toast.makeText(getApplicationContext(),"You Reached a limit", Toast.LENGTH_SHORT).show();
+                 }
+                 moveNext();
+                 //    Toast.makeText(getApplicationContext(), "Left to Right Swap Performed", Toast.LENGTH_SHORT).show();
+                 return true;
+             } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+
+                 //   Toast.makeText(getApplicationContext(), " Right to Left Swap Performed", Toast.LENGTH_SHORT).show();
+
+                 if(TRACK==0)
+                 {
+                     Toast.makeText(getApplicationContext(),"You Reached a limit", Toast.LENGTH_SHORT).show();
+                 }
+                 movePrevious();
+                 return true;
+             }
+
+             return false;
+         }
+
+         @Override
+         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+             // Toast.makeText(getApplicationContext(), " Down Swap Performed", Toast.LENGTH_SHORT).show();
+
+             return false;
+         }
+     };
+
+
+
+
+
+
+
 
 
     /*

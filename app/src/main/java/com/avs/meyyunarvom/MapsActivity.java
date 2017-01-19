@@ -1,6 +1,7 @@
 package com.avs.meyyunarvom;
 
 import android.*;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -80,8 +82,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     double longitude = 78.1197751;
 
     private GoogleApiClient googleApiClient;
+    String redirectPage="";
 
-       String redirectPage="";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +110,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         checkIsLogin();
         checkForGooglePlayService();
+
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        if (!manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            buildAlertMessageNoGps();
+        }
 
         if (!isReadStorageAllowed()) {
             requestStoragePermission();
@@ -162,9 +172,7 @@ private void checkForGooglePlayService() {
         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-
+                finish();
             }
         });
 
@@ -172,6 +180,26 @@ private void checkForGooglePlayService() {
 
     }
 }
+
+       private void buildAlertMessageNoGps() {
+           final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+           builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                   .setCancelable(false)
+                   .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                       public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                           startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                       }
+                   })
+                   .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                       public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                           dialog.cancel();
+                           finish();
+                       }
+                   });
+           final AlertDialog alert = builder.create();
+           alert.show();
+       }
+
 
        @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -188,9 +216,9 @@ private void checkForGooglePlayService() {
 
     private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             return;
         }
-
 
         Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         if (location != null) {
@@ -387,7 +415,7 @@ private void checkForGooglePlayService() {
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
+             getCurrentLocation();
     }
 
     @Override
