@@ -151,7 +151,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
             poemDataLength = result.length();
 
-            getTempleData();
+            getPoemData();
         }
 
         catch (Exception e) {
@@ -162,7 +162,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
 
 
-    private void getTempleData()
+    private void getPoemData()
     {
 
         try {
@@ -379,7 +379,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
 
 
-    private void deleteTempleFromAdminPage() {
+    private void deletePoemFromAdminPage() {
 
         final ProgressDialog loading =new ProgressDialog(AdminPoemReview.this);
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -481,7 +481,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
-                    deleteTempleFromAdminPage();
+                    deletePoemFromAdminPage();
                 }
             });
             alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -525,7 +525,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
             alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete Temple. You cannot Recover");
+            alertDialog.setMessage("Are You Sure Want to Delete Poem. You cannot Recover");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
@@ -588,14 +588,14 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
     private void moveNext(){
         if(TRACK < poemDataLength){
             TRACK++;
-            getTempleData();
+            getPoemData();
         }
     }
 
     private void movePrevious(){
         if(TRACK>0){
             TRACK--;
-            getTempleData();
+            getPoemData();
         }
     }
 

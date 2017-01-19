@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,13 +29,13 @@ import android.widget.Toast;
 
 
 
-public class AkilaThirattu extends AppCompatActivity // implements View.OnTouchListener
+public class AkilaThirattu extends AppCompatActivity //implements View.OnTouchListener
  {
+     private GestureDetector mGesture;
+     static final int SWIPE_MIN_DISTANCE = 120;
+     static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
 
-    private Activity activity;
-    static final int MIN_DISTANCE = 100;
-    private float downX, downY, upX, upY;
 
 
     TextView title;
@@ -48,15 +49,11 @@ public class AkilaThirattu extends AppCompatActivity // implements View.OnTouchL
     Cursor c1;
     SQLiteDatabase db;
 
-    float x1, x2;
-    float y1, y2;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akila_thirattu);
-
+        mGesture = new GestureDetector(this, mOnGesture);
 
         title = (TextView) findViewById(R.id.titleid);
         content = (TextView) findViewById(R.id.contentid);
@@ -138,8 +135,84 @@ public class AkilaThirattu extends AppCompatActivity // implements View.OnTouchL
         startActivity(i);
 
     }
+
+
+     @Override
+     public boolean dispatchTouchEvent(MotionEvent ev) {
+         boolean handled = super.dispatchTouchEvent(ev);
+         handled = mGesture.onTouchEvent(ev);
+         return handled;
+     }
+
+
+     private GestureDetector.OnGestureListener mOnGesture = new GestureDetector.SimpleOnGestureListener() {
+
+         @Override
+         public boolean onDown(MotionEvent e) {
+
+//             Toast.makeText(getApplicationContext(), "Up  Down Swap Performed", Toast.LENGTH_SHORT).show();
+
+             return false;
+         }
+
+         @Override
+         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+             //Log.v("fling", "Flinged.");
+
+             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+
+                 Toast.makeText(getApplicationContext(), "Left to Right Swap Performed", Toast.LENGTH_SHORT).show();
+                 return true;
+             }
+
+             else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+
+                 Toast.makeText(getApplicationContext(), " Right to Left Swap Performed", Toast.LENGTH_SHORT).show();
+                 return true;
+             }
+
+             return false;
+             /* if right to left sweep event on screen
+             if (velocityX < velocityY)
+             {
+                 Toast.makeText(getApplicationContext(), " Right to Left Swap Performed", Toast.LENGTH_SHORT).show();
+                 return false;
+             }
+
+             // if UP to Down sweep event on screen
+             if (velocityX < velocityY)
+             {
+                 Toast.makeText(getApplicationContext(), "UP to Down Swap Performed", Toast.LENGTH_SHORT).show();
+                 return false;
+             }
+
+             //if Down to UP sweep event on screen
+             if (velocityX < velocityY)
+             {
+                 Toast.makeText(getApplicationContext(), "Down to up Swap Performed", Toast.LENGTH_SHORT).show();
+                 return false;
+             }
+
+*/
+//             Toast.makeText(getApplicationContext(), "Down to UP Swap Performed", Toast.LENGTH_SHORT).show();
+
+
+         }
+
+         @Override
+         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            // Toast.makeText(getApplicationContext(), " Down Swap Performed", Toast.LENGTH_SHORT).show();
+
+             return false;
+         }
+     };
+ }
+
+
+
+/*
         @Override
-        public boolean onTouchEvent(MotionEvent touchevent) {
+        public boolean onTouch(View v ,MotionEvent touchevent) {
             switch (touchevent.getAction())
             {
                 // when user first touches the screen we get x and y coordinate
@@ -186,16 +259,6 @@ public class AkilaThirattu extends AppCompatActivity // implements View.OnTouchL
 
         }
 
-
-
-
-
-
-
-
-
-
-
 public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
@@ -218,5 +281,6 @@ public boolean onCreateOptionsMenu(Menu menu) {
         return super.onOptionsItemSelected(item);
     }
 
+*/
 
-}//end of class
+ //end of class

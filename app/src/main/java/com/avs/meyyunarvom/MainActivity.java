@@ -139,13 +139,14 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
-        doubts.setOnClickListener(new View.OnClickListener() {
+   /*     doubts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), Answers.class);
                 startActivity(intent);
             }
         });
+*/
 
         addTemple.setOnClickListener(new View.OnClickListener()
         {
