@@ -78,6 +78,19 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
+        userPoem.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent=new Intent(getApplicationContext(), UserViewPoem.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+
 /*
         userTemple.setOnClickListener(new View.OnClickListener()
         {
@@ -90,20 +103,6 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
-
-
-        userPoem.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent=new Intent(getApplicationContext(), Answers.class);
-                startActivity(intent);
-
-            }
-        });
-
-
         userEdit.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -115,7 +114,12 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
+
+
+
 */
+
+
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.

@@ -252,15 +252,27 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera)
+        if (id == R.id.admin)
         {
             Intent intent=new Intent(getApplicationContext(),AdminMenu.class);
             startActivity(intent);
         }
 
+        else if (id == R.id.profile)
+        {
+            Intent intent=new Intent(getApplicationContext(),ProfilePage.class);
+            startActivity(intent);
+        }
+
+        else if(id==R.id.profilelogin)
+        {
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
+/*
         else if(id==R.id.profilelogout)
         {
-/*
+
             SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
             SharedPreferences.Editor editor=userdetails.edit();
             if(userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin"))
@@ -278,24 +290,18 @@ public class MainActivity extends AppCompatActivity
             {
                 Toast.makeText(getApplicationContext(),"Your are already Logged out",Toast.LENGTH_SHORT).show();
             }
+}
   */
-        }
-        else if (id == R.id.nav_share)
+
+        else if (id == R.id.about_us)
         {
-          Intent intent=new Intent(getApplicationContext(),ProfilePage.class);
-            startActivity(intent);
+
         }
         else if (id == R.id.help_faq) {
 
-            Intent intent=new Intent(getApplicationContext(),MapsActivity.class);
-            startActivity(intent);
 
         }
-        else if(id==R.id.profile)
-        {
-            Intent intent=new Intent(this,LoginActivity.class);
-            startActivity(intent);
-        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

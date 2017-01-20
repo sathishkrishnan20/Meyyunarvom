@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/lin_view_poem">
 
         <TextView
             android:layout_width="match_parent"
@@ -45,52 +46,81 @@
                     android:textSize="15sp"
                     android:id="@+id/content_for_poem"/>
 
+
+
+
+                <TextView
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"
+
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:layout_below="@+id/content_for_poem"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:textIsSelectable="false"
+                    style="@style/AlertDialog.AppCompat.Light"
+                    android:textSize="15sp"
+                    android:id="@+id/poem_added_by"/>
+
             </RelativeLayout>
         </ScrollView>
 
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content">
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:textAppearanceSmall"
-            android:text="Previous"
-            android:layout_weight="1"
-            android:background="#ec45a1"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginEnd="1dp"
-            android:layout_marginRight="1dp"
-            android:id="@+id/buttonPrev_forpoem" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:textAppearanceSmall"
-            android:text="Next"
-            android:layout_weight="1"
-            android:background="#ec45a1"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:id="@+id/buttonNext_forpoem" />
-
 
 
     </LinearLayout>
 
 
+
+
+
+
+    <!--
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:textAppearanceSmall"
+                android:text="Previous"
+                android:layout_weight="1"
+                android:background="#ec45a1"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:id="@+id/buttonPrev_forpoem" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:textAppearanceSmall"
+                android:text="Next"
+                android:layout_weight="1"
+                android:background="#ec45a1"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:id="@+id/buttonNext_forpoem" />
+
+
+
+        </LinearLayout>
+
+    -->
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -98,10 +128,10 @@
             android:id="@+id/fab_for_addpoem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="70dp"
+            android:layout_gravity="start|bottom"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="40dp"
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </android.support.design.widget.CoordinatorLayout>
