@@ -45,18 +45,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".MeyyDB" />
-
-
-                 <activity
-                 android:name=".AkilaThirattu"
-                 android:label="@string/akilathirattu"
-                 android:parentActivityName=".MainActivity">
-                 <meta-data
-                     android:name="android.support.PARENT_ACTIVITY"
-                     android:value=".MainActivity" />
-             </activity>
-
-
+        <activity
+            android:name=".AkilaThirattu"
+            android:label="@string/akilathirattu"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".AkilathirattuMenu"
             android:label="@string/akilathirattu"
@@ -117,16 +113,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-        <activity android:name=".ViewPoem"
+        <activity
+            android:name=".ViewPoem"
             android:label="@string/poem"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-
         <activity
             android:name=".Uchipadippu"
             android:label="@string/uchipadippu"
@@ -192,14 +186,36 @@
                 android:value=".AdminMenu" />
         </activity>
 
-        <activity android:name=".ProfilePage"
+
+        <activity
+            android:name=".ProfilePage"
             android:label="Profile"
             android:parentActivityName=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
 
+
+
+        <activity android:name=".AddPoem"
+            android:label="@string/add_poem"
+            android:parentActivityName=".ViewPoem">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfilePage" />
+        </activity>
+
+
+
+        <activity android:name=".UserViewPoem"
+            android:label="@string/poem"
+            android:parentActivityName=".ProfilePage">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProfilePage" />
+        </activity>
 
         <activity
             android:name=".ForgotPassword"
@@ -209,15 +225,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+
+        <activity android:name=".PoemUpdatePopup"
+                  android:theme="@style/MyMaterialTheme.Base" />
+
         <activity
             android:name=".AnswerPopup"
             android:theme="@style/MyMaterialTheme.Base" />
-
-        <activity android:name=".AnswersUpdatePopup"
+        <activity
+            android:name=".AnswersUpdatePopup"
             android:theme="@style/MyMaterialTheme.Base" />
-
-        <activity android:name=".ConnectionError"
-         android:label="AVS"/>
+        <activity
+            android:name=".ConnectionError"
+            android:label="AVS" />
 
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -248,11 +268,7 @@
             android:value="@string/google_places_key" />
 
         <activity android:name=".GotoAkilathirattu" />
-
-
         <activity android:name=".MapsActivity" />
-
-        <activity android:name=".AddPoem" />
 
     </application>
 

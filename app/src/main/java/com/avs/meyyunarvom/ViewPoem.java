@@ -25,7 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ViewPoem extends AppCompatActivity implements View.OnClickListener
+public class ViewPoem extends AppCompatActivity
 {
 
     private GestureDetector mGesture;
@@ -33,7 +33,7 @@ public class ViewPoem extends AppCompatActivity implements View.OnClickListener
     static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
 
-    private TextView title, content;
+    private TextView title, content, postedBy;
     private Button prevButton,nextButton;
 
     private int TRACK = 0;
@@ -41,7 +41,7 @@ public class ViewPoem extends AppCompatActivity implements View.OnClickListener
     private JSONArray result;
 
     int poemDataLength=0;
-    String titleStr, contentStr;
+    String titleStr, contentStr, userDetailsStr;
     private final String GET_URL = com.avs.db.URL.url + "/getPoem.php";
 
     @Override
@@ -53,13 +53,14 @@ public class ViewPoem extends AppCompatActivity implements View.OnClickListener
 
         title =(TextView) findViewById(R.id.title_for_poem);
         content=(TextView) findViewById(R.id.content_for_poem);
-
+        postedBy=(TextView)findViewById(R.id.poem_added_by);
+        /*
         prevButton =(Button)findViewById(R.id.buttonPrev_forpoem);
         nextButton=(Button)findViewById(R.id.buttonNext_forpoem);
 
         prevButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
-
+*/
         getPoemsFromDB();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_for_addpoem);
@@ -145,10 +146,15 @@ public class ViewPoem extends AppCompatActivity implements View.OnClickListener
 
             titleStr =  templeData.getString("title");
             contentStr = templeData.getString("content");
+            userDetailsStr= "Added By\n    "+    templeData.getString("name");
+            userDetailsStr= userDetailsStr+"\n    "+templeData.getString("place");
+            userDetailsStr= userDetailsStr+"\n    "+templeData.getString("updated_at");
+
             setTempleData();
         }
         catch (JSONException e)
         {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -158,6 +164,7 @@ public class ViewPoem extends AppCompatActivity implements View.OnClickListener
         try {
                title.setText(titleStr);
                content.setText(contentStr);
+                postedBy.setText(userDetailsStr);
 
              }
         catch(Exception e)
@@ -167,24 +174,6 @@ public class ViewPoem extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    @Override
-    public void onClick(View v) {
-
-        if(v == nextButton){
-            if(TRACK==poemDataLength-1)
-            {
-                Toast.makeText(this,"You Reached a limit", Toast.LENGTH_SHORT).show();
-            }
-            moveNext();
-        }
-        if(v== prevButton){
-            if(TRACK==0)
-            {
-                Toast.makeText(this,"You Reached a limit", Toast.LENGTH_SHORT).show();
-            }
-            movePrevious();
-        }
-    }
 
     private void resetFields()
     {

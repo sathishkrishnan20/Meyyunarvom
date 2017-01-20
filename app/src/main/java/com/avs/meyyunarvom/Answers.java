@@ -119,8 +119,7 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
 
     public void onBackPressed()
     {
-        Intent i=new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(i);
+        finish();
 
     }
 
