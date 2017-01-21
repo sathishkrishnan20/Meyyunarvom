@@ -1,17 +1,12 @@
 package com.avs.meyyunarvom;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -30,18 +25,17 @@ import com.avs.db.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener
-{
-
+public class UserUpdateDetails extends AppCompatActivity implements View.OnClickListener{
 
     private AutoCompleteTextView mEmailView;
     private EditText mUserNameView;
     private EditText mPlaceView;
     private EditText mPasswordView;
-    Button register;
+    Button update;
 
-    private static String regUrl = URL.url+"/signup.php";
+    private static String UPDATE_URL = URL.url+"/updateUserDetails.php";
 
+    private static String oldEmail="oldemail";
     private static String dname="name";
     private static String demail="email";
     private static String dplace="place";
@@ -49,77 +43,85 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
+
     private String name;
     private String email;
     private String place;
     private String password;
+    private String oldUserEmail;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_user_update_details);
 
+        mUserNameView = (EditText) findViewById(R.id.name_user_edit);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email_user_edit);
+        mPasswordView = (EditText) findViewById(R.id.password_user_edit);
+        mPlaceView =(EditText) findViewById(R.id.place_user_edit);
+        update = (Button) findViewById(R.id.user_update_button);
 
-        mUserNameView = (EditText) findViewById(R.id.name);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPlaceView =(EditText) findViewById(R.id.place);
-        register = (Button) findViewById(R.id.email_sign_up_button);
+        Intent intent =getIntent();
+        name = intent.getStringExtra("userName");
+        oldUserEmail =intent.getStringExtra("userEmail");
+        place =intent.getStringExtra("userPlace");
+        password =intent.getStringExtra("userPassword");
+        update.setOnClickListener(this);
 
-
-        register.setOnClickListener(this);
-
-
-
+        mUserNameView.setText(name);
+        mEmailView.setText(oldUserEmail);
+        mPlaceView.setText(place);
+        mPasswordView.setText(password);
 
     }
-                public void onClick(View v)
+
+
+    @Override
+    public void onClick(View v) {
+
+        if(v==update) {
+
+                name= mUserNameView.getText().toString().trim();
+                email = mEmailView.getText().toString().trim();
+                place = mPlaceView.getText().toString().trim();
+                password = mPasswordView.getText().toString();
+
+                Network network=new Network();
+                if (!network.isOnline(UserUpdateDetails.this)) {
+                    Toast.makeText(UserUpdateDetails.this, "No Network Connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                if(password.length() < 6 || password.length() > 16)
                 {
+                    mPasswordView.setError("Password Length Should be 6 to 16 characters");
+                    return;
+                }
+
+                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty()) {
+                    registerUser();
+                } else {
+                    Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_LONG)
+                            .show();
+                }
 
 
-                    if(v.getId()==R.id.email_sign_up_button) {
-
-
-
-                     name= mUserNameView.getText().toString().trim();
-                     email = mEmailView.getText().toString().trim();
-                     place = mPlaceView.getText().toString().trim();
-                        password = mPasswordView.getText().toString();
-
-                     Network network=new Network();
-                     if (!network.isOnline(SignUpActivity.this)) {
-                         Toast.makeText(SignUpActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();
-                         return;
-                     }
-
-
-                     if(password.length() < 6 || password.length() > 16)
-                     {
-                         mPasswordView.setError("Password Length Should be 6 to 16 characters");
-                         return;
-                     }
-
-                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty()) {
-                         registerUser();
-                     } else {
-                         Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_LONG)
-                                 .show();
-                     }
-
-
-                 }
             }
+
+        }
+
 
     int progressStatus=1;
     boolean isCanceled =false;
 
     public void registerUser()
     {
-    //    final ProgressDialog loading = ProgressDialog.show(this,"Loading...","Please wait...",false,false);
+        //    final ProgressDialog loading = ProgressDialog.show(this,"Loading...","Please wait...",false,false);
 
-        final ProgressDialog loading =new ProgressDialog(SignUpActivity.this);
+        final ProgressDialog loading =new ProgressDialog(UserUpdateDetails.this);
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         loading.setTitle("Please Wait..");
         loading.setMessage("Loading.........");
@@ -146,20 +148,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-    if(isCanceled) {
-        progressStatus = 1;
-        return;
-    }
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, regUrl,
+        if(isCanceled) {
+            progressStatus = 1;
+            return;
+        }
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, UPDATE_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response)
                     {
                         loading.dismiss();
-                        Toast.makeText(SignUpActivity.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserUpdateDetails.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
+                        setDataIntoLocal();
                         resetField();
-                        Intent intent =new Intent(getApplicationContext(),LoginActivity.class);
-                        startActivity(intent);
+
 
                     }
                 },
@@ -168,8 +170,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onErrorResponse(VolleyError error)
                     {
                         loading.dismiss();
-                        Toast.makeText(SignUpActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-                        resetField();
+                        Toast.makeText(UserUpdateDetails.this,error.toString(),Toast.LENGTH_SHORT).show();
+
 
                     }
                 })
@@ -182,6 +184,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 params.put(demail,email);
                 params.put(dplace, place);
                 params.put(dpassword,password);
+                params.put(oldEmail,oldUserEmail);
 
                 return params;
 
@@ -206,7 +209,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mUserNameView.setText("");
     }
 
+    private void setDataIntoLocal()
+    {
+        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
+        SharedPreferences.Editor editor=userdetails.edit();
 
-        }
+        editor.putString("name", name);
+        editor.putString("email", email);
+        editor.putBoolean("isLogin", true);
+        editor.apply();
+        editor.commit();
+
+        Intent intent =new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(intent);
+
+    }
 
 
+
+}

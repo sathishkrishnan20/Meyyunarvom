@@ -10,25 +10,50 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.avs.db.Network;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ProfilePage extends AppCompatActivity {
 
     private TextView userProfile, userPhNo, userDoubts, userTemple, userPoem, logOut;
     private ImageView userEdit;
+    String loginUserName, loginUserEmail;
+
+    private JSONObject jsonObject;
+    private JSONArray result;
+    int userData;
+
+
+    private final String GET_URL = com.avs.db.URL.url + "/getUserDetaills.php";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+
     private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
+        checkConnection();
+        checkIsLogin();
 
         SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
         SharedPreferences.Editor editor = userdetails.edit();
@@ -46,6 +71,8 @@ public class ProfilePage extends AppCompatActivity {
         userEdit = (ImageView) findViewById(R.id.user_edit);
         logOut = (TextView) findViewById(R.id.user_logout);
 
+
+        getUserDetailsFromDB();
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,12 +130,18 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
+*/
+
         userEdit.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), Answers.class);
+                Intent intent=new Intent(getApplicationContext(), UserUpdateDetails.class);
+                intent.putExtra("userName", userNameDb);
+                intent.putExtra("userEmail", userEmailDb);
+                intent.putExtra("userPlace", userPlaceDb);
+                intent.putExtra("userPassword", userPasswordDb);
                 startActivity(intent);
 
             }
@@ -117,7 +150,7 @@ public class ProfilePage extends AppCompatActivity {
 
 
 
-*/
+
 
 
 
@@ -149,6 +182,124 @@ public class ProfilePage extends AppCompatActivity {
                 .setActionStatus(Action.STATUS_TYPE_COMPLETED)
                 .build();
     }
+
+
+
+    private void checkConnection()
+    {
+        Network network =new Network();
+        if (!network.isOnline(ProfilePage.this))
+        {
+            Intent intent = new Intent(ProfilePage.this,ConnectionError.class);
+            startActivity(intent);
+        }
+
+    }
+
+
+    private void checkIsLogin()
+    {
+        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
+        SharedPreferences.Editor editor = userdetails.edit();
+
+        loginUserName=userdetails.getString("name", null);
+        loginUserEmail=userdetails.getString("email",null);
+
+    }
+
+
+    public void getUserDetailsFromDB() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        showJSON(response);
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
+            }
+
+
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("email", loginUserEmail);
+
+                return params;
+
+            }
+
+        };
+
+        //Creating a request queue
+        RequestQueue rq = Volley.newRequestQueue(this);
+        rq.add(stringRequest);
+    }
+
+    private void showJSON(String response)
+    {
+        try
+        {
+            jsonObject = new JSONObject(response);
+            result=jsonObject.getJSONArray("result");
+            userData = result.length();
+
+                getUserDetail();
+
+        }
+
+        catch (Exception e) {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    private String userNameDb,userEmailDb,userPlaceDb,userPasswordDb;
+    private void getUserDetail()
+    {
+
+        try {
+
+            JSONObject userDetail = result.getJSONObject(0);
+            userNameDb = userDetail.getString("name");
+            userEmailDb =  userDetail.getString("email");
+            userPlaceDb=userDetail.getString("place");
+            userPasswordDb=userDetail.getString("password");
+
+
+            setUserData();
+        }
+        catch (JSONException e)
+        {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void setUserData()
+    {
+        try {
+            userProfile.setText(userNameDb);
+            userPhNo.setText(userEmailDb);
+
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(getApplicationContext(),"Error Occured While Loading", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+
 
     @Override
     public void onStart() {

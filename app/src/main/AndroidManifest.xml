@@ -185,8 +185,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
-
-
         <activity
             android:name=".ProfilePage"
             android:label="Profile"
@@ -195,28 +193,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-
-
-        <activity android:name=".AddPoem"
+        <activity
+            android:name=".AddPoem"
             android:label="@string/add_poem"
             android:parentActivityName=".ViewPoem">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfilePage" />
         </activity>
-
-
-
-        <activity android:name=".UserViewPoem"
+        <activity
+            android:name=".UserViewPoem"
             android:label="@string/poem"
             android:parentActivityName=".ProfilePage">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfilePage" />
         </activity>
-
         <activity
             android:name=".ForgotPassword"
             android:label="Change Password"
@@ -225,10 +217,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
-        <activity android:name=".PoemUpdatePopup"
-                  android:theme="@style/MyMaterialTheme.Base" />
-
+        <activity
+            android:name=".PoemUpdatePopup"
+            android:theme="@style/MyMaterialTheme.Base" />
         <activity
             android:name=".AnswerPopup"
             android:theme="@style/MyMaterialTheme.Base" />
@@ -269,7 +260,7 @@
 
         <activity android:name=".GotoAkilathirattu" />
         <activity android:name=".MapsActivity" />
-
+        <activity android:name=".UserUpdateDetails"></activity>
     </application>
 
 </manifest>
