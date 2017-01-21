@@ -260,7 +260,8 @@
 
         <activity android:name=".GotoAkilathirattu" />
         <activity android:name=".MapsActivity" />
-        <activity android:name=".UserUpdateDetails"></activity>
+        <activity android:name=".UserUpdateDetails" />
+        <activity android:name=".AdminLogin"></activity>
     </application>
 
 </manifest>
