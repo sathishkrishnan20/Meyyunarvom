@@ -2,10 +2,12 @@ package com.avs.meyyunarvom;
 
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,8 +48,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Locale;
 
-public class Temples extends AppCompatActivity implements View.OnClickListener//SearchView.OnQueryTextListener
+public class Temples extends AppCompatActivity //implements View.OnClickListener//SearchView.OnQueryTextListener
  {
      private GestureDetector mGesture;
      static final int SWIPE_MIN_DISTANCE = 120;
@@ -85,10 +88,10 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
         mGesture = new GestureDetector(this, mOnGesture);
 
         imageView=(ImageView)findViewById(R.id.imageViewShow);
-        buttonMoveNext = (Button) findViewById(R.id.buttonNext);
-        buttonMovePrevious = (Button) findViewById(R.id.buttonPrev);
-        buttonMoveNext.setOnClickListener(this);
-        buttonMovePrevious.setOnClickListener(this);
+      //  buttonMoveNext = (Button) findViewById(R.id.buttonNext);
+      //  buttonMovePrevious = (Button) findViewById(R.id.buttonPrev);
+  //      buttonMoveNext.setOnClickListener(this);
+    //    buttonMovePrevious.setOnClickListener(this);
 
         setTempleName=(TextView)findViewById(R.id.tNameSetId);
         setTemplePlace=(TextView)findViewById(R.id.tPlaceSetId);
@@ -107,7 +110,14 @@ public class Temples extends AppCompatActivity implements View.OnClickListener//
 
     }
 
-    private void checkConnection()
+     @Override
+     public void onBackPressed() {
+         Intent intent =new Intent(this, MainActivity.class);
+         startActivity(intent);
+
+     }
+
+     private void checkConnection()
     {
         Network network=new Network();
         if (!network.isOnline(Temples.this))
@@ -159,7 +169,8 @@ private void showJSON(String response)
     }
 }
 
-
+private float lattitude, longitude;
+     private String latStr, lngStr;
 private void getTempleData()
 {
 
@@ -171,6 +182,10 @@ private void getTempleData()
         tplace = templeData.getString("tplace");
         tdesc =  templeData.getString("tdesc");
         tImageUrl = templeData.getString("timage");
+        latStr=templeData.getString("latitude");
+        lngStr=templeData.getString("longitude");
+        lattitude=Float.parseFloat(latStr);
+        longitude=Float.parseFloat(lngStr);
         setTempleData();
     }
     catch (JSONException e)
@@ -199,25 +214,6 @@ catch(Exception e)
  }
 
 
-    public void onClick(View v) {
-
-        if(v == buttonMoveNext){
-
-            if(TRACK==templeDataLength-1)
-            {
-                Toast.makeText(this,"You Reached a limit", Toast.LENGTH_SHORT).show();
-            }
-            moveNext();
-        }
-        if(v== buttonMovePrevious){
-
-            if(TRACK==0)
-            {
-                Toast.makeText(this,"You Reached a limit", Toast.LENGTH_SHORT).show();
-            }
-            movePrevious();
-        }
-    }
 
      private void resetFields()
      {
@@ -272,6 +268,7 @@ catch(Exception e)
                  {
                      Toast.makeText(getApplicationContext(),"You Reached a limit", Toast.LENGTH_SHORT).show();
                  }
+
                  moveNext();
                  //    Toast.makeText(getApplicationContext(), "Left to Right Swap Performed", Toast.LENGTH_SHORT).show();
                  return true;
@@ -283,6 +280,7 @@ catch(Exception e)
                  {
                      Toast.makeText(getApplicationContext(),"You Reached a limit", Toast.LENGTH_SHORT).show();
                  }
+
                  movePrevious();
                  return true;
              }
@@ -300,49 +298,55 @@ catch(Exception e)
 
 
 
-
-
-
-
-
-
-    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.viewtemple_menu, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setOnQueryTextListener(this);
+        inflater.inflate(R.menu.view_temple_menu, menu);
         return true;
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
-    // The following callbacks are called for the SearchView.OnQueryChangeListener
-    public boolean onQueryTextChange(String newText) {
-        newText = newText.isEmpty() ? "" : "Query so far: " + newText;
-      //  mSearchText.setText(newText);
-      //  mSearchText.setTextColor(Color.GREEN);
-        return true;
-    }
-
-    public boolean      onQueryTextSubmit      (String query) {
-        //Toast.makeText(this, "Searching for: " + query + "...", Toast.LENGTH_SHORT).show();
-      //  mSearchText.setText("Searching for: " + query + "...");
-      // mSearchText.setTextColor(Color.RED);
-        return true;
-    }
-
-
+        int id = item.getItemId();
+        if(id == R.id.action_goto_loc)
+        {
+           /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
 
 */
+//            Toast.makeText(this,latStr+","+lngStr,Toast.LENGTH_LONG).show();
+            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",lattitude , longitude, tname+"("+tplace+")");
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+            try
+            {
+                startActivity(intent);
+            }
+            catch(ActivityNotFoundException ex)
+            {
+                try
+                {
+                    Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    startActivity(unrestrictedIntent);
+                }
+                catch(ActivityNotFoundException innerEx)
+                {
+                    Toast.makeText(this, "Please install Google maps application", Toast.LENGTH_LONG).show();
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+
+
+
+
 }

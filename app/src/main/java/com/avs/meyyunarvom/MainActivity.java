@@ -204,6 +204,19 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
 
+
+            SharedPreferences userdetails = getApplicationContext().getSharedPreferences("LoginAdmin", 0);
+            SharedPreferences.Editor editor = userdetails.edit();
+            if (userdetails.contains("isLoginAdmin")) {
+
+                editor.remove("isLoginAdmin");
+                editor.apply();
+                boolean commit = editor.commit();
+
+            }
+
+
+
             //super.onBackPressed();
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
@@ -254,7 +267,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.admin)
         {
-            Intent intent=new Intent(getApplicationContext(),AdminMenu.class);
+            Intent intent=new Intent(getApplicationContext(),AdminLogin.class);
             startActivity(intent);
         }
 

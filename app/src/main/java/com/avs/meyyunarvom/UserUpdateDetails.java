@@ -41,16 +41,11 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
     private static String dplace="place";
     private static String dpassword="password";
 
-
-
-
     private String name;
     private String email;
     private String place;
     private String password;
     private String oldUserEmail;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +69,7 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
         mEmailView.setText(oldUserEmail);
         mPlaceView.setText(place);
         mPasswordView.setText(password);
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -94,7 +87,6 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                     return;
                 }
 
-
                 if(password.length() < 6 || password.length() > 16)
                 {
                     mPasswordView.setError("Password Length Should be 6 to 16 characters");
@@ -107,8 +99,6 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                     Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_LONG)
                             .show();
                 }
-
-
             }
 
         }
@@ -145,9 +135,6 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
         loading.show();
 
         // Set the progress status zero on each button click
-
-
-
         if(isCanceled) {
             progressStatus = 1;
             return;
@@ -161,8 +148,6 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                         Toast.makeText(UserUpdateDetails.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
                         setDataIntoLocal();
                         resetField();
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -171,7 +156,6 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                     {
                         loading.dismiss();
                         Toast.makeText(UserUpdateDetails.this,error.toString(),Toast.LENGTH_SHORT).show();
-
 
                     }
                 })
@@ -187,19 +171,12 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                 params.put(oldEmail,oldUserEmail);
 
                 return params;
-
-
             }
-
-
         };
 
         RequestQueue rq= Volley.newRequestQueue(this);
         rq.add(stringRequest);
-
-
     }
-
 
     private void resetField()
     {

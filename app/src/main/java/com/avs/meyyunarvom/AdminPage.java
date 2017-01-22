@@ -246,7 +246,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
             JSONObject json = result.getJSONObject(position);
 
            String isAnswered = json.getString("is_answered");
-           Toast.makeText(this, isAnswered,Toast.LENGTH_LONG).show();
+           //Toast.makeText(this, isAnswered,Toast.LENGTH_LONG).show();
             if(isAnswered.equals("Y")) {
                 fullQuestion.setText(getQuestion(position) + "\n" + getUserDetails(position));
                 fullQuestion.setTextColor(getResources().getColor(R.color.green));

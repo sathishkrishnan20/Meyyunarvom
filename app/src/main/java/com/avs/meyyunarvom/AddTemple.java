@@ -162,8 +162,8 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
            templeState.setText("");
        }
        else {
-           tempState =locationSplit[3];
-           templeState.setText(locationSplit[3]);
+           tempState =locationSplit[2];
+           templeState.setText(locationSplit[2]);
        }
 
        if(locationSplit[3].equals("null")) {
@@ -177,8 +177,9 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
    public void onBackPressed()
    {
-      finish();
-
+       Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
+       intent.putExtra("redirectPage","temple");
+       startActivity(intent);
    }
 
    private void checkConnection()

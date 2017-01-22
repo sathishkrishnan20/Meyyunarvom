@@ -58,11 +58,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         PlaceSelectionListener,
-        GoogleMap.OnMarkerDragListener,
         GoogleMap.OnMapLongClickListener,
-        GoogleMap.OnMapClickListener,
-        GoogleMap.OnMarkerClickListener
-   {
+        GoogleMap.OnMapClickListener
+        {
 
        StringBuilder strReturnedAddress = new StringBuilder("");
 
@@ -78,14 +76,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int REQUEST_CODE_ACCESS_FINE_PERMISSIONS = 124;
     private int REQUEST_CODE_ACCESS_COARSE_PERMISSIONS = 120;
 
-    double latitude = 9.92520007;
-    double longitude = 78.1197751;
+    private double latitude = 9.92520007;
+    private double longitude = 78.1197751;
 
     private GoogleApiClient googleApiClient;
     String redirectPage="";
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,16 +93,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         checkConnection();
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor = userdetails.edit();
-
         if(!userdetails.getBoolean("isLogin" ,false))
         {
             Toast.makeText(this,"Please login and Contiue",Toast.LENGTH_SHORT).show();
             Intent intent =new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
-
-
         checkIsLogin();
         checkForGooglePlayService();
 
@@ -127,78 +118,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
     }
 
        @Override
        public void onBackPressed() {
 
-           finish();
-       }
-
-
-
-       private void checkConnection()
-       {
-           Network network =new Network();
-           if (!network.isOnline(MapsActivity.this))
-           {
-               Intent intent = new Intent(this,ConnectionError.class);
+           if(redirectPage.equals("temple")) {
+               Intent intent = new Intent(this, Temples.class);
                startActivity(intent);
            }
 
-       }
-       String loginUserNm,loginUsermail;
-       private void checkIsLogin() {
-           SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
-           SharedPreferences.Editor editor = userdetails.edit();
+           if(redirectPage.equals("adminTemple")) {
 
-           loginUserNm = userdetails.getString("name", null);
-           loginUsermail = userdetails.getString("email", null);
+               Intent intent = new Intent(this, AdminTempleReview.class);
+               startActivity(intent);
 
+           }
        }
 
-private void checkForGooglePlayService() {
-    GoogleApiAvailability api = GoogleApiAvailability.getInstance();
-    int code = api.isGooglePlayServicesAvailable(this);
-    if (code == ConnectionResult.SUCCESS) {
-      // Toast.makeText(this,"Google play service available",Toast.LENGTH_LONG).show();
-    } else {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this);
-        alertDialog.setTitle("Google Play Services Unavailable");
-        alertDialog.setMessage("You need to download Google Play Services in order to use this part of the application");
-
-        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                finish();
-            }
-        });
-
-        alertDialog.show();
-
-    }
-}
-
-       private void buildAlertMessageNoGps() {
-           final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-           builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
-                   .setCancelable(false)
-                   .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                       public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                           startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                       }
-                   })
-                   .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                       public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                           dialog.cancel();
-                           finish();
-                       }
-                   });
-           final AlertDialog alert = builder.create();
-           alert.show();
-       }
 
 
        @Override
@@ -207,68 +145,51 @@ private void checkForGooglePlayService() {
 
         // Add a marker in Sydney and move the camera
         LatLng madurai = new LatLng(9.92520007, 78.1197751);
-        mMap.addMarker(new MarkerOptions().position(madurai).title("madurai"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(madurai));
+        mMap.addMarker(new MarkerOptions().position(madurai).draggable(true).title("madurai"));
+           mMap.setOnMapLongClickListener(this);
+           mMap.setOnMapClickListener(this);
+           mMap.moveCamera(CameraUpdateFactory.newLatLng(madurai));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(7));
+
     }
-
-
 
     private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
-
         Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         if (location != null) {
             mMap.clear();
             //Getting longitude and latitude
             longitude = location.getLongitude();
             latitude = location.getLatitude();
-
-            //moving the map to location
-            LatLng latLng = new LatLng(latitude, longitude);
-
-            mMap.addMarker(new MarkerOptions()
-                    .position(latLng) //setting position
-                    .draggable(true) //Making the marker draggable
-                    .title("Current Location")); //Adding a title
-
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            moveMap();
 
         }
     }
 
-
     private void moveMap()
     {
+        String msg = latitude + ",MoveMap "+longitude;
         LatLng latLng = new LatLng(latitude, longitude);
         mMap.clear();
 
         try {
-//            Toast.makeText(this,latLng.toString(),Toast.LENGTH_LONG).show();
-
-
             mMap.addMarker(new MarkerOptions()
                     .position(latLng) //setting position
-                    .draggable(true) //Making the marker draggable
+                    .draggable(false) //Making the marker draggable
                     .title("Current Location")); //Adding a title
 
             //Moving the camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
             //Animating the camera
             mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        }catch (Exception e)
-        {
+         //   Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+        }catch (Exception e) {
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
         }
     }
-
-
 
     private void geoLocationData()
     {
@@ -285,8 +206,9 @@ private void checkForGooglePlayService() {
                 strReturnedAddress.append(returnedAddress.getCountryName()+";");
 
 
-                 // Toast.makeText(this,latlong+" "+strReturnedAddress.toString(),Toast.LENGTH_LONG).show();
-                if(redirectPage.equals("temple")) {
+                //  Toast.makeText(this,latlong,Toast.LENGTH_LONG).show();
+
+                  if(redirectPage.equals("temple")) {
                     Intent intent = new Intent(this, AddTemple.class);
                     intent.putExtra("location", strReturnedAddress.toString());
                     intent.putExtra("lattitude", latitude);
@@ -306,6 +228,7 @@ private void checkForGooglePlayService() {
 
               //  myAddress.setText(strReturnedAddress.toString());
             }
+
             else {
                 Toast.makeText(this,"No Address",Toast.LENGTH_LONG).show();
               //  myAddress.setText("No Address returned!");
@@ -316,8 +239,6 @@ private void checkForGooglePlayService() {
             Toast.makeText(this,"Cannot get Address  "+ e.toString() ,Toast.LENGTH_LONG).show();
         }
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -369,8 +290,6 @@ private void checkForGooglePlayService() {
 
 }
 
-
-
     @Override
     public void onPlaceSelected(Place place) {
        // Log.i(LOG_TAG, "Place Selected: " + place.getName());
@@ -402,8 +321,6 @@ private void checkForGooglePlayService() {
                 longitude =place.getLatLng().longitude;
                 moveMap();
 
-                //moveMap(place);
-
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 this.onError(status);
@@ -431,79 +348,25 @@ private void checkForGooglePlayService() {
     @Override
     public void onMapClick(LatLng latLng) {
 
-        Toast.makeText(this,"clicked onMapClick",Toast.LENGTH_SHORT).show();
-        MarkerOptions marker= new MarkerOptions();
-        marker.position(latLng);
-        marker.title(latLng.latitude + " : " + latLng.longitude);
-        mMap.clear();
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.addMarker(marker);
+        latitude =latLng.latitude;
+        longitude= latLng.longitude;
 
+        moveMap();
 
     }
 
     @Override
     public void onMapLongClick(LatLng latLng) {
 
-        Toast.makeText(this,"clicked onMapLongClick",Toast.LENGTH_SHORT).show();
-
-        MarkerOptions marker= new MarkerOptions();
-        //Adding a new marker to the current pressed position we are also making the draggable true
-        mMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title(latLng.latitude + " : " + latLng.longitude)
-                .draggable(true));
-        mMap.clear();
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.addMarker(marker);
-
         latitude =latLng.latitude;
-        longitude =latLng.longitude;
-
-    }
-
-
-      @Override
-       public boolean onMarkerClick(Marker marker) {
-
-
-           latitude = marker.getPosition().latitude;
-           longitude = marker.getPosition().longitude;
-
-           return false;
-       }
-
-
-    @Override
-    public void onMarkerDragStart(Marker marker) {
-        latitude = marker.getPosition().latitude;
-        longitude = marker.getPosition().longitude;
-       // moveMap();
-    }
-
-    @Override
-    public void onMarkerDrag(Marker marker) {
-
-        latitude = marker.getPosition().latitude;
-        longitude = marker.getPosition().longitude;
-       // moveMap();
-    }
-
-    @Override
-    public void onMarkerDragEnd(Marker marker) {
-
-        latitude = marker.getPosition().latitude;
-        longitude = marker.getPosition().longitude;
+        longitude= latLng.longitude;
 
         moveMap();
+
     }
 
-
-
-
-
-    @Override
+   @Override
     protected void onStart() {
         googleApiClient.connect();
         super.onStart();
@@ -516,7 +379,28 @@ private void checkForGooglePlayService() {
     }
 
 
-    private void requestStoragePermission() {
+            private void checkConnection()
+            {
+                Network network =new Network();
+                if (!network.isOnline(MapsActivity.this))
+                {
+                    Intent intent = new Intent(this,ConnectionError.class);
+                    startActivity(intent);
+                }
+
+            }
+            String loginUserNm,loginUsermail;
+            private void checkIsLogin() {
+                SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
+
+                loginUserNm = userdetails.getString("name", null);
+                loginUsermail = userdetails.getString("email", null);
+            }
+
+
+
+
+            private void requestStoragePermission() {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION) && ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
@@ -567,6 +451,51 @@ private void checkForGooglePlayService() {
 
         return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
     }
+
+
+
+            private void checkForGooglePlayService() {
+                GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+                int code = api.isGooglePlayServicesAvailable(this);
+                if (code == ConnectionResult.SUCCESS) {
+                    // Toast.makeText(this,"Google play service available",Toast.LENGTH_LONG).show();
+                } else {
+
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapsActivity.this);
+                    alertDialog.setTitle("Google Play Services Unavailable");
+                    alertDialog.setMessage("You need to download Google Play Services in order to use this part of the application");
+
+                    alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            finish();
+                        }
+                    });
+
+                    alertDialog.show();
+                }
+            }
+
+            private void buildAlertMessageNoGps() {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                                dialog.cancel();
+                                finish();
+                            }
+                        });
+                final AlertDialog alert = builder.create();
+                alert.show();
+            }
+
+
 
 
    }
