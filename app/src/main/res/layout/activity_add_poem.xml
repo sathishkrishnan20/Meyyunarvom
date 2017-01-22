@@ -69,10 +69,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_margin="5dp"
+                        android:padding="5dp"
                         android:id="@+id/content_add_poem"
                         android:hint="Add Your Poem"
                         android:ellipsize="start"
-                        android:gravity="center"
+                        android:gravity="top"
+                        android:scrollbars="vertical"
                         android:background="@drawable/edittext_style"/>
 
 

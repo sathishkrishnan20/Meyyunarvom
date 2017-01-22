@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -110,7 +111,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
     String locationByMap,latLngByMap;
     double  longitudeByMap,lattitudeByMap;
 
-
+    private ProgressBar progressBar1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +158,13 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         uploadTemple.setOnClickListener(this);
         deleteTemple.setOnClickListener(this);
         editLatLng.setOnClickListener(this);
+
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_admintemple);
+        progressBar1.setVisibility(View.VISIBLE);
+
+
+
         getTemplesFromDB();
 
 
@@ -200,6 +208,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
             }
 
@@ -263,6 +272,8 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
     private void setTempleData()
     {
         try {
+
+            progressBar1.setVisibility(View.GONE);
 
             String templeDesc[]=new String[5];
             String templeAddess[]=new String[4];

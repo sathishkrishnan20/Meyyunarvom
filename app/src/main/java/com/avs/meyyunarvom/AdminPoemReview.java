@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
     private TextView addedBy;
     private Button nextButton, prevButton, uploadButton, deleteButton;
 
-
+    private ProgressBar progressBar1;
     private String loginUserEmail,loginUserName;
 
     private String userName,userEmail,userPlace, userDetailsText="Added By";
@@ -87,6 +88,10 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
         deleteButton.setOnClickListener(this);
         uploadButton.setOnClickListener(this);
 
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_adminpoem);
+        progressBar1.setVisibility(View.VISIBLE);
+
+
         getPoemsFromDB();
 
 
@@ -130,6 +135,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
             }
 
@@ -191,6 +197,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
     {
         try {
 
+            progressBar1.setVisibility(View.GONE);
 
             userDetailsText = userDetailsText +"     Name: " + userName+" \n";
             userDetailsText = userDetailsText +"     Place: " +userPlace+"\n";

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -24,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +58,9 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
      private GestureDetector mGesture;
      static final int SWIPE_MIN_DISTANCE = 120;
      static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+
+     private ProgressBar progressBar1;
 
 
 
@@ -96,7 +102,15 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
         setTempleName=(TextView)findViewById(R.id.tNameSetId);
         setTemplePlace=(TextView)findViewById(R.id.tPlaceSetId);
         setTempleDesc = (TextView)findViewById(R.id.tDescSetId);
+
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
+        progressBar1.setVisibility(View.VISIBLE);
+
+
         getTemplesFromDB();
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +156,9 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
             }
 
@@ -171,6 +188,8 @@ private void showJSON(String response)
 
 private float lattitude, longitude;
      private String latStr, lngStr;
+     private String taddress, taddressLine1,taddressDistrict, taddressState, taddressCountry;
+
 private void getTempleData()
 {
 
@@ -178,15 +197,26 @@ private void getTempleData()
 
         JSONObject templeData = result.getJSONObject(TRACK);
 
+        String [] addressData= new String[4];
+
         tname =  templeData.getString("tname");
         tplace = templeData.getString("tplace");
         tdesc =  templeData.getString("tdesc");
+        taddress= templeData.getString("taddress");
         tImageUrl = templeData.getString("timage");
         latStr=templeData.getString("latitude");
         lngStr=templeData.getString("longitude");
         lattitude=Float.parseFloat(latStr);
         longitude=Float.parseFloat(lngStr);
         setTempleData();
+
+        addressData =taddress.split(";");
+        taddressLine1=addressData[0];
+        taddressDistrict=addressData[1];
+        taddressState=addressData[2];
+        taddressCountry=addressData[3];
+
+
     }
     catch (JSONException e)
     {
@@ -198,7 +228,9 @@ private void getTempleData()
  {
 try {
 
-   String templeDesc[]=new String[5];
+    progressBar1.setVisibility(View.GONE);
+
+    String templeDesc[]=new String[5];
     templeDesc= tdesc.split(";");
 
     setTempleName.setText(tname);
@@ -311,42 +343,61 @@ catch(Exception e)
         int id = item.getItemId();
         if(id == R.id.action_goto_loc)
         {
-           /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4194");
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                startActivity(mapIntent);
-            }
 
-*/
-//            Toast.makeText(this,latStr+","+lngStr,Toast.LENGTH_LONG).show();
-            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",lattitude , longitude, tname+"("+tplace+")");
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-            try
-            {
-                startActivity(intent);
-            }
-            catch(ActivityNotFoundException ex)
-            {
-                try
-                {
-                    Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                    startActivity(unrestrictedIntent);
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(Temples.this);
+            alertDialog.setTitle("Address");
+            alertDialog.setMessage(tplace+"\n"+taddressLine1+"\n"+taddressDistrict+"\n"+taddressState+"\n"+taddressCountry);
+            alertDialog.setPositiveButton("Location",new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Write your code here to execute after dialog closed
+                    //answer.setText("");
+                    goToMap();
                 }
-                catch(ActivityNotFoundException innerEx)
-                {
-                    Toast.makeText(this, "Please install Google maps application", Toast.LENGTH_LONG).show();
+            });
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.cancel();
+
                 }
-            }
+            });
+            alertDialog.show();
+
+
+
 
         }
 
         return true;
     }
 
+     private void goToMap() {
+
+         String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",lattitude , longitude, tname+"("+tplace+")");
+         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+         intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+         try
+         {
+             startActivity(intent);
+         }
+         catch(ActivityNotFoundException ex)
+         {
+             try
+             {
+                 Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                 startActivity(unrestrictedIntent);
+             }
+             catch(ActivityNotFoundException innerEx)
+             {
+                 Toast.makeText(this, "Please install Google maps application", Toast.LENGTH_LONG).show();
+             }
+         }
 
 
 
 
-}
+     }
+
+
+ }

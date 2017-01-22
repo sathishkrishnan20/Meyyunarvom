@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +60,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
     private String dbId;
     int restrictSendButton=0;
 
-
+    private ProgressBar progressBar1;
 
 
     private static final String TAG_ID = "id";
@@ -83,6 +84,10 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
         answer = (EditText) findViewById(R.id.answerfordoubt);
         fullQuestion =(TextView)findViewById(R.id.fulldoubt_text);
+
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_admindoubts);
+        progressBar1.setVisibility(View.VISIBLE);
 
         buttonSendAns = (Button) findViewById(R.id.Sendanswer);
         deleteBtn= (Button)findViewById(R.id.delete_question_by_admin);
@@ -135,6 +140,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
             }
 
@@ -172,6 +178,8 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         questionAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, quesarray);
         questionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(questionAdapter);
+
+        progressBar1.setVisibility(View.GONE);
 
 
     }

@@ -2,6 +2,8 @@ package com.avs.meyyunarvom;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +29,8 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.widget.RelativeLayout.LayoutParams;
+
 
 public class ViewPoem extends AppCompatActivity
 {
@@ -40,6 +47,8 @@ public class ViewPoem extends AppCompatActivity
     private JSONObject jsonObject;
     private JSONArray result;
 
+    private ProgressBar progressBar1;
+
     int poemDataLength=0;
     String titleStr, contentStr, userDetailsStr;
     private final String GET_URL = com.avs.db.URL.url + "/getPoem.php";
@@ -54,6 +63,13 @@ public class ViewPoem extends AppCompatActivity
         title =(TextView) findViewById(R.id.title_for_poem);
         content=(TextView) findViewById(R.id.content_for_poem);
         postedBy=(TextView)findViewById(R.id.poem_added_by);
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_poem);
+        progressBar1.setVisibility(View.VISIBLE);
+
+
+
+
         /*
         prevButton =(Button)findViewById(R.id.buttonPrev_forpoem);
         nextButton=(Button)findViewById(R.id.buttonNext_forpoem);
@@ -109,6 +125,8 @@ public class ViewPoem extends AppCompatActivity
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
 
@@ -161,7 +179,10 @@ public class ViewPoem extends AppCompatActivity
 
     private void setTempleData()
     {
+
         try {
+
+            progressBar1.setVisibility(View.GONE);
                title.setText(titleStr);
                content.setText(contentStr);
                 postedBy.setText(userDetailsStr);

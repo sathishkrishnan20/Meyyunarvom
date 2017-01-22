@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.avs.db.Network;
@@ -82,6 +83,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleApiClient googleApiClient;
     String redirectPage="";
 
+            private ProgressBar progressBar1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +102,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Intent intent =new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_maps);
+        progressBar1.setVisibility(View.GONE);
+
         checkIsLogin();
         checkForGooglePlayService();
 
@@ -208,6 +215,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 //  Toast.makeText(this,latlong,Toast.LENGTH_LONG).show();
 
+                progressBar1.setVisibility(View.GONE);
                   if(redirectPage.equals("temple")) {
                     Intent intent = new Intent(this, AddTemple.class);
                     intent.putExtra("location", strReturnedAddress.toString());
@@ -230,12 +238,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             else {
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(this,"No Address",Toast.LENGTH_LONG).show();
               //  myAddress.setText("No Address returned!");
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            progressBar1.setVisibility(View.GONE);
             Toast.makeText(this,"Cannot get Address  "+ e.toString() ,Toast.LENGTH_LONG).show();
         }
     }
@@ -265,6 +275,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         else if(id == R.id.action_ok)
         {
+            progressBar1.setVisibility(View.VISIBLE);
             geoLocationData();
         }
 
@@ -287,7 +298,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     return super.onOptionsItemSelected(item);
-
 }
 
     @Override
