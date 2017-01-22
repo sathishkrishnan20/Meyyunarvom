@@ -11,6 +11,16 @@
     tools:context="com.avs.meyyunarvom.AdminPoemReview">
 
 
+    <ProgressBar android:id="@+id/progressBar_adminpoem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center" />
+
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,12 +39,16 @@
                 android:layout_margin="10dp"
                 android:background="@color/doubt_tab">
 
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/linear_doubt"
                     android:layout_margin="5dp"
                     android:orientation="vertical">
+
+
 
 
                     <TextView
@@ -82,8 +96,10 @@
                         android:id="@+id/admin_content_add_poem"
                         android:hint="Add Your Poem"
                         android:ellipsize="start"
+                        android:scrollbars="vertical"
                         android:gravity="center"
                         android:background="@drawable/edittext_style"/>
+
 
 
 

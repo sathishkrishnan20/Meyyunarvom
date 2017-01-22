@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class ProfilePage extends AppCompatActivity {
     private JSONArray result;
     int userData;
 
-
+    private ProgressBar progressBar1;
     private final String GET_URL = com.avs.db.URL.url + "/getUserDetaills.php";
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -70,6 +71,10 @@ public class ProfilePage extends AppCompatActivity {
         userPoem = (TextView) findViewById(R.id.user_add_poem);
         userEdit = (ImageView) findViewById(R.id.user_edit);
         logOut = (TextView) findViewById(R.id.user_logout);
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_profile);
+        progressBar1.setVisibility(View.VISIBLE);
+
 
 
         getUserDetailsFromDB();
@@ -222,6 +227,9 @@ public class ProfilePage extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
             }
 
@@ -287,6 +295,8 @@ public class ProfilePage extends AppCompatActivity {
     private void setUserData()
     {
         try {
+
+            progressBar1.setVisibility(View.GONE);
             userProfile.setText(userNameDb);
             userPhNo.setText(userEmailDb);
 

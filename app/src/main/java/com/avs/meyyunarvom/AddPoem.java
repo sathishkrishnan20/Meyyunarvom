@@ -138,6 +138,7 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
                                 if(response.split(";")[0].equals("success")) {
                                     poemTitle.setText("");
                                     poemContent.setText("");
+                                    finish();
                                 }
                             }
                         });

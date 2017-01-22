@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,8 @@ import java.util.Map;
 
 public class Answers extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener
 {
+
+    private ProgressBar progressBar1;
 
 
     private JSONObject jsonObject;
@@ -108,6 +111,11 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
         question = (EditText) findViewById(R.id.qustiondoubt);
         buttonSend = (Button) findViewById(R.id.buttonSendquestion);
 
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_profiledoubts);
+        progressBar1.setVisibility(View.VISIBLE);
+
+
+
         spin.setOnItemSelectedListener(this);
         materialDesignAnimatedDialog = NiftyDialogBuilder.getInstance(this);
         getQustions();
@@ -151,6 +159,8 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                progressBar1.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
             }
 
@@ -209,6 +219,7 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
         questionArray = new ArrayAdapter(this, android.R.layout.simple_spinner_item, quesarray);
         questionArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(questionArray);
+        progressBar1.setVisibility(View.GONE);
       //  spin.setItems(quesarray);
 
     }
