@@ -1,12 +1,13 @@
 package com.avs.db;
 
 /**
- * Created by Sathish on 11/8/2016.
+ * Created by SATHISH on 1/23/2017.
  */
 
-public class AkilathirattuDAO
+public class ArulThingalPathamDAO
 {
-    public AkilathirattuDAO()
+
+    public ArulThingalPathamDAO()
     {
 
     }
@@ -16,11 +17,13 @@ public class AkilathirattuDAO
     private String title;
     private int rollno;
 
-    public AkilathirattuDAO(int rollno, String title, String content){
+
+    public ArulThingalPathamDAO(int rollno, String title, String content){
         this.rollno = rollno;
         this.title = title;
         this.content = content;
     }
+
 
     public int getRollno() {
 
@@ -37,7 +40,8 @@ public class AkilathirattuDAO
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
@@ -47,8 +51,12 @@ public class AkilathirattuDAO
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content)
+    {
         this.content = content;
     }
+
+
+
 
 }

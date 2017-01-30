@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryMenu extends AppCompatActivity implements
-        HistoryAyyaVaikundar.OnFragmentInteractionListener,
         HistoryKannimar.OnFragmentInteractionListener,
         HistorySivayimar.OnFragmentInteractionListener,
         HistorySudalai.OnFragmentInteractionListener,
@@ -66,7 +65,7 @@ public class HistoryMenu extends AppCompatActivity implements
 
     private void setupViewPager(ViewPager viewPager) {
         HistoryMenu.ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HistoryAyyaVaikundar(), "அய்யா");
+
         adapter.addFragment(new HistoryKannimar(), "கன்னிமார்");
         adapter.addFragment(new HistorySivayimar(), "சிவாயிமார்");
         adapter.addFragment(new HistorySudalai(), "சுடலை");

@@ -45,6 +45,6 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
     compile 'com.android.support:support-v4:24.2.1'
-    testCompile 'junit:junit:4.12'
     compile 'com.github.clans:fab:1.6.2'
+    testCompile 'junit:junit:4.12'
 }

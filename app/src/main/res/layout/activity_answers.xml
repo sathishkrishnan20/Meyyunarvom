@@ -121,15 +121,15 @@
             android:textSize="@dimen/title"
             android:layout_gravity="center"/>
 
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spinnerdoubt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:ms_multiline="true"
+                    app:ms_hintColor="@color/colordoubt"
+                    app:ms_hint="@string/spinneranswer"
+                    android:layout_marginTop="20dp" />
 
-    <fr.ganfra.materialspinner.MaterialSpinner
-        android:id="@+id/spinnerdoubt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:ms_multiline="true"
-        app:ms_hintColor="@color/colordoubt"
-        app:ms_hint="@string/spinneranswer"
-        android:layout_marginTop="20dp" />
 
 
 

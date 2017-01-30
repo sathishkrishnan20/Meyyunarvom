@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="திருஏடு வாசிப்பு">
+        <menu>
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/first"
+            android:icon="@drawable/ic_action_labels"
+            android:title="முதல் நாள்" />
+
+        <item
+            android:id="@+id/second"
+            android:icon="@drawable/ic_action_labels"
+            android:title="இரண்டாம் நாள்" />
+
+        <item
+            android:id="@+id/third"
+            android:icon="@drawable/ic_action_labels"
+            android:title="மூன்றாம் நாள்" />
+
+        <item
+            android:id="@+id/fourth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="நான்காம் நாள்" />
+
+        <item
+            android:id="@+id/fifth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="ஐந்தாம் நாள்" />
+        <item
+            android:id="@+id/sixth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="ஆறாம் நாள்" />
+        <item
+            android:id="@+id/seventh"
+            android:icon="@drawable/ic_action_labels"
+            android:title="ஏழாம் நாள்" />
+
+        <item
+            android:id="@+id/eighth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="எட்டாம் நாள்" />
+
+        <item
+            android:id="@+id/ninth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="ஒன்பதாம் நாள்" />
+
+        <item
+            android:id="@+id/tenth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பத்தாம் நாள்" />
+
+
+        <item
+            android:id="@+id/eleventh"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பதினென்னாம் நாள்" />
+
+        <item
+            android:id="@+id/twelth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பன்னிரெண்டாம் நாள்" />
+
+        <item
+            android:id="@+id/thirteenth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பதிமூன்றாம் நாள்" />
+
+        <item
+            android:id="@+id/fourteenth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பதினான்காம் நாள்" />
+
+        <item
+            android:id="@+id/fifteenth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பதினைந்தாம் நாள்" />
+
+        <item
+            android:id="@+id/sixteenth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பதினாறாம் நாள்" />
+        <item
+            android:id="@+id/seventeenth"
+            android:icon="@drawable/ic_action_labels"
+            android:title="பதினெழாம் நாள்" />
+
+    </group>
+        </menu>
+    </item>
+</menu>

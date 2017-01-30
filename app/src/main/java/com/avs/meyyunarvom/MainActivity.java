@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     ImageButton doubts;
     ImageButton addTemple;
     ImageButton temples;
-    ImageButton uchipadippu;
+    ImageButton ayyavazhi;
     ImageButton ukapadippu;
 
     private static final int SWIPE_MIN_DISTANCE = 120;
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity
         doubts=(ImageButton)findViewById(R.id.doubtid);
         addTemple=(ImageButton)findViewById(R.id.addtempleid);
         temples=(ImageButton)findViewById(R.id.templeid);
-       // uchipadippu=(ImageButton)findViewById(R.id.uchipadippuid);
+
+        ayyavazhi=(ImageButton)findViewById(R.id.ayyavazhiid);
        // ukapadippu=(ImageButton)findViewById(R.id.ukapadippuid);
 
         mContext = this;
@@ -170,18 +171,18 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-/*
-        uchipadippu.setOnClickListener(new View.OnClickListener()
+
+        ayyavazhi.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), Uchipadippu.class);
+                Intent intent=new Intent(getApplicationContext(), AyyaVazhiMenu.class);
                 startActivity(intent);
 
             }
         });
-
+/*
         ukapadippu.setOnClickListener(new View.OnClickListener()
         {
             @Override

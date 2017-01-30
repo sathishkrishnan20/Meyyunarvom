@@ -259,6 +259,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        if (!manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+
+            Toast.makeText(this,"Turn on Your GPS",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         if (id == R.id.action_search) {
             try {
                 Intent intent = new PlaceAutocomplete.IntentBuilder
@@ -281,7 +288,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         else if(id == R.id.action_current)
         {
-            getCurrentLocation();
+
+
+                getCurrentLocation();
+
         }
 
         else if (id == R.id.map_normal)
@@ -493,6 +503,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                                 startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {

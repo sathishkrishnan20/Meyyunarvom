@@ -71,8 +71,8 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
     String userDetailsText="";
     private final String GET_URL = com.avs.db.URL.url + "/getTempleAdmin.php";
-    private final String UPLOAD_URL =com.avs.db.URL.url + "/setTempleAdmin.php";
-    private final String DELETE_PERMANENT_URL =com.avs.db.URL.url +"/deleteTemplePermanentByAdmin.php";
+    private final String UPLOAD_URL =com.avs.db.URL.url + "/setTempleByAdmin.php";
+    private final String DELETE_PERMANENT_URL =com.avs.db.URL.url +"/deleteTemplePermanantlyByAdmin.php";
     private final String DELETE_FROM_ADMIN_URL=com.avs.db.URL.url +"/deleteTempleFromAdminPage.php";
 
 

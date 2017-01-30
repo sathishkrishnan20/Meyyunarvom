@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.avs.meyyunarvom.ArulFragSivathandam">
+    tools:context="com.avs.meyyunarvom.AyyaVazhiFragAyyaVazhi">
 
+    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +34,7 @@
                     android:background="@color/colordoubt"
                     android:textSize="20sp"
                     android:textColor="@color/white"
-                    android:id="@+id/siva_titleid1" />
+                    android:id="@+id/ayyavazhi_titleid1" />
 
 
 
@@ -44,10 +45,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="45dp"
                     android:layout_marginBottom="45dp"
-                    android:textIsSelectable="false"
+                    android:textIsSelectable="true"
                     style="@style/AlertDialog.AppCompat.Light"
-                    android:textSize="@dimen/fragcontent"
-                    android:id="@+id/siva_contentid1" />
+                    android:textSize="15sp"
+                    android:id="@+id/ayyavazhi_contentid1" />
 
             </RelativeLayout>
         </ScrollView>
@@ -71,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="1dp"
                         android:layout_marginEnd="1dp"
-                        android:id="@+id/sivapreviousbtn"
+                        android:id="@+id/ayyavazhipreviousbtn"
                         android:background="@color/colorAccent"
                         android:textColor="@color/white" />
 
@@ -83,13 +84,14 @@
 
                         android:background="@color/colorAccent"
                         android:textColor="@color/white"
-                        android:id="@+id/sivanextbtn"/>
+                        android:id="@+id/ayyavazhinextbtn"/>
 
                 </TableRow>
 
             </TableLayout>
         </RelativeLayout>
     </RelativeLayout>
+
 
 
 

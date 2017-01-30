@@ -7,10 +7,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -29,7 +34,7 @@ import android.widget.Toast;
 
 
 
-public class AkilaThirattu extends AppCompatActivity //implements View.OnTouchListener
+public class AkilaThirattu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
  {
      private GestureDetector mGesture;
      static final int SWIPE_MIN_DISTANCE = 120;
@@ -42,8 +47,6 @@ public class AkilaThirattu extends AppCompatActivity //implements View.OnTouchLi
     TextView content;
 
 
-    Button next;
-    Button previous;
 
 
     Cursor c1;
@@ -53,12 +56,26 @@ public class AkilaThirattu extends AppCompatActivity //implements View.OnTouchLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akila_thirattu);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
         mGesture = new GestureDetector(this, mOnGesture);
 
         title = (TextView) findViewById(R.id.titleid);
         content = (TextView) findViewById(R.id.contentid);
-        next = (Button) findViewById(R.id.akilnextbtn);
-        previous = (Button) findViewById(R.id.akilpreviousbtn);
 
 
         db = openOrCreateDatabase("MeyyDBAkil", Context.MODE_PRIVATE, null);
@@ -102,7 +119,7 @@ public class AkilaThirattu extends AppCompatActivity //implements View.OnTouchLi
             content.setText(c1.getString(2).toString());
         }
 
-
+/*
         next.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -127,7 +144,7 @@ public class AkilaThirattu extends AppCompatActivity //implements View.OnTouchLi
             }
         });
 
-
+*/
     }
 
     public void onBackPressed() {
@@ -206,6 +223,76 @@ public class AkilaThirattu extends AppCompatActivity //implements View.OnTouchLi
              return false;
          }
      };
+
+
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+         // Inflate the menu; this adds items to the action bar if it is present.
+         getMenuInflater().inflate(R.menu.main, menu);
+         return true;
+     }
+
+     @Override
+     public boolean onOptionsItemSelected(MenuItem item)
+     {
+         int id = item.getItemId();
+
+         //noinspection SimplifiableIfStatement
+         if (id == R.id.action_settings) {
+             return true;
+         }
+
+         return super.onOptionsItemSelected(item);
+     }
+
+     @SuppressWarnings("StatementWithEmptyBody")
+     @Override
+     public boolean onNavigationItemSelected(MenuItem item) {
+         // Handle navigation view item clicks here.
+
+         SQLiteDatabase db;
+
+         int id = item.getItemId();
+
+         if (id == R.id.first)
+         {
+             Intent intent=new Intent(getApplicationContext(),AdminLogin.class);
+             startActivity(intent);
+         }
+
+         else if (id == R.id.second)
+         {
+             Intent intent=new Intent(getApplicationContext(),ProfilePage.class);
+             startActivity(intent);
+         }
+
+         else if(id==R.id.third)
+         {
+             Intent intent=new Intent(this,LoginActivity.class);
+             startActivity(intent);
+         }
+         else if (id == R.id.fourth)
+         {
+
+         }
+         else if (id == R.id.fifth) {
+
+
+         }
+
+
+         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+         drawer.closeDrawer(GravityCompat.START);
+         return true;
+
+     }
+
+
+
+
+
+
+
  }
 
 

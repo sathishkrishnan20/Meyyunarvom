@@ -16,9 +16,11 @@ public class ArulnoolMenu extends AppCompatActivity implements
                                     ArulFragUchipadippu.OnFragmentInteractionListener,
                                     ArulFragUkapadippu.OnFragmentInteractionListener,
                                     ArulFragVazhapadippu.OnFragmentInteractionListener,
+                                     ArulNoolFragThanaNiraivuVasakam.OnFragmentInteractionListener,
                                     ArulFragPathiram.OnFragmentInteractionListener,
                                     ArulFragSivathandam.OnFragmentInteractionListener,
-                                    ArulFragChattuNeetu.OnFragmentInteractionListener,
+                                    ArulFragThingalPatham.OnFragmentInteractionListener,
+                                    ArulFragChattuNeetolai.OnFragmentInteractionListener,
                                     ArulFragKalyanaVazhthu.OnFragmentInteractionListener
         //, AkilathirattuAmmanai.OnFragmentInteractionListener
 
@@ -44,9 +46,11 @@ public class ArulnoolMenu extends AppCompatActivity implements
         adapter.addFragment(new ArulFragUchipadippu(), "உச்சிப் படிப்பு");
         adapter.addFragment(new ArulFragUkapadippu(), "உகப் படிப்பு");
         adapter.addFragment(new ArulFragVazhapadippu(), "வாழப் படிப்பு");
+        adapter.addFragment(new ArulNoolFragThanaNiraivuVasakam(), "தானநிறைவு வாசகம்");
         adapter.addFragment(new ArulFragPathiram(), "பத்திரம்");
         adapter.addFragment(new ArulFragSivathandam(), "சிவதாண்ட அதிகார பத்திரம்");
-        adapter.addFragment(new ArulFragChattuNeetu(), "சாட்டு நீட்டோலை");
+        adapter.addFragment(new ArulFragThingalPatham(), "திங்கள் பதம்");
+        adapter.addFragment(new ArulFragChattuNeetolai(), "சாட்டு நீட்டோலை");
         adapter.addFragment(new ArulFragKalyanaVazhthu(), "கல்யாண வாழ்த்து");
       //  adapter.addFragment(new AkilathirattuAmmanai(), "கல்யாண");
 
