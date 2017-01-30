@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_akilam"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.avs.meyyunarvom.Akilam"
+    tools:showIn="@layout/app_bar_akilam">
+
+
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/table_akilam">
+
+    <TableRow>
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinnerakilam123"
+        android:layout_weight="10"
+        android:layout_height="wrap_content"
+        app:ms_multiline="true"
+        app:ms_hintColor="@color/colordoubt"/>
+
+    <TextView
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/DarkBlack"
+        android:id="@+id/page_no" />
+
+    </TableRow>
+</TableLayout>
+
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="1dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="1dp"
+        android:layout_below="@+id/table_akilam"
+        android:gravity="center"
+        android:background="@color/colordoubt"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:id="@+id/akilam_titleid1" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/akilam_titleid1">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:orientation="vertical">
+
+            <TextView
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textIsSelectable="false"
+                    android:paddingLeft="2dp"
+                    android:paddingStart="2dp"
+                    android:textSize="18sp"
+                    android:id="@+id/akilamcontentid" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

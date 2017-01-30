@@ -11,20 +11,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.avs.db.ChattuDAO;
+import com.avs.db.ArulThingalPathamDAO;
+import com.avs.db.AyyaVahiDAO;
 import com.avs.db.MeyyunarvomDB;
-import com.avs.db.SivaThandamDAO;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ArulFragSivathandam.OnFragmentInteractionListener} interface
+ * {@link AyyaVazhiFragAyyaVazhi.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ArulFragSivathandam#newInstance} factory method to
+ * Use the {@link AyyaVazhiFragAyyaVazhi#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ArulFragSivathandam extends Fragment {
+public class AyyaVazhiFragAyyaVazhi extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,7 +36,7 @@ public class ArulFragSivathandam extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ArulFragSivathandam() {
+    public AyyaVazhiFragAyyaVazhi() {
         // Required empty public constructor
     }
 
@@ -46,11 +46,11 @@ public class ArulFragSivathandam extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ArulFragSivathandam.
+     * @return A new instance of fragment AyyaVazhiFragAyyaVazhi.
      */
     // TODO: Rename and change types and number of parameters
-    public static ArulFragSivathandam newInstance(String param1, String param2) {
-        ArulFragSivathandam fragment = new ArulFragSivathandam();
+    public static AyyaVazhiFragAyyaVazhi newInstance(String param1, String param2) {
+        AyyaVazhiFragAyyaVazhi fragment = new AyyaVazhiFragAyyaVazhi();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,21 +76,17 @@ public class ArulFragSivathandam extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
+        View view =inflater.inflate(R.layout.fragment_ayya_vazhi_frag_ayya_vazhi, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_arul_frag_sivathandam, container, false);
-
-
-
-        title = (TextView) view.findViewById(R.id.siva_titleid1);
-        content = (TextView) view.findViewById(R.id.siva_contentid1);
-        next = (Button) view.findViewById(R.id.sivanextbtn);
-        previous = (Button) view.findViewById(R.id.sivapreviousbtn);
+        title = (TextView) view.findViewById(R.id.ayyavazhi_titleid1);
+        content = (TextView) view.findViewById(R.id.ayyavazhi_contentid1);
+        next = (Button) view.findViewById(R.id.ayyavazhinextbtn);
+        previous = (Button) view.findViewById(R.id.ayyavazhipreviousbtn);
 
         try {
             MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-            SivaThandamDAO dao = db.getSivaThandamContents(track);
+            AyyaVahiDAO dao = db.getAyyaVazhiContents(track);
             title.setText(dao.getTitle());
             content.setText(dao.getContent());
 
@@ -99,13 +95,13 @@ public class ArulFragSivathandam extends Fragment {
 
                 public void onClick(View view) {
 
-                    if (track < 10) {
+                    if (track <4 ) {
                         track = track + 1;
                     }
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
 
 
-                    SivaThandamDAO dao = db.getSivaThandamContents(track);
+                    AyyaVahiDAO dao = db.getAyyaVazhiContents(track);
                     title.setText(dao.getTitle());
                     content.setText(dao.getContent());
 
@@ -122,7 +118,7 @@ public class ArulFragSivathandam extends Fragment {
                         track = track - 1;
                     }
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-                    SivaThandamDAO dao = db.getSivaThandamContents(track);
+                    AyyaVahiDAO dao = db.getAyyaVazhiContents(track);
                     title.setText(dao.getTitle());
                     content.setText(dao.getContent());
 
@@ -135,8 +131,8 @@ public class ArulFragSivathandam extends Fragment {
             Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
         }
 
-
         return view;
+
 
     }
 

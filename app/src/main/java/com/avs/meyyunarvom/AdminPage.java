@@ -73,7 +73,6 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
     private final String DELETE_URL = com.avs.db.URL.url+"/deleteDoubtByAdmin.php";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +89,10 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         progressBar1.setVisibility(View.VISIBLE);
 
         buttonSendAns = (Button) findViewById(R.id.Sendanswer);
+
         deleteBtn= (Button)findViewById(R.id.delete_question_by_admin);
         spin.setOnItemSelectedListener(this);
+
         buttonSendAns.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
 

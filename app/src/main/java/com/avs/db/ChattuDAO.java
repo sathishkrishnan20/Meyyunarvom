@@ -1,12 +1,12 @@
 package com.avs.db;
 
 /**
- * Created by Sathish on 11/8/2016.
+ * Created by SATHISH on 1/24/2017.
  */
 
-public class AkilathirattuDAO
-{
-    public AkilathirattuDAO()
+public class ChattuDAO {
+
+    public ChattuDAO()
     {
 
     }
@@ -16,7 +16,7 @@ public class AkilathirattuDAO
     private String title;
     private int rollno;
 
-    public AkilathirattuDAO(int rollno, String title, String content){
+    public ChattuDAO(int rollno, String title, String content){
         this.rollno = rollno;
         this.title = title;
         this.content = content;

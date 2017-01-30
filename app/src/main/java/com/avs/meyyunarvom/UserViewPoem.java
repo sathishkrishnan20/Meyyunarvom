@@ -180,6 +180,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             if(poemDataLength==0) {
                 restrictButton =1;
                 Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
+                progressBar1.setVisibility(View.GONE);
 
             }
             else {

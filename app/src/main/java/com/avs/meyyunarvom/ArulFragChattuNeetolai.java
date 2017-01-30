@@ -7,16 +7,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.avs.db.ArulThingalPathamDAO;
+import com.avs.db.ChattuDAO;
+import com.avs.db.MeyyunarvomDB;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link unkown.OnFragmentInteractionListener} interface
+ * {@link ArulFragChattuNeetolai.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link unkown#newInstance} factory method to
+ * Use the {@link ArulFragChattuNeetolai#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class unkown extends Fragment {
+public class ArulFragChattuNeetolai extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,7 +36,7 @@ public class unkown extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public unkown() {
+    public ArulFragChattuNeetolai() {
         // Required empty public constructor
     }
 
@@ -38,11 +46,11 @@ public class unkown extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment unkown.
+     * @return A new instance of fragment ArulFragChattuNeetolai.
      */
     // TODO: Rename and change types and number of parameters
-    public static unkown newInstance(String param1, String param2) {
-        unkown fragment = new unkown();
+    public static ArulFragChattuNeetolai newInstance(String param1, String param2) {
+        ArulFragChattuNeetolai fragment = new ArulFragChattuNeetolai();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,11 +67,74 @@ public class unkown extends Fragment {
         }
     }
 
+
+    private TextView title, content;
+    private Button next, previous;
+
+    private int track =1;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.unknown, container, false);
+
+        View view= inflater.inflate(R.layout.fragment_arul_frag_chattu_neetolai, container, false);
+
+        title = (TextView) view.findViewById(R.id.chatu_titleid1);
+        content = (TextView) view.findViewById(R.id.chatu_contentid1);
+        next = (Button) view.findViewById(R.id.chatunextbtn);
+        previous = (Button) view.findViewById(R.id.chatupreviousbtn);
+
+        try {
+            MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
+            ChattuDAO dao = db.getChattuContents(track);
+            title.setText(dao.getTitle());
+            content.setText(dao.getContent());
+
+
+            next.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View view) {
+
+                    if (track < 11) {
+                        track = track + 1;
+                    }
+                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
+
+
+                    ChattuDAO dao = db.getChattuContents(track);
+                    title.setText(dao.getTitle());
+                    content.setText(dao.getContent());
+
+                }
+
+            });
+
+            previous.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    if (track > 1) {
+                        track = track - 1;
+                    }
+                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
+                    ChattuDAO dao = db.getChattuContents(track);
+                    title.setText(dao.getTitle());
+                    content.setText(dao.getContent());
+
+                }
+            });
+
+
+        }catch (Exception e)
+        {
+            Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+        }
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -83,6 +83,11 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
     private Button buttonMovePrevious;
     private ImageView imageView;
 
+     private float lattitude, longitude;
+     private String latStr, lngStr;
+     private String taddress, taddressLine1,taddressDistrict, taddressState, taddressCountry;
+
+
      private final String GET_URL = com.avs.db.URL.url + "/getTemple.php";
 
 
@@ -167,7 +172,6 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
 
-
     }
 
 private void showJSON(String response)
@@ -186,9 +190,6 @@ private void showJSON(String response)
     }
 }
 
-private float lattitude, longitude;
-     private String latStr, lngStr;
-     private String taddress, taddressLine1,taddressDistrict, taddressState, taddressCountry;
 
 private void getTempleData()
 {
@@ -236,7 +237,7 @@ try {
     setTempleName.setText(tname);
     setTemplePlace.setText(tplace);
     setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
-    Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
+ //   Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder);//.resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
 }
 catch(Exception e)
 {

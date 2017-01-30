@@ -21,7 +21,7 @@ public class AkilathirattuMenu extends AppCompatActivity {
 
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), AkilaThirattu.class);
+                Intent intent=new Intent(getApplicationContext(), Akilam.class);
                 startActivity(intent);
             }
 

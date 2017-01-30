@@ -366,7 +366,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(AdminPoemReview.this, error.toString()+"ssss "+poemId, Toast.LENGTH_LONG).show();
+                        Toast.makeText(AdminPoemReview.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
