@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -69,6 +72,8 @@ public class Akilam extends AppCompatActivity
         akilamTitle =(TextView)findViewById(R.id.akilam_titleid1);
         akilamContent =(TextView)findViewById(R.id.akilamcontentid);
         pageNo =(TextView)findViewById(R.id.page_no);
+
+
 
 
         spin =(MaterialSpinner)findViewById(R.id.spinnerakilam123);
@@ -128,9 +133,6 @@ public class Akilam extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -267,6 +269,8 @@ public class Akilam extends AppCompatActivity
             arrayList.clear();
             akilamTitleArraySpinner.clear();
 
+            arrayList.add("நந்திவரவு");
+            arrayList.add("பேய்ப்பிறப்பு");
             arrayList.add("சோழன் வினை");
             arrayList.add("ஸ்ரீரங்கம் விட்டு சுவாமி அனந்தபுரம் ஏகல்");
             arrayList.add("பிரம்ம ரிஷிகள்");
@@ -295,6 +299,7 @@ public class Akilam extends AppCompatActivity
             arrayList.add("அம்மை உமை இரங்கள்");
             arrayList.add("திருமாள் திருகயிலை ஏகல்");
             arrayList.add("சிவன் திருமாள் ஐக்கியம்");
+            arrayList.add("தேவலோகத்தார் மனுப்பிறப்பு");
 
             addTitleInSpinner();
 
@@ -345,12 +350,13 @@ public class Akilam extends AppCompatActivity
         }
 
         else if (id == R.id.eleventh) {
+            dropDownDay=11;
             arrayList.clear();
             akilamTitleArraySpinner.clear();
 
             arrayList.add("வேறு");
             arrayList.add("பள்ளிஉணர்த்தல்");
-            arrayList.add("தேவாசகம்");
+            arrayList.add("தேவாரம்");
             arrayList.add("திருவாசகம் - 2");
             arrayList.add("வைகுண்டர் முருகனுக்கு அருளல்");
             arrayList.add("வானோர்கள் வைகுண்டரை போற்றுதல்");
@@ -368,6 +374,7 @@ public class Akilam extends AppCompatActivity
         }
 
         else if (id == R.id.twelth) {
+            dropDownDay=12;
             arrayList.clear();
             akilamTitleArraySpinner.clear();
 
@@ -378,7 +385,6 @@ public class Akilam extends AppCompatActivity
             arrayList.add("வேதவியாசர் முக்காலம் உரைத்தல்");
             arrayList.add("தெட்சணாபூமி வளம்");
             arrayList.add("திருவாசகம் - 3");
-            arrayList.add("கலிக்கு வைகுண்டர் வருகை உணர்த்துதல்");
             arrayList.add("அய்யா வைகுண்டர் திருதவம்");
             arrayList.add("அய்யா மக்களுக்கு அருளல்");
             arrayList.add("திருவாசகம் - 4");
@@ -388,6 +394,7 @@ public class Akilam extends AppCompatActivity
         }
 
         else if (id == R.id.thirteenth) {
+            dropDownDay=13;
             arrayList.clear();
             akilamTitleArraySpinner.clear();
 
@@ -408,6 +415,7 @@ public class Akilam extends AppCompatActivity
         }
 
         else if (id == R.id.fourteenth) {
+            dropDownDay=14;
             arrayList.clear();
             akilamTitleArraySpinner.clear();
 
@@ -429,6 +437,7 @@ public class Akilam extends AppCompatActivity
         }
 
         else if (id == R.id.fifteenth) {
+            dropDownDay=15;
             arrayList.clear();
             akilamTitleArraySpinner.clear();
 
@@ -449,6 +458,7 @@ public class Akilam extends AppCompatActivity
         }
 
         else if (id == R.id.sixteenth) {
+            dropDownDay=16;
             arrayList.clear();
             akilamTitleArraySpinner.clear();
 
@@ -470,6 +480,7 @@ public class Akilam extends AppCompatActivity
         }
 
         else if (id == R.id.seventeenth) {
+            dropDownDay=17;
             arrayList.clear();
             akilamTitleArraySpinner.clear();
             arrayList.add("அய்யா வைகுண்டம் எழுந்தருளல்");
@@ -810,6 +821,454 @@ public class Akilam extends AppCompatActivity
             }
         }
 
+        else if(dropDownDay ==6)
+        {
+
+            if(position ==0)
+            {   track = 101;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 108;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 111;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 114;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 115;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 117;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 118;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 119;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 122;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 124;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 125;
+                getContentByTrack();
+            }
+            else if(position ==11)
+            {
+                track = 126;
+                getContentByTrack();
+            }
+        }
+
+        else if(dropDownDay ==7)
+        {
+
+            if(position ==0)
+            {   track = 129;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 131;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 134;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 137;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 139;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 141;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 144;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 145;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 146;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 148;
+                getContentByTrack();
+            }
+        }
+
+        else if(dropDownDay ==8)
+        {
+
+            if(position ==0)
+            {   track = 149;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 151;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 152;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 155;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 157;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 161;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 165;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 168;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 169;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 173;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 183;
+                getContentByTrack();
+            }
+            else if(position ==11)
+            {
+                track = 186;
+                getContentByTrack();
+            }
+        }
+
+
+        else if(dropDownDay ==9)
+        {
+
+            if(position ==0)
+            {   track = 187;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 189;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 190;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 191;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 198;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 201;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 204;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 205;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 206;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 209;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 220;
+                getContentByTrack();
+            }
+            else if(position ==11)
+            {
+                track = 223;
+                getContentByTrack();
+            }
+        }
+
+
+        else if(dropDownDay ==10)
+        {
+
+            if(position ==0)
+            {   track = 226;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 236;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 239;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 245;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 255;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 256;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 261;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 265;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 266;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 274;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 278;
+                getContentByTrack();
+            }
+            else if(position ==11)
+            {
+                track = 297;
+                getContentByTrack();
+            }
+        }
+
+        else if(dropDownDay ==11)
+        {
+
+            if(position ==0)
+            {   track = 300;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 301;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 305;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 311;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 314;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 317;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 319;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 322;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 323;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 324;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 325;
+                getContentByTrack();
+            }
+        }
+
+        else if(dropDownDay ==12)
+        {
+
+            if(position ==0)
+            {   track = 326;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 327;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 328;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 329;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 330;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 332;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 335;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 338;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 341;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 344;
+                getContentByTrack();
+            }
+        }
+
+
+
 
 
 
@@ -869,7 +1328,7 @@ public class Akilam extends AppCompatActivity
             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
 
 
-                if (track <100 ) {
+                if (track <345 ) {
                     track = track + 1;
                 }
                 MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
@@ -878,6 +1337,7 @@ public class Akilam extends AppCompatActivity
                 akilamTitle.setText(dao.getTitle());
                 String page="Page :"+track;
                 pageNo.setText(page);
+
                  ///   Toast.makeText(getApplicationContext(), "Left to Right Swap Performed", Toast.LENGTH_SHORT).show();
 
                 return true;
@@ -894,7 +1354,6 @@ public class Akilam extends AppCompatActivity
                 akilamTitle.setText(dao.getTitle());
                 String page="Page :"+track;
                 pageNo.setText(page);
-
                 return true;
             }
 
