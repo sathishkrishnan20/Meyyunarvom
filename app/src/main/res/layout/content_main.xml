@@ -81,24 +81,23 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal">
 
-
                 <ImageButton
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/akilathirattu"
-                    android:id="@+id/akilathirattuid"
-                    android:background="@drawable/bg2"
-                    android:layout_gravity="center"/>
-
-
-
-                <ImageButton
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ayyavazhi"
                     android:id="@+id/ayyavazhiid"
-                    android:background="@drawable/bg3"
+                    android:background="@mipmap/ayyavazhi"
                     android:layout_gravity="center"/>
+
+                <ImageButton
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/akilathirattuid"
+                    android:background="@mipmap/akilathirattu"
+                    android:layout_gravity="center"/>
+
+
+
+
 
 
             </TableRow>
@@ -111,48 +110,20 @@
                 <ImageButton
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/history"
-                    android:id="@+id/historyid"
-                    android:background="@drawable/bg3"
+                    android:id="@+id/vazhipattuid"
+                    android:background="@mipmap/vazhipattu"
                     android:layout_gravity="center"/>
 
 
                 <ImageButton
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/doubt"
                     android:id="@+id/doubtid"
-                    android:background="@drawable/bg4"
+                    android:background="@mipmap/doubt"
                     android:layout_gravity="center"/>
 
             </TableRow>
-<!--
 
-
-            <TableRow android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/uchipadippu"
-                    android:id="@+id/uchipadippuid"
-                    android:layout_below="@+id/banner"
-                    android:background="@drawable/bg3"
-                    android:layout_gravity="center"/>
-
-                <ImageButton
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ukapadippu"
-                    android:id="@+id/ukapadippuid"
-                    android:layout_below="@+id/banner"
-                    android:background="@drawable/bg1"
-                    android:layout_gravity="center"/>
-            </TableRow>
-
--->
 
             <TableRow android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
@@ -163,18 +134,51 @@
                 <ImageButton
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/temples"
                     android:id="@+id/templeid"
-                    android:background="@drawable/bg2"
+                    android:background="@mipmap/temples"
                     android:layout_gravity="center"/>
 
 
                 <ImageButton
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/addtemple"
+                    android:id="@+id/historyid"
+                    android:background="@mipmap/history"
+                    android:layout_gravity="center"/>
+            </TableRow>
+
+
+
+
+
+            <TableRow android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:orientation="horizontal">
+
+                <!--           <ImageButton
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:src="@mipmap/uchipadippu"
+                               android:id="@+id/uchipadippuid"
+                               android:layout_below="@+id/banner"
+                               android:background="@drawable/bg3"
+                               android:layout_gravity="center"/>
+
+                           <ImageButton
+                               android:layout_weight="1"
+                               android:layout_height="wrap_content"
+                               android:src="@mipmap/ukapadippu"
+                               android:id="@+id/ukapadippuid"
+                               android:layout_below="@+id/banner"
+                               android:background="@drawable/bg1"
+                               android:layout_gravity="center"/>
+           -->
+            <ImageButton
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:id="@+id/addtempleid"
-                    android:background="@drawable/bg3"
+                    android:src="@mipmap/poem"
+                    android:background="@mipmap/poembg"
                     android:layout_gravity="center"/>
 
             </TableRow>

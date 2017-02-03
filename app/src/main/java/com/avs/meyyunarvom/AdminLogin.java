@@ -57,11 +57,6 @@ public class AdminLogin extends AppCompatActivity implements View.OnClickListene
         loginBtn.setOnClickListener(this);
 
     }
-
-
-
-
-
     private void checkConnection() {
         Network network = new Network();
         if (!network.isOnline(AdminLogin.this)) {
