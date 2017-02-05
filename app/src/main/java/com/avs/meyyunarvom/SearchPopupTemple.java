@@ -26,23 +26,14 @@ import java.util.HashMap;
 
 public class SearchPopupTemple extends AppCompatActivity {
 
-    // List view
     private ListView lv;
-
-    // Listview Adapter
     ArrayAdapter<String> adapter;
-
-    // Search EditText
     EditText inputSearch;
 
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +56,7 @@ public class SearchPopupTemple extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) ((width * 0.9)), (int) (height)-30);
+        getWindow().setLayout((int) ((width * 0.9)), (int) (height * 0.9));
        // Toast.makeText(this, String.valueOf(width) + " " + String.valueOf(height), Toast.LENGTH_LONG).show();
 
 

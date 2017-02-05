@@ -404,16 +404,16 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
               return;
           }
 
-          templeData.append(tempSpl+";");
-          templeData.append(tempSplDays+";");
-          templeData.append(tempVehicle+";");
-          templeData.append(tempPhNo+";");
-          templeData.append(tempAbout+";");
+          templeData.append(tempSpl+"%%");
+          templeData.append(tempSplDays+"%%");
+          templeData.append(tempVehicle+"%%");
+          templeData.append(tempPhNo+"%%");
+          templeData.append(tempAbout+"%%");
 
-          templeFullAddress.append(tempAddressLine+";");
-          templeFullAddress.append(tempDistrict+";");
-          templeFullAddress.append(tempState+";");
-          templeFullAddress.append(tempCountry+";");
+          templeFullAddress.append(tempAddressLine+"%%");
+          templeFullAddress.append(tempDistrict+"%%");
+          templeFullAddress.append(tempState+"%%");
+          templeFullAddress.append(tempCountry+"%%");
 
           tempAddress=templeFullAddress.toString();
           tempDesc = templeData.toString();

@@ -91,15 +91,12 @@ public class TempleSearchDistrict extends AppCompatActivity {
 
                 String districtName = String.valueOf(templeDistrictList.get(position));
                 intent1.putExtra("districtName",districtName);
-                intent1.putExtra("isClicked","Y");
+                intent1.putExtra("isClicked",true);
                 startActivity(intent1);
             }
         });
 
     }
-
-
-
 
     public void getDistrictsFromDB() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_URL,

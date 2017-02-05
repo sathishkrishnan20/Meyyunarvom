@@ -67,7 +67,7 @@ public class Temples extends AppCompatActivity
 
 
 
-    private TextView setTempleName, setTemplePlace, setTempleDesc;
+    private TextView setTempleName, setTemplePlace, setTempleDescSpl,setTempleDescFestival,setTempleDescVehicle,setTempleMobileNo,setTempleAbout ;
     private ImageView imageView;
 
      private float lattitude, longitude;
@@ -82,7 +82,7 @@ public class Temples extends AppCompatActivity
 
      String districtName ="noDist";
 
-     String isDistClicked = "N";
+     Boolean isDistClicked = false ;
 
 
      @Override
@@ -100,9 +100,17 @@ public class Temples extends AppCompatActivity
 
          //lv_languages = (ListView) findViewById(R.id.list_viewex);
 
-        setTempleDesc = (TextView)findViewById(R.id.tDescSetId);
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
-        progressBar1.setVisibility(View.VISIBLE);
+        //setTempleDesc = (TextView)findViewById(R.id.tDescSetId);
+
+         setTempleDescSpl=(TextView)findViewById(R.id.tDescSplSetId);
+         setTempleDescFestival=(TextView)findViewById(R.id.tDescFestSetId);
+         setTempleDescVehicle =(TextView)findViewById(R.id.tDescVehicleSetId);
+         setTempleMobileNo = (TextView)findViewById(R.id.tDescmobileNOSetId);
+         setTempleAbout  =(TextView)findViewById(R.id.tDescaboutSetId);
+
+
+         progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
+         progressBar1.setVisibility(View.VISIBLE);
 
          Intent intent =getIntent();
          int intentTrack=  intent.getIntExtra("track", -1);
@@ -111,8 +119,10 @@ public class Temples extends AppCompatActivity
              TRACK = intentTrack;
 
          }
-         isDistClicked = intent.getStringExtra("isClicked");
-         if(isDistClicked.equals("Y")) {
+
+         isDistClicked = intent.getBooleanExtra("isClicked",false);
+
+         if(isDistClicked) {
              districtName = intent.getStringExtra("districtName");
          }
 
@@ -228,7 +238,7 @@ public void getTempleData(int TRACK)
 
         setTempleData();
 
-        addressData =taddress.split(";");
+        addressData =taddress.split("%%");
         taddressLine1=addressData[0];
         taddressDistrict=addressData[1];
         taddressState=addressData[2];
@@ -254,11 +264,23 @@ try {
     progressBar1.setVisibility(View.GONE);
 
     String templeDesc[]=new String[5];
-    templeDesc= tdesc.split(";");
+    templeDesc= tdesc.split("%%");
 
     setTempleName.setText(tname);
     setTemplePlace.setText(tplace);
-    setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
+
+
+    setTempleDescSpl.setText(templeDesc[0]);
+
+
+    setTempleDescFestival.setText(templeDesc[1]);
+    setTempleDescVehicle.setText(templeDesc[2]);
+    setTempleMobileNo.setText(templeDesc[3]);
+    setTempleAbout.setText(templeDesc[4]);
+
+
+
+    //setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
     Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
 }
 catch(Exception e)
@@ -292,7 +314,11 @@ catch(Exception e)
      {
          setTempleName.setText("");
          setTemplePlace.setText("");
-         setTempleDesc.setText("");
+         setTempleDescFestival.setText("");
+         setTempleDescVehicle.setText("");
+         setTempleMobileNo.setText("");
+         setTempleAbout.setText("");
+
      }
 
 
