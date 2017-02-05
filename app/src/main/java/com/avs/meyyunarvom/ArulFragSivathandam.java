@@ -83,9 +83,6 @@ public class ArulFragSivathandam extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_arul_frag_sivathandam, container, false);
 
-        hiddenPanel = (ViewGroup)view.findViewById(R.id.hidden_panel);
-        hiddenPanel.setVisibility(View.INVISIBLE);
-        isPanelShown = false;
 
 
         title = (TextView) view.findViewById(R.id.siva_titleid1);
@@ -113,7 +110,7 @@ public class ArulFragSivathandam extends Fragment {
                     SivaThandamDAO dao = db.getSivaThandamContents(track);
                     title.setText(dao.getTitle());
                     content.setText(dao.getContent());
-                    slideUpDown();
+
 
                 }
 
@@ -131,7 +128,6 @@ public class ArulFragSivathandam extends Fragment {
                     SivaThandamDAO dao = db.getSivaThandamContents(track);
                     title.setText(dao.getTitle());
                     content.setText(dao.getContent());
-                    slideUpDown();
 
                 }
             });
@@ -185,21 +181,11 @@ public class ArulFragSivathandam extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    private ViewGroup hiddenPanel;
-    private boolean isPanelShown;
 
 
 
-    public void slideUpDown() {
-
-            // Show the panel
-            Animation bottomUp = AnimationUtils.loadAnimation(getActivity(), R.anim.bottom_up);
-            hiddenPanel.startAnimation(bottomUp);
-          //  hiddenPanel.setVisibility(View.VISIBLE);
-         //   isPanelShown = true;
 
 
-    }
 
 
 }

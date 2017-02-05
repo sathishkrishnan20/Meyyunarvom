@@ -184,8 +184,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 params.put(dpassword,password);
 
                 return params;
-
-
             }
 
 

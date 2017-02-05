@@ -1,21 +1,16 @@
 package com.avs.meyyunarvom;
 
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,9 +18,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,17 +38,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
-public class Temples extends AppCompatActivity //implements View.OnClickListener//SearchView.OnQueryTextListener
+public class Temples extends AppCompatActivity
+       // implements SearchView.OnQueryTextListener, SearchView.OnCloseListener//, Button.OnClickListener//SearchView.OnQueryTextListener, View.OnClickListener
  {
      private GestureDetector mGesture;
      static final int SWIPE_MIN_DISTANCE = 120;
@@ -62,9 +53,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
      private ProgressBar progressBar1;
 
-
-
-     String tname = "";
+    String tname = "";
     String tplace = "";
     String tdesc = "";
     String tImageUrl = "";
@@ -78,9 +67,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
 
 
-    private TextView setTempleName, setTemplePlace, setTempleDesc;
-    private Button buttonMoveNext;
-    private Button buttonMovePrevious;
+    private TextView setTempleName, setTemplePlace, setTempleDescSpl,setTempleDescFestival,setTempleDescVehicle,setTempleMobileNo,setTempleAbout ;
     private ImageView imageView;
 
      private float lattitude, longitude;
@@ -91,34 +78,59 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
      private final String GET_URL = com.avs.db.URL.url + "/getTemple.php";
 
 
-    @Override
+     ArrayList templePlaceList = new ArrayList();
+
+     String districtName ="noDist";
+
+     Boolean isDistClicked = false ;
+
+
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temples);
+
+
         checkConnection();
         mGesture = new GestureDetector(this, mOnGesture);
 
         imageView=(ImageView)findViewById(R.id.imageViewShow);
-      //  buttonMoveNext = (Button) findViewById(R.id.buttonNext);
-      //  buttonMovePrevious = (Button) findViewById(R.id.buttonPrev);
-  //      buttonMoveNext.setOnClickListener(this);
-    //    buttonMovePrevious.setOnClickListener(this);
-
         setTempleName=(TextView)findViewById(R.id.tNameSetId);
         setTemplePlace=(TextView)findViewById(R.id.tPlaceSetId);
-        setTempleDesc = (TextView)findViewById(R.id.tDescSetId);
+
+         //lv_languages = (ListView) findViewById(R.id.list_viewex);
+
+        //setTempleDesc = (TextView)findViewById(R.id.tDescSetId);
+
+         setTempleDescSpl=(TextView)findViewById(R.id.tDescSplSetId);
+         setTempleDescFestival=(TextView)findViewById(R.id.tDescFestSetId);
+         setTempleDescVehicle =(TextView)findViewById(R.id.tDescVehicleSetId);
+         setTempleMobileNo = (TextView)findViewById(R.id.tDescmobileNOSetId);
+         setTempleAbout  =(TextView)findViewById(R.id.tDescaboutSetId);
 
 
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
-        progressBar1.setVisibility(View.VISIBLE);
+         progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
+         progressBar1.setVisibility(View.VISIBLE);
+
+         Intent intent =getIntent();
+         int intentTrack=  intent.getIntExtra("track", -1);
+         if(intentTrack != -1)
+         {
+             TRACK = intentTrack;
+
+         }
+
+         isDistClicked = intent.getBooleanExtra("isClicked",false);
+
+         if(isDistClicked) {
+             districtName = intent.getStringExtra("districtName");
+         }
+
+         getTemplesFromDB();
 
 
-        getTemplesFromDB();
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
@@ -127,7 +139,11 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
             }
         });
 
-    }
+     }
+
+
+
+
 
      @Override
      public void onBackPressed() {
@@ -148,7 +164,8 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
     }
 
     public void getTemplesFromDB() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_URL,
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_URL,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -156,19 +173,25 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
                         showJSON(response);
 
-
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-
                 progressBar1.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"hello"+districtName+ error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String,String> getParams()
+            {
+                Map <String,String> params=new HashMap<String,String>();
+                params.put("district", districtName);
+
+                return params;
             }
 
-
-        });
+        };
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
 
@@ -181,17 +204,19 @@ private void showJSON(String response)
         jsonObject = new JSONObject(response);
         result=jsonObject.getJSONArray("result");
         templeDataLength = result.length();
-        getTempleData();
+        setSetTemplePlace();
+        getTempleData(TRACK);
     }
 
     catch (Exception e) {
 
+        Toast.makeText(getApplicationContext(),"Error"+e.toString(), Toast.LENGTH_SHORT).show();
         e.printStackTrace();
     }
 }
 
 
-private void getTempleData()
+public void getTempleData(int TRACK)
 {
 
     try {
@@ -209,21 +234,28 @@ private void getTempleData()
         lngStr=templeData.getString("longitude");
         lattitude=Float.parseFloat(latStr);
         longitude=Float.parseFloat(lngStr);
+
+
         setTempleData();
 
-        addressData =taddress.split(";");
+        addressData =taddress.split("%%");
         taddressLine1=addressData[0];
         taddressDistrict=addressData[1];
         taddressState=addressData[2];
         taddressCountry=addressData[3];
 
 
+
+
+
     }
     catch (JSONException e)
     {
+        Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
         e.printStackTrace();
     }
 }
+
 
  private void setTempleData()
  {
@@ -232,12 +264,24 @@ try {
     progressBar1.setVisibility(View.GONE);
 
     String templeDesc[]=new String[5];
-    templeDesc= tdesc.split(";");
+    templeDesc= tdesc.split("%%");
 
     setTempleName.setText(tname);
     setTemplePlace.setText(tplace);
-    setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
- //   Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder);//.resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
+
+
+    setTempleDescSpl.setText(templeDesc[0]);
+
+
+    setTempleDescFestival.setText(templeDesc[1]);
+    setTempleDescVehicle.setText(templeDesc[2]);
+    setTempleMobileNo.setText(templeDesc[3]);
+    setTempleAbout.setText(templeDesc[4]);
+
+
+
+    //setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
+    Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
 }
 catch(Exception e)
 {
@@ -248,11 +292,33 @@ catch(Exception e)
 
 
 
+     JSONObject templePlaceData ;
+
+     private void setSetTemplePlace() {
+         try {
+             templePlaceList.clear();
+             for (int templeCount = 0; templeCount < templeDataLength; templeCount++) {
+                 templePlaceData = result.getJSONObject(templeCount);
+                 templePlaceList.add(templePlaceData.getString("tplace")+" ("+templePlaceData.getString("tname")+")");
+             }
+         }
+         catch (JSONException e)
+         {
+             Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+             e.printStackTrace();
+         }
+     }
+
+
      private void resetFields()
      {
          setTempleName.setText("");
          setTemplePlace.setText("");
-         setTempleDesc.setText("");
+         setTempleDescFestival.setText("");
+         setTempleDescVehicle.setText("");
+         setTempleMobileNo.setText("");
+         setTempleAbout.setText("");
+
      }
 
 
@@ -261,7 +327,8 @@ catch(Exception e)
         if(TRACK < templeDataLength-1){
             TRACK++;
             resetFields();
-            getTempleData();
+            getTempleData(TRACK);
+
         }
     }
 
@@ -270,7 +337,7 @@ catch(Exception e)
         if(TRACK>0){
             TRACK--;
             resetFields();
-            getTempleData();
+            getTempleData(TRACK);
         }
     }
 
@@ -329,17 +396,111 @@ catch(Exception e)
          }
      };
 
-
+     SearchView searchView;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.view_temple_menu, menu);
+/*
+        MenuItem search_item = menu.findItem(R.id.action_search_temp);
+        searchView = (SearchView) search_item.getActionView();
+        searchView.setFocusable(false);
+        searchView.setQueryHint("Search");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+
+                //clear the previous data in search arraylist if exist
+                search_result_arraylist.clear();
+
+                keyword = s.toUpperCase();
+
+                //checking language arraylist for items containing search keyword
+
+                for(int i =0 ;i < languagesarraylist.size();i++){
+                    if(languagesarraylist.get(i).contains(keyword)){
+                        search_result_arraylist.add(languagesarraylist.get(i).toString());
+                    }
+                }
+
+                language_adapter = new ArrayAdapter<String>(Temples.this,android.R.layout.simple_list_item_1,search_result_arraylist);
+                lv_languages.setAdapter(language_adapter);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+*/
         return true;
+
     }
 
 
-    @Override
+/*
+     private void setupSearchView() {
+         searchView.setIconifiedByDefault(true);
+
+
+         List<SearchableInfo> searchables = searchManager.getSearchablesInGlobalSearch();
+
+         // Try to use the "applications" global search provider
+         SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
+
+         for (SearchableInfo inf : searchables) {
+             if (inf.getSuggestAuthority() != null
+                     && inf.getSuggestAuthority().startsWith("applications")) {
+                 info = inf;
+             }
+         }
+         searchView.setSearchableInfo(info);
+}
+
+         searchView.setOnQueryTextListener(this);
+         searchView.setOnCloseListener(this);
+     }
+
+     public boolean onQueryTextChange(String newText) {
+         Toast.makeText(this,"text "+newText,Toast.LENGTH_LONG).show();
+
+         return false;
+     }
+
+     public boolean onQueryTextSubmit(String query) {
+
+         Toast.makeText(this,"query "+query,Toast.LENGTH_LONG).show();
+         search_result_arraylist.clear();
+
+         keyword = query.toUpperCase();
+
+         //checking language arraylist for items containing search keyword
+
+         for(int i =0 ;i < languagesarraylist.size();i++){
+             if(languagesarraylist.get(i).contains(keyword)){
+                 search_result_arraylist.add(languagesarraylist.get(i).toString());
+             }
+         }
+
+         language_adapter = new ArrayAdapter<String>(Temples.this,android.R.layout.simple_list_item_1,search_result_arraylist);
+         lv_languages.setAdapter(language_adapter);
+
+         return false;
+
+     }
+
+     public boolean onClose() {
+         Toast.makeText(this, "closed", Toast.LENGTH_LONG).show();
+         return false;
+     }
+     */
+
+     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_goto_loc)
@@ -365,10 +526,21 @@ catch(Exception e)
             });
             alertDialog.show();
 
-
-
-
         }
+
+        else if(id ==R.id.action_search_temp)
+        {
+
+            Intent intent = new Intent(this ,SearchPopupTemple.class);
+            intent.putExtra("placeList", templePlaceList);
+            startActivity(intent);
+        }
+        else if(id== R.id.action_search_by_dist)
+        {
+            Intent intent = new Intent(this, TempleSearchDistrict.class);
+            startActivity(intent);
+        }
+
 
         return true;
     }
@@ -395,10 +567,8 @@ catch(Exception e)
              }
          }
 
-
-
-
      }
+
 
 
  }

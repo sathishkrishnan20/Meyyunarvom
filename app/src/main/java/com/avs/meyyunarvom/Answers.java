@@ -235,7 +235,7 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
         }
         else {
 
-              Intent intent = new Intent(this ,AnswerPopup.class);
+                Intent intent = new Intent(this ,AnswerPopup.class);
                 intent.putExtra("Response", responseData);
                 intent.putExtra("Position",position);
                 startActivity(intent);
