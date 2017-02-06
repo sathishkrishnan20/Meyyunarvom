@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,10 @@ public class Akilam extends AppCompatActivity
 
     private int dropDownDay= 1;
 
+    private EditText seacrchText;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +78,7 @@ public class Akilam extends AppCompatActivity
         akilamContent =(TextView)findViewById(R.id.akilamcontentid);
         pageNo =(TextView)findViewById(R.id.page_no);
 
+        seacrchText = (EditText)findViewById(R.id.seacrchText);
 
 
 
@@ -119,6 +125,12 @@ public class Akilam extends AppCompatActivity
         return true;
     }
 
+     public void searchByNumber()
+     {
+            track =  Integer.parseInt(seacrchText.getText().toString().trim());
+            getContentByTrack();
+     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -130,7 +142,6 @@ public class Akilam extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -139,6 +150,10 @@ public class Akilam extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+
+
+
 
         if (id == R.id.first) {
 
@@ -1267,11 +1282,324 @@ public class Akilam extends AppCompatActivity
             }
         }
 
+        else if(dropDownDay ==13)
+        {
+
+            if(position ==0)
+            {   track = 345;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 355;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 356;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 361;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 368;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 372;
+                getContentByTrack();
+            } else if(position ==6)
+            {
+                track = 374;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 376;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 376;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 379;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 381;
+                getContentByTrack();
+            }
+        }
 
 
+        else if(dropDownDay ==14)
+        {
+
+            if(position ==0)
+            {   track = 382;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 383;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 385;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 386;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 388;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 394;
+                getContentByTrack();
+            }
+            else if(position ==6)
+            {
+                track = 397;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 403;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 409;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 414;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 420;
+                getContentByTrack();
+            }
+        }
+
+        else if(dropDownDay ==15)
+        {
+
+            if(position ==0)
+            {   track = 424;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 425;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 429;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 439;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 443;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 444;
+                getContentByTrack();
+            }
+            else if(position ==6)
+            {
+                track = 447;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 448;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 452;
+                getContentByTrack();
+            }
+
+            else if(position ==9)
+            {
+                track = 461;
+                getContentByTrack();
+            }
+            else if(position ==10)
+            {
+                track = 462;
+                getContentByTrack();
+            }
+
+        }
 
 
+        else if(dropDownDay ==16)
+        {
 
+            if(position ==0)
+            {   track = 470;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 474;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 478;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 482;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 483;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 486;
+                getContentByTrack();
+            }
+            else if(position ==6)
+            {
+                track = 488;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 490;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 491;
+                getContentByTrack();
+            }
+            else if(position ==9)
+            {
+                track = 494;
+                getContentByTrack();
+            }
+
+            else if(position ==10)
+            {
+                track = 496;
+                getContentByTrack();
+            }
+
+        }
+
+        else if(dropDownDay ==17)
+        {
+
+            if(position ==0)
+            {   track = 497;
+                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+                getContentByTrack();
+            }
+
+            else if(position ==1)
+            {
+                track = 501;
+                getContentByTrack();
+            }
+
+            else if(position ==2)
+            {
+                track = 503;
+                getContentByTrack();
+            }
+            else if(position ==3)
+            {
+                track = 505;
+                getContentByTrack();
+            }
+            else if(position ==4)
+            {
+                track = 507;
+                getContentByTrack();
+            }
+            else if(position ==5)
+            {
+                track = 508;
+                getContentByTrack();
+            }
+            else if(position ==6)
+            {
+                track = 510;
+                getContentByTrack();
+            }
+            else if(position ==7)
+            {
+                track = 521;
+                getContentByTrack();
+            }
+            else if(position ==8)
+            {
+                track = 522;
+                getContentByTrack();
+            }
+            else if(position ==9)
+            {
+                track = 528;
+                getContentByTrack();
+            }
+
+            else if(position ==10)
+            {
+                track = 529;
+                getContentByTrack();
+            }
+
+        }
 
     }
 
@@ -1279,13 +1607,18 @@ public class Akilam extends AppCompatActivity
 
     private void getContentByTrack()
     {
-        MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
-        AkilathirattuDAO dao = db.getAkilamContent(track);
-        akilamContent.setText(dao.getContent());
-        akilamTitle.setText(dao.getTitle());
-        String page="Page :"+track;
-        pageNo.setText(page);
-
+        try {
+            MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
+            AkilathirattuDAO dao = db.getAkilamContent(track);
+            akilamContent.setText(dao.getContent());
+            akilamTitle.setText(dao.getTitle());
+            String page = "Page :" + track;
+            pageNo.setText(page);
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this, "Error in "+String.valueOf(track),Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -1328,7 +1661,7 @@ public class Akilam extends AppCompatActivity
             if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
 
 
-                if (track <345 ) {
+                if (track <533 ) {
                     track = track + 1;
                 }
                 MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
