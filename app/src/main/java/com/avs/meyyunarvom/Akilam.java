@@ -2,6 +2,7 @@ package com.avs.meyyunarvom;
 
 import android.os.Bundle;
 
+import android.support.v7.widget.SearchView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.avs.db.MeyyunarvomDB;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import java.util.ArrayList;
 
+import static android.text.InputType.TYPE_CLASS_NUMBER;
+
 public class Akilam extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,AdapterView.OnItemSelectedListener ,View.OnClickListener{
 
@@ -51,7 +54,6 @@ public class Akilam extends AppCompatActivity
 
     private int dropDownDay= 1;
 
-    private EditText seacrchText;
 
 
 
@@ -78,7 +80,6 @@ public class Akilam extends AppCompatActivity
         akilamContent =(TextView)findViewById(R.id.akilamcontentid);
         pageNo =(TextView)findViewById(R.id.page_no);
 
-        seacrchText = (EditText)findViewById(R.id.seacrchText);
 
 
 
@@ -122,14 +123,42 @@ public class Akilam extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.akilam, menu);
+
+        MenuItem   searchMenuItem = menu.findItem(R.id.action_search_akilam);
+        SearchView mSearchView = (SearchView) searchMenuItem.getActionView();
+        mSearchView.setInputType(TYPE_CLASS_NUMBER);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String searchText) {
+
+              try {
+                  Integer.parseInt(searchText);
+                  track = Integer.parseInt(searchText);
+                  getContentByTrack();
+
+              }catch (NumberFormatException e)
+              {
+                  Toast.makeText(getApplicationContext(), "Please Enter Valid Number", Toast.LENGTH_LONG).show();
+              }
+
+                return false;
+
+            }
+
+            @Override
+            public boolean onQueryTextChange(String searchText) {
+
+                return false;
+            }
+
+
+        });
+
+
+
         return true;
     }
-
-     public void searchByNumber()
-     {
-            track =  Integer.parseInt(seacrchText.getText().toString().trim());
-            getContentByTrack();
-     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -139,9 +168,7 @@ public class Akilam extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -1286,8 +1313,7 @@ public class Akilam extends AppCompatActivity
         {
 
             if(position ==0)
-            {   track = 345;
-                //Toast.makeText(this,position,Toast.LENGTH_SHORT).show();
+            {   track = 346;
                 getContentByTrack();
             }
 

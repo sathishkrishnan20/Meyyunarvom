@@ -30,10 +30,6 @@ public class SearchPopupTemple extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     EditText inputSearch;
 
-    private GoogleApiClient client;
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +43,7 @@ public class SearchPopupTemple extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.list_viewex);
         inputSearch = (EditText) findViewById(R.id.inputSearch);
+
 
         // Adding items to listview
         adapter = new ArrayAdapter(this, R.layout.list_item, R.id.product_name, arrayList);
@@ -95,46 +92,7 @@ public class SearchPopupTemple extends AppCompatActivity {
             });
 
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
 
     }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("SearchPopupTemple Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 }

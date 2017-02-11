@@ -21,7 +21,10 @@ public class ArulnoolMenu extends AppCompatActivity implements
                                     ArulFragSivathandam.OnFragmentInteractionListener,
                                     ArulFragThingalPatham.OnFragmentInteractionListener,
                                     ArulFragChattuNeetolai.OnFragmentInteractionListener,
-                                    ArulFragKalyanaVazhthu.OnFragmentInteractionListener
+                                    ArulFragKalyanaVazhthu.OnFragmentInteractionListener,
+                                    ArulFragPanchaThevar.OnFragmentInteractionListener,
+                                    ArulFragSapthaKanniPadal.OnFragmentInteractionListener,
+                                    ArulFragNadutheerpuUla.OnFragmentInteractionListener
         //, AkilathirattuAmmanai.OnFragmentInteractionListener
 
 {
@@ -34,10 +37,10 @@ public class ArulnoolMenu extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arulnool_menu);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager_arul);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs_arul);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -47,10 +50,13 @@ public class ArulnoolMenu extends AppCompatActivity implements
         adapter.addFragment(new ArulFragUkapadippu(), "உகப் படிப்பு");
         adapter.addFragment(new ArulFragVazhapadippu(), "வாழப் படிப்பு");
         adapter.addFragment(new ArulNoolFragThanaNiraivuVasakam(), "தானநிறைவு வாசகம்");
+        adapter.addFragment(new ArulFragChattuNeetolai(), "சாட்டு நீட்டோலை");
         adapter.addFragment(new ArulFragPathiram(), "பத்திரம்");
         adapter.addFragment(new ArulFragSivathandam(), "சிவதாண்ட அதிகார பத்திரம்");
+        adapter.addFragment(new ArulFragSapthaKanniPadal(), "சப்த கன்னிமார் பாடல்");
         adapter.addFragment(new ArulFragThingalPatham(), "திங்கள் பதம்");
-        adapter.addFragment(new ArulFragChattuNeetolai(), "சாட்டு நீட்டோலை");
+        adapter.addFragment(new ArulFragPanchaThevar(), "பஞ்சதேவர் உற்பத்தி");
+        adapter.addFragment(new ArulFragNadutheerpuUla(), "Nadutheerpu Ula");
         adapter.addFragment(new ArulFragKalyanaVazhthu(), "கல்யாண வாழ்த்து");
       //  adapter.addFragment(new AkilathirattuAmmanai(), "கல்யாண");
 
