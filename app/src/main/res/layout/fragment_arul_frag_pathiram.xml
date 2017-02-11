@@ -4,10 +4,84 @@
     android:layout_height="match_parent"
     tools:context="com.avs.meyyunarvom.ArulFragPathiram">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relsudalai_his_id">
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="1dp"
+            android:paddingStart="3dp"
+            android:paddingEnd="1dp"
+        android:gravity="center"
+        android:background="@color/colordoubt"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:id="@+id/arul_pathiram_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/arul_pathiram_title">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/relative_content">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_marginBottom="45dp"
+                android:textIsSelectable="false"
+                style="@style/AlertDialog.AppCompat.Light"
+                android:textSize="18sp"
+                android:id="@+id/arul_pathiram_content"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TableRow
+            android:background="@color/white">
+
+            <Button
+                android:text="Previous"
+                android:layout_weight="1"
+                style="?buttonBarButtonStyle"
+                android:padding="2dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/arul_pathiram_previousbtn"
+                android:background="@color/colorAccent"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:text="Next"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                style="?buttonBarButtonStyle"
+                android:background="@color/colorAccent"
+                android:textColor="@color/white"
+                android:id="@+id/arul_pathiram_nextbtn"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>
 </FrameLayout>

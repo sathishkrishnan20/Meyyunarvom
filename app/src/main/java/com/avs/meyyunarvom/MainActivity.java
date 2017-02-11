@@ -283,33 +283,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
-/*
-        else if(id==R.id.profilelogout)
-        {
-
-            SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-            SharedPreferences.Editor editor=userdetails.edit();
-            if(userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin"))
-            {
-            editor.remove("name");
-            editor.remove("email");
-            editor.remove("isLogin");
-            editor.apply();
-            editor.commit();
-                Intent intent =new Intent(this,LoginActivity.class);
-                startActivity(intent);
-                Toast.makeText(getApplicationContext(),"Logout Succesfully",Toast.LENGTH_SHORT).show();
-           }
-            else
-            {
-                Toast.makeText(getApplicationContext(),"Your are already Logged out",Toast.LENGTH_SHORT).show();
-            }
-}
-  */
-
         else if (id == R.id.about_us)
         {
-
+            Intent intent =new Intent(this, UserTemple.class);
+            startActivity(intent);
         }
         else if (id == R.id.help_faq) {
 

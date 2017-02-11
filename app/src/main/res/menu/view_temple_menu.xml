@@ -14,11 +14,12 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_search_temp"
+        android:id="@+id/action_search_temp123"
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_search"
         android:title="@string/action_search"
-        app:showAsAction="always"/>
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item
         android:id="@+id/action_search_by_dist"

@@ -1,31 +1,23 @@
 package com.avs.meyyunarvom;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.avs.db.MeyyunarvomDB;
-import com.avs.db.PathiramDAO;
-import com.avs.db.SivaThandamDAO;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ArulFragPathiram.OnFragmentInteractionListener} interface
+ * {@link ArulFragNadutheerpuUla.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ArulFragPathiram#newInstance} factory method to
+ * Use the {@link ArulFragNadutheerpuUla#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ArulFragPathiram extends Fragment {
+public class ArulFragNadutheerpuUla extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +29,7 @@ public class ArulFragPathiram extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ArulFragPathiram() {
+    public ArulFragNadutheerpuUla() {
         // Required empty public constructor
     }
 
@@ -47,11 +39,11 @@ public class ArulFragPathiram extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ArulFragPathiram.
+     * @return A new instance of fragment ArulFragNadutheerpuUla.
      */
     // TODO: Rename and change types and number of parameters
-    public static ArulFragPathiram newInstance(String param1, String param2) {
-        ArulFragPathiram fragment = new ArulFragPathiram();
+    public static ArulFragNadutheerpuUla newInstance(String param1, String param2) {
+        ArulFragNadutheerpuUla fragment = new ArulFragNadutheerpuUla();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,78 +57,14 @@ public class ArulFragPathiram extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-
         }
     }
-
-
-
-    private TextView title, content;
-    private Button next, previous;
-    private int track = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_arul_frag_pathiram, container, false);
-
-        title = (TextView) view.findViewById(R.id.arul_pathiram_title);
-        content = (TextView) view.findViewById(R.id.arul_pathiram_content);
-        next = (Button) view.findViewById(R.id.arul_pathiram_nextbtn);
-        previous = (Button) view.findViewById(R.id.arul_pathiram_previousbtn);
-
-
-        try {
-            MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-            PathiramDAO dao = db.getPathiramContents(track);
-            title.setText(dao.getTitle());
-            content.setText(dao.getContent());
-
-
-            next.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View view) {
-
-                    if (track < 8) {
-                        track = track + 1;
-                    }
-                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-
-
-                    PathiramDAO dao = db.getPathiramContents(track);
-                    title.setText(dao.getTitle());
-                    content.setText(dao.getContent());
-                }
-
-            });
-
-            previous.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                    if (track > 1) {
-                        track = track - 1;
-                    }
-                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-                    PathiramDAO dao = db.getPathiramContents(track);
-                    title.setText(dao.getTitle());
-                    content.setText(dao.getContent());
-                }
-            });
-
-        }catch (Exception e)
-        {
-            Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
-        }
-
-
-
-
         // Inflate the layout for this fragment
-        return view;
+        return inflater.inflate(R.layout.fragment_arul_frag_nadutheerpu_ula, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

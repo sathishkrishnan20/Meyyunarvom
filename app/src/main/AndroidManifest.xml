@@ -226,7 +226,7 @@
         <activity
             android:name=".SearchPopupTemple"
             android:theme="@style/MyMaterialTheme.Base"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".AnswersUpdatePopup"
             android:theme="@style/MyMaterialTheme.Base" />
@@ -266,7 +266,10 @@
             android:name=".Akilam"
             android:label="@string/title_activity_akilam"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TempleSearchDistrict"></activity>
+        <activity android:name=".TempleSearchDistrict" />
+        <activity android:name=".UserTemple"
+            android:label="@string/title_activity_akilam"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
