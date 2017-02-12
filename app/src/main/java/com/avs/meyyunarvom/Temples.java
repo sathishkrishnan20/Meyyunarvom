@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -45,6 +46,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 public class Temples extends AppCompatActivity //implements View.OnClickListener
@@ -92,6 +94,9 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
      RelativeLayout layout;
 
+     private LinearLayout expandCollapseLayout;
+     private ImageView expandCollapseButton;
+     private ImageView expandCollapseArrow;
 
      private boolean isSearchButonPressed =false;
 
@@ -109,6 +114,30 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
         setTemplePlace=(TextView)findViewById(R.id.tPlaceSetId);
         setTempleDist=(TextView)findViewById(R.id.tdistSetId);
         layout =(RelativeLayout)findViewById(R.id.relativeTemple);
+        expandCollapseLayout =(LinearLayout)findViewById(R.id.expand_collapse_layout);
+        expandCollapseButton= (ImageView) findViewById(R.id.expand_collapse);
+        expandCollapseArrow =(ImageView)findViewById(R.id.expand_collapse_arrow);
+        expandCollapseLayout.setVisibility(View.GONE);
+
+         expandCollapseButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+
+                 if(expandCollapseLayout.getVisibility()==GONE) {
+
+                     expandCollapseLayout.setVisibility(View.VISIBLE);
+                     expandCollapseArrow.setImageResource(R.drawable.ic_action_collapse);
+
+                 }
+                 else if(expandCollapseLayout.getVisibility()==VISIBLE)
+                 {
+                     expandCollapseLayout.setVisibility(View.GONE);
+                     expandCollapseArrow.setImageResource(R.drawable.ic_action_expand);
+                 }
+
+             }
+         });
+
 
          lv = (ListView) findViewById(R.id.list_viewextemp);
          lv.setVisibility(View.GONE);
@@ -381,6 +410,8 @@ public void getTempleData(int TRACK)
 
     try {
 
+        expandCollapseLayout.setVisibility(View.GONE);
+        expandCollapseArrow.setImageResource(R.drawable.ic_action_expand);
 
         JSONObject templeData = result.getJSONObject(TRACK);
 
