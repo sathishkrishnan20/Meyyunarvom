@@ -12,7 +12,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
         android:id="@+id/linearTe"
         android:paddingTop="4dp"
 
@@ -258,7 +257,21 @@
             android:layout_weight="1"
             android:id="@+id/timageviewaddtemp" />
 
-    </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ADD Temple"
+                    style="?android:textAppearanceSmall"
+                    android:background = "#ec45a1"
+                    android:textAllCaps ="false"
+                    android:textColor = "#fff"
+                    android:textStyle = "bold"
+                    android:textSize = "18sp"
+                    android:isScrollContainer="true"
+                    android:id="@+id/tuploadbtnaddtemp"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -266,18 +279,5 @@
 
 
     </LinearLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ADD Temple"
-        style="?android:textAppearanceSmall"
-        android:background = "#ec45a1"
-        android:textAllCaps ="false"
-        android:textColor = "#fff"
-        android:textStyle = "bold"
-        android:textSize = "18sp"
-        android:isScrollContainer="true"
-        android:layout_marginTop="460dp"
-        android:id="@+id/tuploadbtnaddtemp"/>
 
 </RelativeLayout>
