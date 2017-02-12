@@ -267,9 +267,11 @@
             android:label="@string/title_activity_akilam"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TempleSearchDistrict" />
-        <activity android:name=".UserTemple"
+        <activity
+            android:name=".UserTemple"
             android:label="@string/title_activity_akilam"
             android:theme="@style/AppTheme" />
+        <activity android:name=".UserTempleUpdate"></activity>
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -133,7 +134,6 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         templeDistrict =(EditText)findViewById(R.id.admintempdistrict);
         templeState= (EditText)findViewById(R.id.admintempstate);
         templeCountry =(EditText)findViewById(R.id.admintempcountry);
-
 
 
         templeSpl = (EditText) findViewById(R.id.admintempdescspl);
@@ -277,8 +277,8 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
             String templeDesc[]=new String[5];
             String templeAddess[]=new String[4];
-            templeDesc = tdesc.split(";");
-            templeAddess = tAddress.split(";");
+            templeDesc = tdesc.split("%%");
+            templeAddess = tAddress.split("%%");
 
 
             userDetailsText = userDetailsText +"     Name: " + userName+" \n";
@@ -388,10 +388,11 @@ int mapRequest =0;
 
         if(view == editLatLng)
         {
-            mapRequest =1;
+           /* mapRequest =1;
             Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
             intent.putExtra("redirectPage","adminTemple");
             startActivity(intent);
+            */
         }
 
         if(view ==deleteTemple)
@@ -399,12 +400,12 @@ int mapRequest =0;
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
             alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete Temple. You cannot Recover");
+            alertDialog.setMessage("Are You Sure Want to Remove Temple From here");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
-                    deletePermanently();
+                    deleteTempleFromAdminPage();
                 }
             });
             alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -424,13 +425,13 @@ int mapRequest =0;
             StringBuilder templeData = new StringBuilder();
             StringBuilder templeFullAddress = new StringBuilder();
 
-            if(mapRequest ==1) {
+            if (mapRequest == 1) {
                 Intent intent = getIntent();
                 locationByMap = intent.getStringExtra("location");
                 lattitudeByMap = intent.getDoubleExtra("lattitude", 0.0);
                 longitudeByMap = intent.getDoubleExtra("longitude", 0.0);
                 latLngByMap = intent.getStringExtra("latLng");
-                latLng.setText(lattitudeByMap+",\n"+ longitudeByMap);
+                latLng.setText(lattitudeByMap + ",\n" + longitudeByMap);
             }
 
 
@@ -439,99 +440,80 @@ int mapRequest =0;
 
             tempSpl = templeSpl.getText().toString().trim();
             tempSplDays = templeSplDays.getText().toString().trim();
-            tempVehicle =templeVehicle.getText().toString().trim();
-            tempPhNo =templePhNo.getText().toString().trim();
-            tempAbout =templeAbout.getText().toString().trim();
-
+            tempVehicle = templeVehicle.getText().toString().trim();
+            tempPhNo = templePhNo.getText().toString().trim();
+            tempAbout = templeAbout.getText().toString().trim();
 
             tempAddressLine = templeAddressLine.getText().toString().trim();
             tempDistrict = templeDistrict.getText().toString().trim();
-            tempState =templeState.getText().toString().trim();
-            tempCountry =templeCountry.getText().toString().trim();
+            tempState = templeState.getText().toString().trim();
+            tempCountry = templeCountry.getText().toString().trim();
 
-
-
-            if(tempName.length()==0){
-                Snackbar.make(view, "Enter Temple Name", Snackbar.LENGTH_SHORT).show();
-                return;}
 
             //  templeName.setError("Enter Temple Name"); return;}
-            if (tempPlace.length()==0) {
+            if (tempPlace.length() == 0) {
                 Snackbar.make(view, "Enter Temple Place", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
-            if(tempSpl.length()==0) {
+            if (tempSpl.length() == 0) {
                 // templeSplDays.setError("Enter Spl Days");
                 Snackbar.make(view, "Enter Temple Spl", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
-            if(tempSplDays.length()==0) {
+            if (tempSplDays.length() == 0) {
                 // templeSplDays.setError("Enter Spl Days");
                 Snackbar.make(view, "Enter Temple SplDays", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
-            if(tempVehicle.length()==0) {
+            if (tempVehicle.length() == 0) {
                 // templeSplDays.setError("Enter Vehicle");return;}
                 Snackbar.make(view, "Enter Temple Vehicle", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
-            if(tempAbout.length()==0) {
+            if (tempAbout.length() == 0) {
                 //  templeAbout.setError("Enter something about temple"); return; }
                 Snackbar.make(view, "Enter Temple About", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
-            if(tempPhNo.length()<5) {
+            if (tempPhNo.length() < 5) {
                 //templePhNo.setError("Enter Correct Mobile No");return;
                 Snackbar.make(view, "Enter Correct Mobile No", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
-            if(tempDistrict.length()<5) {
+            if (tempDistrict.length() < 5) {
                 //templePhNo.setError("Enter Correct Mobile No");return;
                 Snackbar.make(view, "Enter District", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
-            templeData.append(tempSpl+";");
-            templeData.append(tempSplDays+";");
-            templeData.append(tempVehicle+";");
-            templeData.append(tempPhNo+";");
-            templeData.append(tempAbout+";");
+            templeData.append(tempSpl + "%%");
+            templeData.append(tempSplDays + "%%");
+            templeData.append(tempVehicle + "%%");
+            templeData.append(tempPhNo + "%%");
+            templeData.append(tempAbout + "%%");
 
-            templeFullAddress.append(tempAddressLine+";");
-            templeFullAddress.append(tempDistrict+";");
-            templeFullAddress.append(tempState+";");
-            templeFullAddress.append(tempCountry+";");
+            templeFullAddress.append(tempAddressLine + "%%");
+            templeFullAddress.append(tempDistrict + "%%");
+            templeFullAddress.append(tempState + "%%");
+            templeFullAddress.append(tempCountry + "%%");
 
-            tempAddress=templeFullAddress.toString();
+            tempAddress = templeFullAddress.toString();
             tempDesc = templeData.toString();
 
 
+            if (tempName.length() == 0) {
+                Snackbar.make(view, "Enter Temple Name", Snackbar.LENGTH_SHORT).show();
 
-            //tempDesc = templeDesc.getText().toString().trim();
-
-            if(loginUserEmail==null)
-            {
-                Toast.makeText(AdminTempleReview.this, "You are Not Logged in..Please Login and Continue", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-
-            if (/*!tempName.isEmpty() && !tempPlace.isEmpty() && !tempDesc.isEmpty() &&*/ imageUploadCount == 0) {
-                Snackbar.make(view, "Please Choose the file", Snackbar.LENGTH_SHORT)
-                        .show();
-
-            }
-            else
+            } else {
                 uploadUpdate();
-
+            }
         }
-
 
     }
 
@@ -765,12 +747,16 @@ int mapRequest =0;
                 params.put(KEY_DIST, tempDistrict);
                 params.put(KEY_ADDRESS,tempAddress);
                 params.put(KEY_DESC, tempDesc);
-                //params.put(KEY_IMAGE, tempImage);
+                params.put(KEY_IMAGE, tempImage);
                 params.put(KEY_LATTITUDE, String.valueOf(lattitudeByMap));
                 params.put(KEY_LONGITIDE, String.valueOf(longitudeByMap));
                 return params;
             }
         };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
@@ -794,16 +780,16 @@ int mapRequest =0;
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete_temple_from_admin) {
+        if (id == R.id.action_delete_temple_permanent_admin) {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
             alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete from here");
+            alertDialog.setMessage("Are You Sure Want to Delete the Temple Permanently");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
-                    deleteTempleFromAdminPage();
+                    deletePermanently();
                 }
             });
             alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

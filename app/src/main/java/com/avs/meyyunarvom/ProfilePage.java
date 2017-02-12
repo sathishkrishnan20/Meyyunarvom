@@ -123,19 +123,18 @@ public class ProfilePage extends AppCompatActivity {
 
 
 
-/*
+
         userTemple.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), Answers.class);
+                Intent intent =new Intent(getApplicationContext(), UserTemple.class);
                 startActivity(intent);
-
             }
         });
 
-*/
+
 
         userEdit.setOnClickListener(new View.OnClickListener()
         {
@@ -151,14 +150,6 @@ public class ProfilePage extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

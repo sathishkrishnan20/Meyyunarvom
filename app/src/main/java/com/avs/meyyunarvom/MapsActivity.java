@@ -51,6 +51,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -83,8 +84,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleApiClient googleApiClient;
     String redirectPage="";
 
-            private ProgressBar progressBar1;
+    private ProgressBar progressBar1;
 
+    ArrayList<String> templeDetailsForUpdatePage = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +98,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         checkConnection();
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
+
         if(!userdetails.getBoolean("isLogin" ,false))
         {
             Toast.makeText(this,"Please login and Contiue",Toast.LENGTH_SHORT).show();
@@ -120,6 +123,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Intent intent=getIntent();
         redirectPage = intent.getStringExtra("redirectPage");
+
+        if(redirectPage.equals("userTempleUpdate"))
+        {
+          Intent intent1 = getIntent();
+          templeDetailsForUpdatePage = intent1.getStringArrayListExtra("templeDetailsArrayList");
+        }
+
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -140,6 +150,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                Intent intent = new Intent(this, AdminTempleReview.class);
                startActivity(intent);
 
+           }
+           if(redirectPage.equals("userTempleUpdate"))
+           {
+               Intent intent = new Intent(this, UserTemple.class);
+               startActivity(intent);
            }
        }
 
@@ -191,11 +206,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             //Moving the camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             //Animating the camera
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
          //   Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
         }catch (Exception e) {
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
         }
+    }
+
+    String templeName ="";
+    private void LocationByLatLngUserUpdate() {
+
+        LatLng latLng = new LatLng(latitude, longitude);
+        mMap.clear();
+
+        try {
+            mMap.addMarker(new MarkerOptions()
+                    .position(latLng) //setting position
+                    .draggable(false) //Making the marker draggable
+                    .title(templeName)); //Adding a title
+
+            //Moving the camera
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            //Animating the camera
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+            //   Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void geoLocationData()
@@ -207,10 +245,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             if(addresses != null) {
                 Address returnedAddress = addresses.get(0);
                 //strReturnedAddress = new StringBuilder("Address:\n");
-                strReturnedAddress.append(returnedAddress.getLocality()+";");
-                strReturnedAddress.append(returnedAddress.getSubAdminArea()+";");
-                strReturnedAddress.append(returnedAddress.getAdminArea()+";");
-                strReturnedAddress.append(returnedAddress.getCountryName()+";");
+                strReturnedAddress.append(returnedAddress.getLocality()+"%%");
+                strReturnedAddress.append(returnedAddress.getSubAdminArea()+"%%");
+                strReturnedAddress.append(returnedAddress.getAdminArea()+"%%");
+                strReturnedAddress.append(returnedAddress.getCountryName()+"%%");
 
 
                 //  Toast.makeText(this,latlong,Toast.LENGTH_LONG).show();
@@ -231,6 +269,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     intent.putExtra("lattitude", latitude);
                     intent.putExtra("longitude", longitude);
                     intent.putExtra("latLng", latlong);
+                    startActivity(intent);
+                }
+
+                if(redirectPage.equals("userTempleUpdate"))
+                {
+                    Intent intent = new Intent(this, UserTempleUpdate.class);
+                    intent.putExtra("location", strReturnedAddress.toString());
+                    intent.putExtra("lattitude", latitude);
+                    intent.putExtra("longitude", longitude);
+                    intent.putExtra("latLng", latlong);
+                    intent.putExtra("templeDetails", templeDetailsForUpdatePage);
                     startActivity(intent);
                 }
 
@@ -352,10 +401,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-             getCurrentLocation();
+
+           if(redirectPage.equals("userTempleUpdate"))
+           {
+               Intent intent = getIntent();
+               templeName = intent.getStringExtra("userTemple");
+               latitude = intent.getDoubleExtra("latUser", 9.92520007);
+               longitude = intent.getDoubleExtra("longUser", 78.1197751);
+               Toast.makeText(this, latitude+ " coming "+longitude,Toast.LENGTH_LONG).show();
+               LocationByLatLngUserUpdate();
+
+           }
+           else {
+               getCurrentLocation();
+           }
     }
 
-    @Override
+
+
+            @Override
     public void onConnectionSuspended(int i) {
 
     }

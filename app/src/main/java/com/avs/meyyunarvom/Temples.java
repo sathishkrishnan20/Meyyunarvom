@@ -422,7 +422,6 @@ try {
 
     String templeDesc[]=new String[5];
     templeDesc= tdesc.split("%%");
-    templeDesc= tdesc.split("%%");
 
     setTempleName.setText(tname);
     setTemplePlace.setText(tplace);
@@ -458,6 +457,7 @@ catch(Exception e)
          setTempleDescVehicle.setText("");
          setTempleMobileNo.setText("");
          setTempleAbout.setText("");
+         imageView.setImageResource(R.drawable.placeholder);
 
      }
 
