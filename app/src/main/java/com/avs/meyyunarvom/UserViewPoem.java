@@ -100,10 +100,11 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    @Override
     public void onBackPressed()
     {
-        finish();
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
 
     }
 
@@ -135,9 +136,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(String response) {
 
-
                         showJSON(response);
-
 
                     }
                 }, new Response.ErrorListener() {
@@ -168,7 +167,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
     }
-      int restrictButton =0;
+    int restrictButton =0;
     private void showJSON(String response)
     {
         try
@@ -247,6 +246,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
     {
         title.setText("");
         content.setText("");
+        postedBy.setText("");
 
     }
 
@@ -460,8 +460,8 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-
+                                Intent intent = new Intent(getApplicationContext() , UserViewPoem.class);
+                                startActivity(intent);
                             }
                         });
 
@@ -537,6 +537,8 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Write your code here to execute after dialog closed
+                                Intent intent = new Intent(getApplicationContext() , UserViewPoem.class);
+                                startActivity(intent);
 
                             }
                         });

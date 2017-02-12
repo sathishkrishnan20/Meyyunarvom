@@ -25,6 +25,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,6 +38,7 @@ import com.google.android.gms.identity.intents.Address;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -128,6 +130,9 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
        longitude = intent.getDoubleExtra("longitude", 0.0);
        latLng = intent.getStringExtra("latLng");
 
+
+
+
       // templePlace.setText(locationByMap);
 
 
@@ -139,7 +144,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
        chooseImage.setOnClickListener(this);
        uploadImage.setOnClickListener(this);
 
-       locationSplit= locationByMap.split(";");
+       locationSplit= locationByMap.split("%%");
 
        if (locationSplit[0].equals("null")) {
            templeAddressLine.setText("");
@@ -234,7 +239,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
    public String getStringImage(Bitmap bmp) {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+      bmp.compress(Bitmap.CompressFormat.JPEG, 80, baos);
       byte[] imageBytes = baos.toByteArray();
       String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
       return encodedImage;
@@ -323,6 +328,9 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
          }
       };
 
+       stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
       RequestQueue rq = Volley.newRequestQueue(this);
       rq.add(stringRequest);
    }

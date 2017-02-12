@@ -285,8 +285,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.about_us)
         {
-            Intent intent =new Intent(this, UserTemple.class);
-            startActivity(intent);
+
         }
         else if (id == R.id.help_faq) {
 

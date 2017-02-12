@@ -479,16 +479,17 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete_temple_from_admin) {
+        if (id == R.id.action_delete_temple_permanent_admin) {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
             alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete from here");
+            alertDialog.setMessage("Are You Sure Want to Delete the poem permanently");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
-                    deletePoemFromAdminPage();
+                    deletePermanently();
+
                 }
             });
             alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -532,12 +533,12 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
             alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete Poem. You cannot Recover");
+            alertDialog.setMessage("Are You Sure Want to Delete Poem From Here");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
-                    deletePermanently();
+                    deletePoemFromAdminPage();
                 }
             });
             alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
