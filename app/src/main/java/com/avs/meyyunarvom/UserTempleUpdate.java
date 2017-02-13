@@ -125,9 +125,11 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
         lattitude = intent.getDoubleExtra("lattitude",0.0);
         longitude = intent.getDoubleExtra("longitude", 0.0);
         latLng = intent.getStringExtra("latLng");
+
         templeDetailsList =intent.getStringArrayListExtra("templeDetails");
 
         tempId =templeDetailsList.get(0);
+        tempName = templeDetailsList.get(1);
         templeName.setText(templeDetailsList.get(1));
         templePlace.setText(templeDetailsList.get(2));
 
@@ -181,6 +183,19 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
 
         templeImage = templeDetailsList.get(3);
         Picasso.with(getApplicationContext()).load(templeImage).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(image); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent =new Intent();
+        intent.putExtra("redirectPage", "userTempleUpdate");
+        intent.putExtra("userTemple",tempName);
+        intent.putExtra("latUser", lattitude);
+        intent.putExtra("longUser",longitude);
+        intent.putExtra("templeDetailsArrayList", templeDetailsList);
+
+        startActivity(intent);
 
     }
 

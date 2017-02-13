@@ -146,13 +146,13 @@
                android:layout_height="wrap_content"
                android:layout_marginTop="10dp">
 
-               <ImageView
+               <ImageButton
                     android:text="பதியை பற்றி"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:textSize="18sp"
                    android:clickable="true"
-                   android:src="@drawable/exp_col_img"
+                   android:background="@drawable/exp_col_img"
                    android:gravity="center"
                     android:id="@+id/expand_collapse"
                     android:textStyle="bold"/>

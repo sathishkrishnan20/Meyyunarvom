@@ -44,15 +44,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".MeyyDB" />
-        <activity
-            android:name=".AkilaThirattu"
-            android:label="@string/akilathirattu"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
         <activity
             android:name=".AkilathirattuMenu"
             android:label="@string/akilathirattu"
@@ -116,22 +107,6 @@
         <activity
             android:name=".ViewPoem"
             android:label="@string/poem"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".Uchipadippu"
-            android:label="@string/uchipadippu"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
-            android:name=".Ukapadippu"
-            android:label="@string/ukapadippu"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -257,7 +232,6 @@
             android:name="com.google.android.place.API_KEY"
             android:value="@string/google_places_key" />
 
-        <activity android:name=".GotoAkilathirattu" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".UserUpdateDetails" />
         <activity android:name=".AdminLogin" />

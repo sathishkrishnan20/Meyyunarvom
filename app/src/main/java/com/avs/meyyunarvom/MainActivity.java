@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     ImageButton addTemple;
     ImageButton temples;
     ImageButton ayyavazhi;
-    ImageButton ukapadippu;
+
 
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         temples=(ImageButton)findViewById(R.id.templeid);
 
         ayyavazhi=(ImageButton)findViewById(R.id.ayyavazhiid);
-       // ukapadippu=(ImageButton)findViewById(R.id.ukapadippuid);
+
 
         mContext = this;
         mViewFlipper = (ViewFlipper) this.findViewById(R.id.view_flipper);
@@ -182,19 +182,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-/*
-        ukapadippu.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent=new Intent(getApplicationContext(), Ukapadippu.class);
-                startActivity(intent);
 
-            }
-        });
-
-*/
 
     }
 

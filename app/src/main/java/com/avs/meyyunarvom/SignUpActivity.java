@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,9 +27,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avs.db.Network;
 import com.avs.db.URL;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -70,23 +75,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
         register.setOnClickListener(this);
-
-
-
-
     }
                 public void onClick(View v)
                 {
 
-
                     if(v.getId()==R.id.email_sign_up_button) {
-
-
 
                      name= mUserNameView.getText().toString().trim();
                      email = mEmailView.getText().toString().trim();
                      place = mPlaceView.getText().toString().trim();
-                        password = mPasswordView.getText().toString();
+                     password = mPasswordView.getText().toString();
+
+                    AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
+                    mAwesomeValidation.addValidation(SignUpActivity.this, R.id.name, "[a-zA-Z ]+", R.string.err_name);
+
 
                      Network network=new Network();
                      if (!network.isOnline(SignUpActivity.this)) {
@@ -101,7 +103,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                          return;
                      }
 
-                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty()) {
+                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty() && mAwesomeValidation.validate()) {
+
                          registerUser();
                      } else {
                          Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_LONG)
@@ -188,6 +191,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
         };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue rq= Volley.newRequestQueue(this);
         rq.add(stringRequest);

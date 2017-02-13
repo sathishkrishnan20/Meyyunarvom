@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -174,6 +175,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
             public void onClick(View view) {
                 Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
                 intent.putExtra("redirectPage","temple");
+                intent.putExtra("redirectPageForAddTemple","mainTemple");
                 startActivity(intent);
             }
         });
@@ -217,7 +219,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
 
 
-         //lv.setVisibility(View.VISIBLE);
+         lv.setVisibility(View.VISIBLE);
 
          mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -244,30 +246,19 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
                      isSearchResultEmpty = true;
                      searchArrayListWithoutCount.add("Sorry We Cannot Find Any temples");
                      lv.setAdapter(adapter);
-                     lv.setVisibility(VISIBLE);
+                  //   lv.setVisibility(VISIBLE);
 
                  }
                  else {
                  isSearchResultEmpty = false;
                  adapter = new ArrayAdapter<String>(Temples.this,android.R.layout.simple_list_item_1, searchArrayListWithoutCount);
                  lv.setAdapter(adapter);
-                 lv.setVisibility(VISIBLE);
+                 //lv.setVisibility(VISIBLE);
                  }
                  return false;
              }
 
 
-         });
-
-         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
-             @Override
-             public boolean onClose() {
-                 lv.setVisibility(View.GONE);
-                 mSearchView.setVisibility(View.GONE);
-                 mSearchView.setVisibility(VISIBLE);
-
-                 return false;
-             }
          });
 
 
@@ -381,6 +372,10 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
             }
 
         };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
 
