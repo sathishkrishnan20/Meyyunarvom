@@ -182,9 +182,17 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
    public void onBackPressed()
    {
-       Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
-       intent.putExtra("redirectPage","temple");
-       startActivity(intent);
+
+       if(getIntent().getStringExtra("redirectPageForAddTemple").equals("mainTemple")) {
+           Intent intent = new Intent(getApplicationContext(), Temples.class);
+           startActivity(intent);
+       }
+       if(getIntent().getStringExtra("redirectPageForAddTemple").equals("userTemple"))
+       {
+           Intent intent = new Intent(getApplicationContext(), UserTemple.class);
+           startActivity(intent);
+       }
+
    }
 
    private void checkConnection()

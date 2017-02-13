@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -72,6 +73,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
     public String KEY_ID ="id";
     int templeId =0;
 
+    int restrictButton = 1;
 
     ArrayList<String> templeDetailsArrayList = new ArrayList<>();
 
@@ -159,12 +161,16 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             }
         };
 
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creating a request queue
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
     }
 
-    int restrictButton =0;
+
     private void showJSON(String response)
     {
         try
@@ -174,12 +180,13 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             templeDataLength = result.length();
 
             if(templeDataLength == 0) {
-                restrictButton =1;
+                restrictButton = 1;
                 Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
                 progressBar1.setVisibility(View.GONE);
 
             }
             else {
+                restrictButton = 0;
                 getTempleData();
             }
         }
@@ -341,9 +348,10 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
         {
             Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
             intent.putExtra("redirectPage","temple");
+            intent.putExtra("redirectPageForAddTemple","userTemple");
             startActivity(intent);
         }
-        else if(v == floatingActionButtonEdit && restrictButton !=1)
+        else if(v == floatingActionButtonEdit && restrictButton == 0)
         {
 
             Intent intent =new Intent(this,MapsActivity.class);
@@ -356,7 +364,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
 
         }
 
-        else if(v ==floatingActionButtonDelete && restrictButton !=1)
+        else if(v ==floatingActionButtonDelete && restrictButton == 0)
         {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserTemple.this);
@@ -485,11 +493,17 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             protected Map<String, String> getParams() throws AuthFailureError {
                 // String tempImage = getStringImage(bitmap);
 
+
                 Map<String, String> params = new Hashtable<String, String>();
                 params.put(KEY_ID, String.valueOf(templeId));
                 return params;
             }
         };
+
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
@@ -562,6 +576,11 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                 return params;
             }
         };
+
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);

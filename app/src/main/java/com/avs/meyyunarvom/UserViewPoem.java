@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -156,18 +157,19 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                 params.put("email", loginUserEmail);
 
                 return params;
-
-
             }
 
-
         };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         //Creating a request queue
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
     }
-    int restrictButton =0;
+    int restrictButton = 1;
     private void showJSON(String response)
     {
         try
@@ -177,12 +179,13 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             poemDataLength = result.length();
 
             if(poemDataLength==0) {
-                restrictButton =1;
+                restrictButton = 1;
                 Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
                 progressBar1.setVisibility(View.GONE);
 
             }
             else {
+                restrictButton = 0;
                 getTempleData();
             }
         }
@@ -333,7 +336,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             Intent intent =new Intent(this, AddPoem.class);
             startActivity(intent);
         }
-        else if(v == floatingActionButtonEdit && restrictButton !=1)
+        else if(v == floatingActionButtonEdit && restrictButton == 0)
         {
 
 
@@ -345,7 +348,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        else if(v ==floatingActionButtonDelete && restrictButton !=1)
+        else if(v ==floatingActionButtonDelete && restrictButton ==0)
         {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
@@ -489,6 +492,10 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             }
         };
 
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
 
@@ -566,6 +573,10 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                 return params;
             }
         };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);

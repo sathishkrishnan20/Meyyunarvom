@@ -256,6 +256,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 progressBar1.setVisibility(View.GONE);
                   if(redirectPage.equals("temple")) {
                     Intent intent = new Intent(this, AddTemple.class);
+                    intent.putExtra("redirectPageForAddTemple", getIntent().getStringExtra("redirectPageForAddTemple"));
                     intent.putExtra("location", strReturnedAddress.toString());
                     intent.putExtra("lattitude", latitude);
                     intent.putExtra("longitude", longitude);
@@ -408,7 +409,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                templeName = intent.getStringExtra("userTemple");
                latitude = intent.getDoubleExtra("latUser", 9.92520007);
                longitude = intent.getDoubleExtra("longUser", 78.1197751);
-               Toast.makeText(this, latitude+ " coming "+longitude,Toast.LENGTH_LONG).show();
                LocationByLatLngUserUpdate();
 
            }

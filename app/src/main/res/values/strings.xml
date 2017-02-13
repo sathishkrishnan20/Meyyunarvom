@@ -1,4 +1,15 @@
 <resources>
+
+
+   <string name="err_name">User Name is Not Valid</string>
+
+
+
+
+
+
+
+
     <string name="main_app_name">Ayya Vaikunda Swamy</string>
 
     <string name="app_name">AVS</string>

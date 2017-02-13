@@ -214,6 +214,12 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
 
         });
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
 
@@ -589,6 +595,10 @@ int mapRequest =0;
             }
         };
 
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
 
@@ -667,6 +677,10 @@ int mapRequest =0;
                 return params;
             }
         };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
