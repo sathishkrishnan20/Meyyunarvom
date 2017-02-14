@@ -18,6 +18,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -117,6 +118,23 @@ public class AdminLogin extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
+                        if (error.networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                // Show timeout error message
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminLogin.this);
+                                alertDialog.setTitle("Oops!");
+                                alertDialog.setMessage("Please Check Your Network Connection");
+
+                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                alertDialog.show();
+
+                            }
+                        }
+                        else
                         Toast.makeText(AdminLogin.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }) {

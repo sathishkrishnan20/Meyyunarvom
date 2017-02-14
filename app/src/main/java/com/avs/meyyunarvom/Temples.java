@@ -1,16 +1,27 @@
 package com.avs.meyyunarvom;
 
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +30,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,16 +43,22 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avs.db.Network;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -56,6 +74,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
      private GestureDetector mGesture;
      static final int SWIPE_MIN_DISTANCE = 120;
      static final int SWIPE_THRESHOLD_VELOCITY = 200;
+     private static final int PERMISSION_REQUEST_CODE = 1;
 
 
      private ProgressBar progressBar1;
@@ -96,8 +115,9 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
      RelativeLayout layout;
 
      private LinearLayout expandCollapseLayout;
-     private ImageView expandCollapseButton;
+     private ImageButton expandCollapseButton;
      private ImageView expandCollapseArrow;
+     private ImageButton downloadImage;
 
      private boolean isSearchButonPressed =false;
 
@@ -108,17 +128,26 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
 
         checkConnection();
-        mGesture = new GestureDetector(this, mOnGesture);
 
-        imageView=(ImageView)findViewById(R.id.imageViewShow);
+
+         if (Build.VERSION.SDK_INT >= 23)
+         {
+             if (!checkPermission())
+                requestPermission();
+         }
+
+         mGesture = new GestureDetector(this, mOnGesture);
+         imageView=(ImageView)findViewById(R.id.imageViewShow);
         setTempleName=(TextView)findViewById(R.id.tNameSetId);
         setTemplePlace=(TextView)findViewById(R.id.tPlaceSetId);
         setTempleDist=(TextView)findViewById(R.id.tdistSetId);
         layout =(RelativeLayout)findViewById(R.id.relativeTemple);
         expandCollapseLayout =(LinearLayout)findViewById(R.id.expand_collapse_layout);
-        expandCollapseButton= (ImageView) findViewById(R.id.expand_collapse);
+        expandCollapseButton= (ImageButton) findViewById(R.id.expand_collapse);
         expandCollapseArrow =(ImageView)findViewById(R.id.expand_collapse_arrow);
+        downloadImage =(ImageButton)findViewById(R.id.download_image);
         expandCollapseLayout.setVisibility(View.GONE);
+
 
          expandCollapseButton.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -191,6 +220,83 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
                  }
              }
          });
+
+         downloadImage.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 if (Build.VERSION.SDK_INT >= 23)
+                 {
+                     if (!checkPermission())
+                         requestPermission();
+                 }
+                NotificationManager mNotifyManager =
+                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(Temples.this);
+                 mBuilder.setContentTitle(tname+ " Download")
+                         .setContentText("Download in progress")
+                         .setSmallIcon(R.drawable.ic_action_download);
+
+                Target target = new Target() {
+                     @Override
+                     public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+
+
+                                 File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                                // Toast.makeText(getApplicationContext(), sd.toString(), Toast.LENGTH_LONG).show();
+                                 File folder = new File(sd, "/AVS/");
+                                 if (!folder.exists()) {
+                                     if (!folder.mkdir()) {
+                                         //Toast.makeText(getApplicationContext(),"cant create folder", Toast.LENGTH_LONG).show();
+                                     } else {
+                                         folder.mkdir();
+                                     }
+                                 }
+
+                                 File fileName = new File(folder, "one.jpg");
+
+                                 if (!fileName.exists()) {
+                                     try {
+                                         fileName.createNewFile();
+                                     } catch (IOException e) {
+                                         e.printStackTrace();
+                                     }
+                                 } else {
+
+                                     try {
+                                         FileOutputStream outputStream = new FileOutputStream(String.valueOf(fileName));
+                                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                                         outputStream.close();
+
+                                     } catch (FileNotFoundException e) {
+                                         e.printStackTrace();
+                                     } catch (IOException e) {
+                                         e.printStackTrace();
+                                     }
+                                 }
+
+                             }
+
+                     @Override
+                     public void onBitmapFailed(Drawable errorDrawable) {
+
+                     }
+
+                     @Override
+                     public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                     }
+                 };
+
+                 Picasso.with(getApplicationContext()).load(tImageUrl).into(target);
+                 mBuilder.setContentText("Download complete").setProgress(0,0,false);
+                 mNotifyManager.notify(1, mBuilder.build());
+                 Toast.makeText(getApplicationContext(),tname+" is Saved to "+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), Toast.LENGTH_LONG).show();
+
+             }
+         });
+
+
+
      }
 
 
@@ -359,7 +465,24 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
             public void onErrorResponse(VolleyError error) {
 
                 progressBar1.setVisibility(GONE);
-                Toast.makeText(getApplicationContext(),districtName+ error.toString(), Toast.LENGTH_SHORT).show();
+                if (error.networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        // Show timeout error message
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Temples.this);
+                        alertDialog.setTitle("Oops!");
+                        alertDialog.setMessage("Please Check Your Network Connection");
+
+                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
+
+                    }
+                }
+                else
+                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -635,6 +758,41 @@ catch(Exception e)
          }
 
      }
+
+
+
+
+     private boolean checkPermission() {
+         int result = ContextCompat.checkSelfPermission(Temples.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+         if (result == PackageManager.PERMISSION_GRANTED) {
+             return true;
+         } else {
+             return false;
+         }
+     }
+
+     private void requestPermission() {
+
+         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+             Toast.makeText(this, "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+         } else {
+             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+         }
+     }
+
+     @Override
+     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+         switch (requestCode) {
+             case PERMISSION_REQUEST_CODE:
+                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                     Log.e("value", "Permission Granted, Now you can use local drive .");
+                 } else {
+                     Log.e("value", "Permission Denied, You cannot use local drive .");
+                 }
+                 break;
+         }
+     }
+
 
 
 

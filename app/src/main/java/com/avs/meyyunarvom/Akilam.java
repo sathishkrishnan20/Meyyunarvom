@@ -135,11 +135,15 @@ public class Akilam extends AppCompatActivity
               try {
                   Integer.parseInt(searchText);
                   track = Integer.parseInt(searchText);
+                  if(track <= 533)
                   getContentByTrack();
+                  else
+                      Toast.makeText(getApplicationContext(), "Please Enter Valid Page Number", Toast.LENGTH_LONG).show();
+
 
               }catch (NumberFormatException e)
               {
-                  Toast.makeText(getApplicationContext(), "Please Enter Valid Number", Toast.LENGTH_LONG).show();
+                  Toast.makeText(getApplicationContext(), "Please Enter Valid Page Number", Toast.LENGTH_LONG).show();
               }
 
                 return false;

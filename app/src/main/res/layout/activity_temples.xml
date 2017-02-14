@@ -37,6 +37,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
 
       <ImageView
         android:layout_width="match_parent"
@@ -44,6 +48,19 @@
         android:layout_marginTop="15dp"
         android:id="@+id/imageViewShow" />
 
+       <ImageButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentRight="true"
+           android:layout_alignParentBottom="true"
+           android:layout_margin="10dp"
+           android:src="@drawable/ic_action_download"
+           android:id="@+id/download_image" />
+
+
+
+   </RelativeLayout>
 
     <TableRow
     android:layout_width="match_parent"
@@ -147,15 +164,24 @@
                android:layout_marginTop="10dp">
 
                <ImageButton
-                    android:text="பதியை பற்றி"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:textSize="18sp"
                    android:clickable="true"
-                   android:background="@drawable/exp_col_img"
+                   android:background="@drawable/exp_col_img1"
                    android:gravity="center"
                     android:id="@+id/expand_collapse"
                     android:textStyle="bold"/>
+
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:textColor="@color/white"
+                   android:textStyle="bold"
+                   android:layout_marginTop="3dp"
+                   android:textSize="20sp"
+                   android:text="பதியை பற்றி"/>
 
                <ImageView
                    android:layout_width="wrap_content"
@@ -309,7 +335,6 @@
         app:srcCompat="@android:drawable/ic_input_add" />
 
     </android.support.design.widget.CoordinatorLayout>
-
     <ListView
         android:id="@+id/list_viewextemp"
         android:layout_width="match_parent"

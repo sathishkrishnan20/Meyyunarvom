@@ -23,6 +23,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -145,7 +146,24 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             public void onErrorResponse(VolleyError error) {
 
                 progressBar1.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
+                if (error.networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        // Show timeout error message
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
+                        alertDialog.setTitle("Oops!");
+                        alertDialog.setMessage("Please Check Your Network Connection");
+
+                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        alertDialog.show();
+
+                    }
+                }
+                else
+                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
 
 
@@ -480,7 +498,24 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(UserViewPoem.this, error.toString()+poemId, Toast.LENGTH_LONG).show();
+                        if (error.networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                // Show timeout error message
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
+                                alertDialog.setTitle("Oops!");
+                                alertDialog.setMessage("Please Check Your Network Connection");
+
+                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                alertDialog.show();
+
+                            }
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -562,7 +597,24 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(UserViewPoem.this, error.toString()+poemId, Toast.LENGTH_LONG).show();
+                        if (error.networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                // Show timeout error message
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
+                                alertDialog.setTitle("Oops!");
+                                alertDialog.setMessage("Please Check Your Network Connection");
+
+                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+                                alertDialog.show();
+
+                            }
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
