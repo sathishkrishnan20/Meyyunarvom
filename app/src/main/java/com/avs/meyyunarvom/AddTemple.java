@@ -29,6 +29,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -316,7 +317,26 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
          @Override
          public void onErrorResponse(VolleyError error) {
             loading.dismiss();
-            Toast.makeText(AddTemple.this, error.toString(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(AddTemple.this, error.toString(), Toast.LENGTH_LONG).show();
+             if (error.networkResponse == null) {
+                 if (error.getClass().equals(TimeoutError.class)) {
+                     // Show timeout error message
+                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddTemple.this);
+                     alertDialog.setTitle("Oops!");
+                     alertDialog.setMessage("Please Check Your Network Connection");
+
+                     alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                         public void onClick(DialogInterface dialog, int which) {
+
+                         }
+                     });
+                     alertDialog.show();
+
+                 }
+             }
+             else
+                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+
          }
       }) {
          protected Map<String, String> getParams() throws AuthFailureError {
@@ -339,7 +359,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
                                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-      RequestQueue rq = Volley.newRequestQueue(this);
+     RequestQueue rq = Volley.newRequestQueue(this);
       rq.add(stringRequest);
    }
 

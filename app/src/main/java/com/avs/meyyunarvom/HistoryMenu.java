@@ -41,12 +41,7 @@ public class HistoryMenu extends AppCompatActivity implements
                 requestPermission();
             }
         }
-        else
-        {
 
-            // Code for Below 23 API Oriented Device
-            // Create a common Method for both
-        }
 
 
 

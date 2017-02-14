@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -180,7 +182,24 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             loading.dismiss();
-                            Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                            if (error.networkResponse == null) {
+                                if (error.getClass().equals(TimeoutError.class)) {
+                                    // Show timeout error message
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginActivity.this);
+                                    alertDialog.setTitle("Oops!");
+                                    alertDialog.setMessage("Please Check Your Network Connection");
+
+                                    alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    });
+                                    alertDialog.show();
+
+                                }
+                            }
+                            else
+                                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
 
                         }
                     }) {
