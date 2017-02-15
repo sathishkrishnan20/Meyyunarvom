@@ -53,6 +53,7 @@ public class ProfilePage extends AppCompatActivity {
 
     private GoogleApiClient client;
 
+    boolean restrictionBtn = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,21 +87,23 @@ public class ProfilePage extends AppCompatActivity {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
-                SharedPreferences.Editor editor = userdetails.edit();
-                if (userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin")) {
-                    editor.remove("name");
-                    editor.remove("email");
-                    editor.remove("isLogin");
-                    editor.apply();
-                    boolean commit = editor.commit();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(getApplicationContext(), "Logout Succesfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Your are already Logged out", Toast.LENGTH_SHORT).show();
-                }
+                if (!restrictionBtn) {
+                    SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
+                    SharedPreferences.Editor editor = userdetails.edit();
+                    if (userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin")) {
+                        editor.remove("name");
+                        editor.remove("email");
+                        editor.remove("isLogin");
+                        editor.apply();
+                        boolean commit = editor.commit();
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Logout Succesfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Your are already Logged out", Toast.LENGTH_SHORT).show();
+                    }
 
+                }
             }
         });
 
@@ -145,13 +148,14 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+                if(!restrictionBtn){
                 Intent intent=new Intent(getApplicationContext(), UserUpdateDetails.class);
                 intent.putExtra("userName", userNameDb);
                 intent.putExtra("userEmail", userEmailDb);
                 intent.putExtra("userPlace", userPlaceDb);
                 intent.putExtra("userPassword", userPasswordDb);
                 startActivity(intent);
-
+               }
             }
         });
 
@@ -226,16 +230,7 @@ public class ProfilePage extends AppCompatActivity {
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfilePage.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -312,7 +307,7 @@ public class ProfilePage extends AppCompatActivity {
             progressBar1.setVisibility(View.GONE);
             userProfile.setText(userNameDb);
             userPhNo.setText(userEmailDb);
-
+            restrictionBtn = false;
         }
         catch(Exception e)
         {

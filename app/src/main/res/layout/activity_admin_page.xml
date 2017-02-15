@@ -5,7 +5,6 @@
     android:id="@+id/activity_admin_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingLeft="3dp"
     android:paddingRight="2dp"
@@ -58,7 +57,7 @@
         android:layout_marginTop="5dp"
         android:textSize="18sp"
         android:id="@+id/fulldoubt_text"/>
-
+<!--
     <Button
         android:layout_width="wrap_content"
         android:layout_height="35dp"
@@ -71,7 +70,7 @@
         android:id="@+id/delete_question_by_admin"
         android:layout_below="@id/fulldoubt_text"
         android:text="Delete" />
-
+-->
 
 
 
@@ -80,7 +79,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/materialanswerfordoubt"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/delete_question_by_admin">
+        android:layout_below="@id/fulldoubt_text">
 
 
     <AutoCompleteTextView
@@ -88,7 +87,7 @@
         android:layout_height="wrap_content"
         android:hint="Answer the Question"
         android:layout_marginTop="40dp"
-        android:layout_below="@id/delete_question_by_admin"
+        android:layout_below="@id/fulldoubt_text"
         android:id="@+id/answerfordoubt" />
 </android.support.design.widget.TextInputLayout>
     <Button

@@ -145,12 +145,26 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
         StringRequest stringRequest=new StringRequest(Request.Method.POST, UPDATE_URL,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response)
+                    public void onResponse(final String response)
                     {
                         loading.dismiss();
-                        Toast.makeText(UserUpdateDetails.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
-                        setDataIntoLocal();
-                        resetField();
+
+
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserUpdateDetails.this);
+                        alertDialog.setTitle("Thank You");
+                        alertDialog.setMessage(response.split(";")[0]);
+
+                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(response.split(";")[1].equals("success")) {
+                                    setDataIntoLocal();
+                                    resetField();
+                                }
+                            }
+                        });
+
+                        alertDialog.show();
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -161,16 +175,7 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserUpdateDetails.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                             }
                         }

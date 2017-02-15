@@ -181,10 +181,19 @@ public class AnswerPopup extends Activity implements View.OnClickListener
                     @Override
                     public void onResponse(String response) {
                         loading.dismiss();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswerPopup.this);
+                        alertDialog.setTitle("நன்றி");
+                        alertDialog.setMessage(response.split(";")[0]);
 
-                        Toast.makeText(AnswerPopup.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
-                        Intent intent =new Intent(getApplicationContext(), Answers.class);
-                        startActivity(intent);
+                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent =new Intent(getApplicationContext(), Answers.class);
+                                startActivity(intent);
+                            }
+                        });
+
+                        alertDialog.show();
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -192,17 +201,7 @@ public class AnswerPopup extends Activity implements View.OnClickListener
                 loading.dismiss();
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
-                        // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswerPopup.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -238,8 +237,8 @@ public class AnswerPopup extends Activity implements View.OnClickListener
         {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswerPopup.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("இந்த சந்தேகத்தை நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed

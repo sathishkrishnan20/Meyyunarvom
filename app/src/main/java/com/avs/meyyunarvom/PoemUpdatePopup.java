@@ -152,14 +152,14 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
                         loading.dismiss();
 
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(PoemUpdatePopup.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
 
-                        alertDialog.setMessage("Your Poem is Successfully Changed, We Will review and add Soon");
+                        alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Write your code here to execute after dialog closed
-                                if(response.split(";")[0].equals("success")) {
+                                if(response.split(";")[1].equals("success")) {
                                     poemTitle.setText("");
                                     poemContent.setText("");
                                     finish();
@@ -180,16 +180,7 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(PoemUpdatePopup.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -248,7 +239,7 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
             }
 
             if(!poemContentStr.isEmpty())
-            {   Toast.makeText(this,String.valueOf(position),Toast.LENGTH_SHORT).show();
+            {   //Toast.makeText(this,String.valueOf(position),Toast.LENGTH_SHORT).show();
                 uploadPoem();
             }
             else {

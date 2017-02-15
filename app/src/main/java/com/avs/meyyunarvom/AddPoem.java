@@ -130,13 +130,13 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
                         loading.dismiss();
 
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddPoem.this);
-                        alertDialog.setTitle("Thank you");
-                        alertDialog.setMessage("Your Poem is Successfully sent, We Will review and add Soon");
+                        alertDialog.setTitle("நன்றி");
+                        alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Write your code here to execute after dialog closed
-                                if(response.split(";")[0].equals("success")) {
+                                if(response.split(";")[1].equals("success")) {
                                     poemTitle.setText("");
                                     poemContent.setText("");
                                     finish();
@@ -157,17 +157,7 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
 
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
-                        // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddPoem.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }

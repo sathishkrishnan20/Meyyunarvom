@@ -12,6 +12,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -55,7 +57,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
     private MaterialSpinner spin;
     private EditText answer;
     private TextView fullQuestion;
-    private Button buttonSendAns, deleteBtn;
+    private Button buttonSendAns;//, deleteBtn;
     ArrayAdapter questionAdapter;
 
     private String answerstr, loginUserNm,loginUsermail="";
@@ -75,6 +77,8 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
     private final String DELETE_URL = com.avs.db.URL.url+"/deleteDoubtByAdmin.php";
 
+    boolean restrictBtn = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,11 +96,11 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
         buttonSendAns = (Button) findViewById(R.id.Sendanswer);
 
-        deleteBtn= (Button)findViewById(R.id.delete_question_by_admin);
+        //deleteBtn= (Button)findViewById(R.id.delete_question_by_admin);
         spin.setOnItemSelectedListener(this);
 
         buttonSendAns.setOnClickListener(this);
-        deleteBtn.setOnClickListener(this);
+       // deleteBtn.setOnClickListener(this);
 
         Intent intent=getIntent();
 
@@ -127,6 +131,53 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
     }
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_admin, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_delete_temple_permanent_admin && !restrictBtn ) {
+
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
+            alertDialog.setTitle("Thank you");
+            alertDialog.setMessage("Are You Sure Want to Delete the poem permanently");
+            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Write your code here to execute after dialog closed
+                    //answer.setText("");
+                    deleteQuestion();
+
+                }
+            });
+            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.cancel();
+
+                }
+            });
+            alertDialog.show();
+
+
+            // return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
     public void getQustions() {
 
         //addSpinSelectQuestion();
@@ -147,16 +198,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -184,7 +226,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
             jsonObject = new JSONObject(response);
             result = jsonObject.getJSONArray("result");
 
-
+               restrictBtn =false;
             for (int i = 0; i < result.length(); i++) {
                 try {
                     //Getting json object
@@ -238,6 +280,22 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         return questionText;
     }
 
+
+    private String getAnswer(int position ) {
+        String answerText = "";
+        try {
+            //Getting object of given index
+            JSONObject json = result.getJSONObject(position);
+
+            //Fetching name from that object
+            answerText = json.getString("answer");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //Returning the name
+        return answerText;
+    }
+
     private String getUserDetails(int position ) {
         String userDetailsText = "";
         try {
@@ -281,7 +339,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
            String isAnswered = json.getString("is_answered");
            //Toast.makeText(this, isAnswered,Toast.LENGTH_LONG).show();
             if(isAnswered.equals("Y")) {
-                fullQuestion.setText(getQuestion(position) + "\n" + getUserDetails(position));
+                fullQuestion.setText(getQuestion(position) + "\n \n " + "    Answer \n"+ getAnswer(position) + "\n" + getUserDetails(position));
                 fullQuestion.setTextColor(getResources().getColor(R.color.green));
             }
 
@@ -420,7 +478,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                     public void onResponse(String response) {
                         loading.dismiss();
 
-                        Toast.makeText(AdminPage.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }, new Response.ErrorListener() {
@@ -429,18 +487,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 loading.dismiss();
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
-                        // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
-
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
                     }
                 }
                 else
@@ -500,7 +547,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 Snackbar.make(v, "Please fill the Question", Snackbar.LENGTH_SHORT).show();
             }
         }
-
+/*
         if (v == deleteBtn)
         {
 
@@ -527,7 +574,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
 
         }
-
+*/
     }
 
 

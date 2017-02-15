@@ -235,62 +235,12 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
                  mBuilder.setContentTitle(tname+ " Download")
                          .setContentText("Download in progress")
                          .setSmallIcon(R.drawable.ic_action_download);
-
-                Target target = new Target() {
-                     @Override
-                     public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-
-
-                                 File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                                // Toast.makeText(getApplicationContext(), sd.toString(), Toast.LENGTH_LONG).show();
-                                 File folder = new File(sd, "/AVS/");
-                                 if (!folder.exists()) {
-                                     if (!folder.mkdir()) {
-                                         //Toast.makeText(getApplicationContext(),"cant create folder", Toast.LENGTH_LONG).show();
-                                     } else {
-                                         folder.mkdir();
-                                     }
-                                 }
-
-                                 File fileName = new File(folder, "one.jpg");
-
-                                 if (!fileName.exists()) {
-                                     try {
-                                         fileName.createNewFile();
-                                     } catch (IOException e) {
-                                         e.printStackTrace();
-                                     }
-                                 } else {
-
-                                     try {
-                                         FileOutputStream outputStream = new FileOutputStream(String.valueOf(fileName));
-                                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                                         outputStream.close();
-
-                                     } catch (FileNotFoundException e) {
-                                         e.printStackTrace();
-                                     } catch (IOException e) {
-                                         e.printStackTrace();
-                                     }
-                                 }
-
-                             }
-
-                     @Override
-                     public void onBitmapFailed(Drawable errorDrawable) {
-
-                     }
-
-                     @Override
-                     public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                     }
-                 };
-
+                 Toast.makeText(getApplicationContext(),tImageUrl,Toast.LENGTH_LONG).show();
                  Picasso.with(getApplicationContext()).load(tImageUrl).into(target);
                  mBuilder.setContentText("Download complete").setProgress(0,0,false);
                  mNotifyManager.notify(1, mBuilder.build());
                  Toast.makeText(getApplicationContext(),tname+" is Saved to "+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), Toast.LENGTH_LONG).show();
+
 
              }
          });
@@ -298,6 +248,73 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
 
      }
+
+
+
+     Target target = new Target() {
+         @Override
+         public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+
+
+             File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+             // Toast.makeText(getApplicationContext(), sd.toString(), Toast.LENGTH_LONG).show();
+             File folder = new File(sd, "/AVS/");
+             if (!folder.exists()) {
+                 if (!folder.mkdir()) {
+                     Toast.makeText(getApplicationContext(),"cant create folder", Toast.LENGTH_LONG).show();
+                 } else {
+                     folder.mkdir();
+                 }
+             }
+
+             File fileName = new File(folder, tname+"-"+tplace+".jpg");
+
+             if (!fileName.exists()) {
+                 try {
+                     fileName.createNewFile();
+                 } catch (IOException e) {
+                     Toast.makeText(getApplicationContext(),"cant create file "+e.toString(), Toast.LENGTH_LONG).show();
+                     e.printStackTrace();
+                 }
+             } else {
+
+                 try {
+                     FileOutputStream outputStream = new FileOutputStream(String.valueOf(fileName));
+                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                     outputStream.close();
+
+                 } catch (FileNotFoundException e) {
+                     Toast.makeText(getApplicationContext(),"cant fine file "+e.toString(), Toast.LENGTH_LONG).show();
+                     e.printStackTrace();
+                 } catch (IOException e) {
+                     Toast.makeText(getApplicationContext(),"cant stream "+e.toString(), Toast.LENGTH_LONG).show();
+                     e.printStackTrace();
+                 }
+             }
+
+
+
+         }
+
+
+         @Override
+         public void onBitmapFailed(Drawable errorDrawable) {
+             Toast.makeText(getApplicationContext(),"Bitmap Failed", Toast.LENGTH_LONG).show();
+         }
+
+         @Override
+         public void onPrepareLoad(Drawable placeHolderDrawable) {
+             Toast.makeText(getApplicationContext(),"Preparing to Load", Toast.LENGTH_LONG).show();
+         }
+
+
+     };
+
+
+
+
+
+
 
 
 
@@ -468,16 +485,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(Temples.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }

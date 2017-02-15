@@ -77,16 +77,17 @@
         <activity
             android:name=".AddTemple"
             android:label="@string/addtemple"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Temples">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Temples" />
         </activity>
 
         <activity
             android:name=".Answers"
             android:label="@string/doubts"
-            android:parentActivityName=".ProfilePage">
+            android:parentActivityName=".ProfilePage"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfilePage" />
@@ -140,7 +141,8 @@
         <activity
             android:name=".AdminPage"
             android:label="Admin Clear Doubts"
-            android:parentActivityName=".AdminMenu">
+            android:parentActivityName=".AdminMenu"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
@@ -149,7 +151,8 @@
         <activity
             android:name=".AdminTempleReview"
             android:label="Admin Temple"
-            android:parentActivityName=".AdminMenu">
+            android:parentActivityName=".AdminMenu"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
@@ -158,7 +161,8 @@
         <activity
             android:name=".AdminPoemReview"
             android:label="Admin Poem"
-            android:parentActivityName=".AdminMenu">
+            android:parentActivityName=".AdminMenu"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
@@ -203,7 +207,8 @@
 
         <activity android:name=".UserUpdateDetails"
             android:label="AVS"
-            android:parentActivityName=".ProfilePage">
+            android:parentActivityName=".ProfilePage"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfilePage"/>

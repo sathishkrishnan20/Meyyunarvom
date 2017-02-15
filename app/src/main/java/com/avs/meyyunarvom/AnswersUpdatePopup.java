@@ -100,19 +100,21 @@ public class AnswersUpdatePopup extends Activity implements View.OnClickListener
         StringRequest stringRequest=new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(final String response) {
                         loading.dismiss();
 
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswersUpdatePopup.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Write your code here to execute after dialog closed
-                                questionChange.setText("");
-                                Intent intent =new Intent(getApplicationContext(),Answers.class);
-                                startActivity(intent);
+                                if(response.split(";")[1].equals("success")) {
+                                    questionChange.setText("");
+                                    Intent intent = new Intent(getApplicationContext(), Answers.class);
+                                    startActivity(intent);
+                                }
                             }
                         });
 
@@ -128,17 +130,7 @@ public class AnswersUpdatePopup extends Activity implements View.OnClickListener
                 loading.dismiss();
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
-                        // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswersUpdatePopup.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
