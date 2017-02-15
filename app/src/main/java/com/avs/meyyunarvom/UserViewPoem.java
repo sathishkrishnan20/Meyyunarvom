@@ -149,16 +149,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -370,8 +361,8 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
         {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to remove the poem");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("இந்த பதிவை நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
@@ -408,11 +399,11 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete_permanent) {
+        if (id == R.id.action_delete_permanent && restrictButton == 0) {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to unpublish the poem");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("இந்த பதிவை நிரந்தரமாக நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
@@ -476,7 +467,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -501,17 +492,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
-
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
                             }
                         }
                         else
@@ -600,17 +581,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
-
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
                             }
                         }
                         else

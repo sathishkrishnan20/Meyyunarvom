@@ -289,17 +289,20 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
       StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
               new Response.Listener<String>() {
                  @Override
-                 public void onResponse(String response) {
+                 public void onResponse(final String response) {
                     loading.dismiss();
 
                      AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddTemple.this);
-                     alertDialog.setTitle("Thank you");
+                     alertDialog.setTitle("நன்றி");
                      alertDialog.setMessage(response.split(";")[0]);
 
                      alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                          public void onClick(DialogInterface dialog, int which) {
-                             Intent intent =new Intent(getApplicationContext(), MainActivity.class);
-                             startActivity(intent);
+
+                             if(response.split(";")[1].equals("success")) {
+                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                 startActivity(intent);
+                             }
                              // Write your code here to execute after dialog closed
 
                          }
@@ -321,16 +324,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
              if (error.networkResponse == null) {
                  if (error.getClass().equals(TimeoutError.class)) {
                      // Show timeout error message
-                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddTemple.this);
-                     alertDialog.setTitle("Oops!");
-                     alertDialog.setMessage("Please Check Your Network Connection");
-
-                     alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                         public void onClick(DialogInterface dialog, int which) {
-
-                         }
-                     });
-                     alertDialog.show();
+                     Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                  }
              }

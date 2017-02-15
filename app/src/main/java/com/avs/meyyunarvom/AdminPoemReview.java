@@ -141,16 +141,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -290,7 +281,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -315,16 +306,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -388,7 +370,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -413,16 +395,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -487,7 +460,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -512,17 +485,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
-
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
                             }
                         }
                         else
@@ -559,17 +522,14 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-
-
-
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete_temple_permanent_admin) {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete the poem permanently");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("பதிவை நிரந்தரமாக நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
@@ -618,8 +578,8 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
         {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete Poem From Here");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("பதிவை நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed

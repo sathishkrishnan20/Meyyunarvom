@@ -213,16 +213,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
-                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-                        alertDialog.setTitle("Oops!");
-                        alertDialog.setMessage("Please Check Your Network Connection");
-
-                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                        alertDialog.show();
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -423,8 +414,8 @@ int mapRequest =0;
         {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Remove Temple From here");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("பதியை நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
@@ -579,7 +570,7 @@ int mapRequest =0;
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -604,17 +595,7 @@ int mapRequest =0;
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
-
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
                             }
                         }
                         else
@@ -679,7 +660,7 @@ int mapRequest =0;
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -704,16 +685,7 @@ int mapRequest =0;
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -778,7 +750,7 @@ int mapRequest =0;
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -803,16 +775,7 @@ int mapRequest =0;
                         if (error.networkResponse == null) {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 // Show timeout error message
-                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-                                alertDialog.setTitle("Oops!");
-                                alertDialog.setMessage("Please Check Your Network Connection");
-
-                                alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                                alertDialog.show();
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -866,8 +829,8 @@ int mapRequest =0;
         if (id == R.id.action_delete_temple_permanent_admin) {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete the Temple Permanently");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("பதியை நிரந்தரமாக நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed

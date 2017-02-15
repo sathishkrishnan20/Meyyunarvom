@@ -18,6 +18,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -132,8 +133,14 @@ public void updatePassword()
                 @Override
                 public void onErrorResponse(VolleyError error)
                 {
-                    loading.dismiss();
-                    Toast.makeText(ForgotPassword.this,error.toString(),Toast.LENGTH_SHORT).show();
+                    loading.dismiss(); if (error.networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                else
+                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
 
                 }
             })

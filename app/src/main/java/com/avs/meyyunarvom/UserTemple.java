@@ -22,6 +22,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -149,7 +150,16 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             public void onErrorResponse(VolleyError error) {
 
                 progressBar1.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT);
+                if (error.networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        // Show timeout error message
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                else
+                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+
             }
         }) {
             @Override
@@ -368,8 +378,8 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
         {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserTemple.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to remove the Temple");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("இந்த பதியை நீக்க வேண்டுமா ");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
@@ -403,11 +413,11 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_delete_permanent_temple) {
+        if (id == R.id.action_delete_permanent_temple  && restrictButton == 0 ) {
 
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserTemple.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to unpublish the poem");
+            alertDialog.setTitle("நன்றி");
+            alertDialog.setMessage("இந்த பதியை  நிரந்தரமாக நீக்க வேண்டுமா");
             alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
@@ -467,7 +477,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserTemple.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -487,7 +497,15 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(UserTemple.this, error.toString()+templeId, Toast.LENGTH_LONG).show();
+                        if (error.networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -546,7 +564,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserTemple.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -565,7 +583,16 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
-                        Toast.makeText(UserTemple.this, error.toString()+templeId, Toast.LENGTH_LONG).show();
+                        if (error.networkResponse == null) {
+                            if (error.getClass().equals(TimeoutError.class)) {
+                                // Show timeout error message
+                                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
