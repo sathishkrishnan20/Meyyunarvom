@@ -231,11 +231,11 @@
 
         <MultiAutoCompleteTextView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/tdescaboutaddtemp"
-            android:hint="பதியை பற்றி"
+            android:hint="பணிவிடையாளர்"
             android:layout_gravity="start"
             android:gravity="top"
             android:layout_marginLeft="85dp"
@@ -244,9 +244,28 @@
 </android.support.design.widget.TextInputLayout>
 
 
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <MultiAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:id="@+id/tdescaboutTimeaddtemp"
+                        android:hint="பணிவிடை நேரம்"
+                        android:layout_gravity="start"
+                        android:gravity="top"
+                        android:layout_marginLeft="85dp"
+                        android:layout_marginStart="85dp"
+                        android:layout_marginTop="6dp" />
+                </android.support.design.widget.TextInputLayout>
 
 
-        <TableRow android:layout_height="wrap_content"
+
+
+                <TableRow android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:orientation="horizontal">
         <TextView

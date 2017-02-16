@@ -47,14 +47,14 @@ import java.util.Map;
 public class AddTemple extends AppCompatActivity implements View.OnClickListener
 {
 
-    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout, tempPhNo;
+    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout,tempAboutTime, tempPhNo;
     private String tempAddressLine, tempDistrict, tempState, tempCountry;
     String tempDesc , tempAddress;
 
     String locationByMap, latLng;
 
     Double lattitude, longitude;
-    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templePhNo;
+    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templeAboutTime,templePhNo;
     private EditText templeAddressLine, templeDistrict, templeState, templeCountry;
 
 
@@ -123,6 +123,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
        templeSplDays= (EditText) findViewById(R.id.tdescspldaysaddtemp);
        templeVehicle= (EditText) findViewById(R.id.tdescvehiclessaddtemp);
        templeAbout = (EditText) findViewById(R.id.tdescaboutaddtemp);
+       templeAboutTime = (EditText) findViewById(R.id.tdescaboutTimeaddtemp);
        templePhNo= (EditText) findViewById(R.id.tdescphnoaddtemp);
 
        Intent intent =getIntent();
@@ -377,6 +378,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
           tempVehicle =templeVehicle.getText().toString().trim();
           tempPhNo =templePhNo.getText().toString().trim();
           tempAbout =templeAbout.getText().toString().trim();
+          tempAboutTime =templeAboutTime.getText().toString().trim();
 
 
           tempAddressLine = templeAddressLine.getText().toString().trim();
@@ -418,7 +420,13 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
           if(tempAbout.length()==0) {
             //  templeAbout.setError("Enter something about temple"); return; }
-              Snackbar.make(view, "Enter Temple About", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(view, "Enter Temple panividaiyalar name", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+          if(tempAboutTime.length()==0) {
+              //  templeAbout.setError("Enter something about temple"); return; }
+              Snackbar.make(view, "Enter Temple panivaidai neram", Snackbar.LENGTH_SHORT).show();
               return;
           }
 
@@ -439,6 +447,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
           templeData.append(tempVehicle+"%%");
           templeData.append(tempPhNo+"%%");
           templeData.append(tempAbout+"%%");
+          templeData.append(tempAboutTime+"%%");
 
           templeFullAddress.append(tempAddressLine+"%%");
           templeFullAddress.append(tempDistrict+"%%");

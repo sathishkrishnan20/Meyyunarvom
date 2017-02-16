@@ -27,7 +27,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
 
@@ -52,7 +52,7 @@
 
 
                     <TextView
-                        android:text="Poems"
+                        android:text="பதிவுகள்"
                         android:layout_width="match_parent"
                         android:layout_height="35sp"
                         android:background="@color/answer_tab"
@@ -82,25 +82,30 @@
                         <AutoCompleteTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Add Title"
+                            android:hint="தலைப்பு"
                             android:layout_marginTop="40dp"
                             android:gravity="center"
                             android:id="@+id/admin_title_add_poem" />
                     </android.support.design.widget.TextInputLayout>
 
 
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
                     <MultiAutoCompleteTextView
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:id="@+id/admin_content_add_poem"
-                        android:hint="Add Your Poem"
-                        android:ellipsize="start"
+                        android:hint="பதிவு"
                         android:scrollbars="vertical"
                         android:gravity="center"
-                        android:background="@drawable/edittext_style"/>
+                        android:background="@drawable/expand_colapse_lay_bg"/>
 
-
+</android.support.design.widget.TextInputLayout>
 
 
                     <LinearLayout

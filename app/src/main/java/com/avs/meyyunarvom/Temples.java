@@ -93,7 +93,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
 
 
-    private TextView setTempleName, setTemplePlace,setTempleDist, setTempleDescSpl,setTempleDescFestival,setTempleDescVehicle,setTempleMobileNo,setTempleAbout ;
+    private TextView setTempleName, setTemplePlace,setTempleDist, setTempleDescSpl,setTempleDescFestival,setTempleDescVehicle,setTempleMobileNo,setTempleAbout, setTempleAboutTime ;
     private ImageView imageView;
 
      private float lattitude, longitude;
@@ -112,13 +112,14 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
      Boolean isDistClicked = false ;
 
-     RelativeLayout layout;
+     RelativeLayout layout, errorLayout;
 
      private LinearLayout expandCollapseLayout;
      private ImageButton expandCollapseButton;
      private ImageView expandCollapseArrow;
      private ImageButton downloadImage;
 
+     private ImageView err;
      private boolean isSearchButonPressed =false;
 
      @Override
@@ -142,13 +143,17 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
         setTemplePlace=(TextView)findViewById(R.id.tPlaceSetId);
         setTempleDist=(TextView)findViewById(R.id.tdistSetId);
         layout =(RelativeLayout)findViewById(R.id.relativeTemple);
+
         expandCollapseLayout =(LinearLayout)findViewById(R.id.expand_collapse_layout);
         expandCollapseButton= (ImageButton) findViewById(R.id.expand_collapse);
         expandCollapseArrow =(ImageView)findViewById(R.id.expand_collapse_arrow);
         downloadImage =(ImageButton)findViewById(R.id.download_image);
         expandCollapseLayout.setVisibility(View.GONE);
 
+         err= (ImageView)findViewById(R.id.error_image);
+         err.setVisibility(GONE);
 
+         layout.setVisibility(INVISIBLE);
          expandCollapseButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
@@ -178,6 +183,7 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
          setTempleDescVehicle =(TextView)findViewById(R.id.tDescVehicleSetId);
          setTempleMobileNo = (TextView)findViewById(R.id.tDescmobileNOSetId);
          setTempleAbout  =(TextView)findViewById(R.id.tDescaboutSetId);
+         setTempleAboutTime  =(TextView)findViewById(R.id.tDescaboutTimeSetId);
 
          progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
          progressBar1.setVisibility(View.VISIBLE);
@@ -240,13 +246,8 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
                  mBuilder.setContentText("Download complete").setProgress(0,0,false);
                  mNotifyManager.notify(1, mBuilder.build());
                  Toast.makeText(getApplicationContext(),tname+" is Saved to "+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), Toast.LENGTH_LONG).show();
-
-
              }
          });
-
-
-
      }
 
 
@@ -332,18 +333,12 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
      public boolean onCreateOptionsMenu(Menu menu) {
          MenuInflater inflater = getMenuInflater();
          inflater.inflate(R.menu.view_temple_menu, menu);
-         searchMenuItem = menu.findItem(R.id.action_search_temp123);
 
+        searchMenuItem = menu.findItem(R.id.action_search_temp123);
+        mSearchView = (SearchView) searchMenuItem.getActionView();
 
-
-         mSearchView = (SearchView) searchMenuItem.getActionView();
-
-
-
-
-
+         mSearchView.setVisibility(INVISIBLE);
          lv.setVisibility(View.VISIBLE);
-
          mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
              @Override
@@ -436,9 +431,6 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
      }
 
 
-
-
-
      @Override
      public void onBackPressed() {
 
@@ -483,14 +475,21 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
 
                 progressBar1.setVisibility(GONE);
                 if (error.networkResponse == null) {
-                    if (error.getClass().equals(TimeoutError.class)) {
-                        // Show timeout error message
-                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
-
+                    if (!error.getClass().equals(TimeoutError.class)) {
+                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                else
-                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                err.setVisibility(VISIBLE);
+                err.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent =new Intent(getApplicationContext(),Temples.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+
             }
         }) {
             @Override
@@ -574,7 +573,8 @@ public void getTempleData(int TRACK)
  private void setTempleData()
  {
 try {
-
+    layout.setVisibility(VISIBLE);
+    restriction = false;
     progressBar1.setVisibility(GONE);
 
     String templeDesc[]=new String[5];
@@ -590,6 +590,7 @@ try {
     setTempleDescVehicle.setText(templeDesc[2]);
     setTempleMobileNo.setText(templeDesc[3]);
     setTempleAbout.setText(templeDesc[4]);
+    setTempleAboutTime.setText(templeDesc[5]);
 
    //setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
     Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
@@ -614,6 +615,7 @@ catch(Exception e)
          setTempleDescVehicle.setText("");
          setTempleMobileNo.setText("");
          setTempleAbout.setText("");
+         setTempleAboutTime.setText("");
          imageView.setImageResource(R.drawable.placeholder);
 
      }
@@ -695,10 +697,15 @@ catch(Exception e)
 
 
 
-
+private boolean restriction =true;
      @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+         if(restriction)
+                return false;
+
+
         if(id == R.id.action_goto_loc)
         {
 
@@ -727,6 +734,7 @@ catch(Exception e)
 
         else if(id ==R.id.action_search_temp123)
         {
+            mSearchView.setVisibility(VISIBLE);
             adapter = new ArrayAdapter<String>(Temples.this,android.R.layout.simple_list_item_1, searchArrayListWithoutCount);
             lv.setAdapter(adapter);
             isSearchButonPressed =true;

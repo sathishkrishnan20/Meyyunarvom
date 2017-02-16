@@ -86,7 +86,7 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
         int width= displayMetrics.widthPixels;
         int height =displayMetrics.heightPixels;
 
-        getWindow().setLayout((int)(width * 0.8), (int)(height* 0.6));
+        getWindow().setLayout((int)(width ), (int)(height * 0.9));
 
 
     }
