@@ -615,11 +615,4 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
 
     }
 
-
-
-
-
-
-
-
 }

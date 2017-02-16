@@ -41,14 +41,14 @@ import java.util.Map;
 public class UserTempleUpdate extends AppCompatActivity implements View.OnClickListener {
 
 
-    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout, tempPhNo;
+    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout,tempAboutTime, tempPhNo;
     private String tempAddressLine, tempDistrict, tempState, tempCountry;
     String tempDesc , tempAddress , templeImage, tempId;
 
     String locationByMap, latLng;
 
     Double lattitude, longitude;
-    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templePhNo;
+    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templeAboutTime,templePhNo;
     private EditText templeAddressLine, templeDistrict, templeState, templeCountry;
 
 
@@ -112,6 +112,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
         templeSplDays= (EditText) findViewById(R.id.tdescspldaysupdatetemp);
         templeVehicle= (EditText) findViewById(R.id.tdescvehiclessupdatetemp);
         templeAbout = (EditText) findViewById(R.id.tdescaboutupdatetemp);
+        templeAboutTime = (EditText) findViewById(R.id.tdescaboutTimeupdatetemp);
         templePhNo= (EditText) findViewById(R.id.tdescphnoupdatetemp);
 
         chooseImage = (Button) findViewById(R.id.tchoosebtnupdatetemp);
@@ -179,7 +180,9 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
         templeSpl.setText(templeDescription[0]);
         templeSplDays.setText(templeDescription[1]);
         templeVehicle.setText(templeDescription[2]);
+
         templeAbout.setText(templeDescription[4]);
+        templeAboutTime.setText("hello");
         templePhNo.setText(templeDescription[3]);
 
         templeImage = templeDetailsList.get(3);
@@ -373,6 +376,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
             tempVehicle = templeVehicle.getText().toString().trim();
             tempPhNo = templePhNo.getText().toString().trim();
             tempAbout = templeAbout.getText().toString().trim();
+            tempAboutTime = templeAboutTime.getText().toString().trim();
 
 
             tempAddressLine = templeAddressLine.getText().toString().trim();
@@ -409,9 +413,17 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
 
             if(tempAbout.length()==0) {
                 //  templeAbout.setError("Enter something about temple"); return; }
-                Snackbar.make(view, "Enter Temple About", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Enter panividaiyalar", Snackbar.LENGTH_SHORT).show();
                 return;
             }
+
+            if(tempAboutTime.length()==0) {
+                //  templeAbout.setError("Enter something about temple"); return; }
+                Snackbar.make(view, "Enter panivaidai neram", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+
 
             if(tempPhNo.length()<5) {
                 //templePhNo.setError("Enter Correct Mobile No");return;
@@ -430,6 +442,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
             templeData.append(tempVehicle+"%%");
             templeData.append(tempPhNo+"%%");
             templeData.append(tempAbout+"%%");
+            templeData.append(tempAboutTime+"%%");
 
             templeFullAddress.append(tempAddressLine+"%%");
             templeFullAddress.append(tempDistrict+"%%");

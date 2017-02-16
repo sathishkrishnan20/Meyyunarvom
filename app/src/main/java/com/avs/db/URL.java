@@ -6,7 +6,7 @@ package com.avs.db;
 
 public final class URL
 {
-   // public static String url="http://192.168.0.6/Meyyunarvom";
+   // public static String url="http://192.168.1.6/Meyyunarvom";
 
     public static String url="http://vairaisathish.5gbfree.com/Meyyunarvom";
 

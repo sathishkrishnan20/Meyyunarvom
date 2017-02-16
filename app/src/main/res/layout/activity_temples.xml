@@ -19,7 +19,6 @@
 
 
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -104,7 +103,7 @@
 
 
     <TextView
-            android:text="இடம்         :"
+            android:text="ஊர்            :"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -229,7 +228,7 @@
 
 
            <TextView
-                   android:text="திருவிழாக்கள் :"
+                   android:text="திருவிழாக்கள்"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:gravity="center"
@@ -250,7 +249,7 @@
 
 
                <TextView
-                   android:text="வாகனங்கள்     :"
+                   android:text="வாகனங்கள்"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:textSize="20sp"
@@ -268,26 +267,56 @@
                    android:layout_marginTop="10dp"
                    android:id="@+id/tDescVehicleSetId" />
 
-               <TextView
-                   android:text="பதியை பற்றி:"
+         <TableRow
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginRight="5dp"
+             android:layout_marginEnd="5dp">
+
+         <TextView
+                   android:text="பணிவிடையாளர்"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:textSize="20sp"
                    android:textStyle="bold"
-                   android:gravity="center"
                    android:layout_marginTop="10dp" />
 
                <TextView
                    android:text=""
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
+                  android:layout_height="wrap_content"
                    android:textSize="18sp"
                    android:layout_marginLeft="3dp"
                    android:layout_marginStart="3dp"
                    android:layout_marginTop="10dp"
                    android:id="@+id/tDescaboutSetId" />
+</TableRow>
 
-           <TableRow
+
+         <TableRow
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginRight="5dp"
+             android:layout_marginEnd="5dp">
+
+             <TextView
+                 android:text="பணிவிடை நேரம்"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textSize="20sp"
+                 android:textStyle="bold"
+                 android:layout_marginTop="10dp" />
+
+             <TextView
+                 android:text=""
+                 android:layout_height="wrap_content"
+                 android:textSize="18sp"
+                 android:layout_marginLeft="3dp"
+                 android:layout_marginStart="3dp"
+                 android:layout_marginTop="10dp"
+                 android:id="@+id/tDescaboutTimeSetId" />
+         </TableRow>
+
+         <TableRow
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginRight="5dp"
@@ -298,8 +327,6 @@
                    android:layout_height="wrap_content"
                    android:textSize="20sp"
                    android:textStyle="bold"
-                   android:layout_marginLeft="16dp"
-                   android:layout_marginStart="16dp"
                    android:layout_marginTop="10dp" />
 
                <TextView
@@ -340,6 +367,15 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:isScrollContainer="true" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/error_image"
+        android:src="@drawable/network_error_1x"/>
+
+
 
 
 </RelativeLayout>

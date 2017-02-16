@@ -45,7 +45,7 @@ import java.util.Map;
 
 public class AdminTempleReview extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templePhNo;
+    private EditText templeName,templePlace, templeSpl, templeSplDays, templeVehicle, templeAbout,templeAboutTime,templePhNo;
     private EditText templeAddressLine, templeDistrict, templeState, templeCountry, latLng;
     private TextView addedBy;
             private Button editLatLng;
@@ -92,7 +92,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
     private Bitmap bitmap;
 
     private String tempAddressLine, tempDistrict, tempState, tempCountry;
-    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout, tempPhNo;
+    String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout,tempAboutTime, tempPhNo;
     String tempDesc , tempAddress;
 
     private String loginUserName="";
@@ -141,6 +141,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         templeSplDays= (EditText) findViewById(R.id.admintempdescspldays);
         templeVehicle= (EditText) findViewById(R.id.admintempdescvehicles);
         templeAbout = (EditText) findViewById(R.id.admintempdescabout);
+        templeAboutTime = (EditText) findViewById(R.id.admintempdescaboutTime);
         templePhNo= (EditText) findViewById(R.id.admintempdescphno);
 
 
@@ -335,6 +336,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
             templeVehicle.setText(templeDesc[2]);
             templePhNo.setText(templeDesc[3]);
             templeAbout.setText(templeDesc[4]);
+            templeAboutTime.setText(templeDesc[5]);
             Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(adminTempImage); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
         }
         catch(Exception e)
@@ -458,7 +460,7 @@ int mapRequest =0;
             tempVehicle = templeVehicle.getText().toString().trim();
             tempPhNo = templePhNo.getText().toString().trim();
             tempAbout = templeAbout.getText().toString().trim();
-
+            tempAboutTime = templeAboutTime.getText().toString().trim();
             tempAddressLine = templeAddressLine.getText().toString().trim();
             tempDistrict = templeDistrict.getText().toString().trim();
             tempState = templeState.getText().toString().trim();
@@ -491,7 +493,13 @@ int mapRequest =0;
 
             if (tempAbout.length() == 0) {
                 //  templeAbout.setError("Enter something about temple"); return; }
-                Snackbar.make(view, "Enter Temple About", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Enter Temple panivaidayalar", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (tempAboutTime.length() == 0) {
+                //  templeAbout.setError("Enter something about temple"); return; }
+                Snackbar.make(view, "Enter Temple panividai neram", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
@@ -512,6 +520,7 @@ int mapRequest =0;
             templeData.append(tempVehicle + "%%");
             templeData.append(tempPhNo + "%%");
             templeData.append(tempAbout + "%%");
+            templeData.append(tempAboutTime + "%%");
 
             templeFullAddress.append(tempAddressLine + "%%");
             templeFullAddress.append(tempDistrict + "%%");
@@ -866,6 +875,7 @@ int mapRequest =0;
 
         templeVehicle.setText("");
         templeAbout.setText("");
+        templeAboutTime.setText("");
         templePhNo.setText("");
         templeAddressLine.setText("");
         templeDistrict.setText("");

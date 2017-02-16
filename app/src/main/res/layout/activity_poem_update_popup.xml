@@ -11,10 +11,6 @@
     tools:context="com.avs.meyyunarvom.PoemUpdatePopup">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
 
 
             <RelativeLayout
@@ -37,7 +33,7 @@
 
 
                     <TextView
-                        android:text="Poems"
+                        android:text="பதிவுகள்"
                         android:layout_width="match_parent"
                         android:layout_height="35sp"
                         android:background="@color/answer_tab"
@@ -49,7 +45,6 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="10dp"
                         android:id="@+id/materialforqustiondoubt">
 
@@ -57,25 +52,30 @@
                         <AutoCompleteTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Add Title"
+                            android:hint="தலைப்பு"
                             android:layout_marginTop="40dp"
                             android:gravity="center"
                             android:id="@+id/title_update_poem" />
                     </android.support.design.widget.TextInputLayout>
 
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+
                     <MultiAutoCompleteTextView
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:padding="4dp"
                         android:id="@+id/content_update_poem"
-                        android:hint="Add Your Poem"
-                        android:ellipsize="start"
-                        android:gravity="top"
+                        android:hint="பதிவு"
+                        android:gravity="center"
                         android:scrollbars="vertical"
-                        android:background="@drawable/edittext_style"/>
-
+                        android:background="@drawable/expand_colapse_lay_bg"/>
+</android.support.design.widget.TextInputLayout>
 
 
                     <Button
@@ -95,7 +95,7 @@
 
                 </LinearLayout>
                 </ScrollView>
-            </RelativeLayout>
+
 
 
         </RelativeLayout>
