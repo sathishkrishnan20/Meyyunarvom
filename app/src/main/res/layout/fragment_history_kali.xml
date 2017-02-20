@@ -18,7 +18,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sckalihis"
+        android:id="@+id/scrollView_history_kali"
         android:layout_below="@id/kali_histry_title">
 
         <RelativeLayout
@@ -36,7 +36,7 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:layout_marginBottom="45dp"
-                android:textIsSelectable="true"
+                android:textIsSelectable="false"
                 style="@style/AlertDialog.AppCompat.Light"
                 android:textSize="15sp"
                 android:id="@+id/ayya_history_content"/>

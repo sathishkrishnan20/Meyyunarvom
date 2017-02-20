@@ -29,7 +29,6 @@
         android:label="@string/main_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -46,7 +44,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".AkilathirattuMenu"
             android:label="@string/akilathirattu"
@@ -55,7 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".ArulnoolMenu"
             android:label="@string/akilathirattu"
@@ -64,7 +60,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AkilathirattuMenu" />
         </activity>
-
         <activity
             android:name=".HistoryMenu"
             android:label="@string/history"
@@ -73,7 +68,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".AddTemple"
             android:label="@string/addtemple"
@@ -82,7 +76,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Temples" />
         </activity>
-
         <activity
             android:name=".Answers"
             android:label="@string/doubts"
@@ -92,7 +85,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfilePage" />
         </activity>
-
         <activity
             android:name=".ViewPoem"
             android:label="@string/poem"
@@ -101,7 +93,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".Temples"
             android:label="@string/temples"
@@ -110,7 +101,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
@@ -118,7 +108,6 @@
             <meta-data
                 android:name="android.support.PARENT_PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
-
         </activity>
 
         <service android:name="com.avs.db.MyFirebaseMessagingService">
@@ -126,15 +115,11 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name="com.avs.db.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-
-
 
         <activity
             android:name=".LoginActivity"
@@ -144,7 +129,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".AdminMenu"
             android:label="Admin"
@@ -153,7 +137,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".AdminPage"
             android:label="Admin Clear Doubts"
@@ -163,7 +146,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
-
         <activity
             android:name=".AdminTempleReview"
             android:label="Admin Temple"
@@ -173,7 +155,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
-
         <activity
             android:name=".AdminPoemReview"
             android:label="Admin Poem"
@@ -183,7 +164,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AdminMenu" />
         </activity>
-
         <activity
             android:name=".ProfilePage"
             android:label="Profile"
@@ -192,7 +172,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".AddPoem"
             android:label="@string/add_poem"
@@ -201,7 +180,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfilePage" />
         </activity>
-
         <activity
             android:name=".UserViewPoem"
             android:label="@string/poem"
@@ -210,7 +188,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProfilePage" />
         </activity>
-
         <activity
             android:name=".ForgotPassword"
             android:label="Change Password"
@@ -219,62 +196,67 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
-
-        <activity android:name=".UserUpdateDetails"
+        <activity
+            android:name=".UserUpdateDetails"
             android:label="AVS"
             android:parentActivityName=".ProfilePage"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfilePage"/>
+                android:value=".ProfilePage" />
         </activity>
-
-        <activity android:name=".UserTempleUpdate"
+        <activity
+            android:name=".UserTempleUpdate"
             android:label="Update Temple"
             android:parentActivityName=".UserTemple">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UserTemple"/>
+                android:value=".UserTemple" />
         </activity>
-
-
         <activity
             android:name=".UserTemple"
             android:label="@string/temples"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".ProfilePage">
+            android:parentActivityName=".ProfilePage"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ProfilePage"/>
+                android:value=".ProfilePage" />
         </activity>
-
-
-
-        <activity android:name=".AyyaVazhiMenu"
+        <activity
+            android:name=".AyyaVazhiMenu"
             android:label="@string/ayyavazhi"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
-
-
-        <activity android:name=".AdminLogin"
+        <activity
+            android:name=".AdminLogin"
             android:label="Admin"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
 
 
+        <activity android:name=".AboutUs"
+            android:label="About Us"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
+        <activity android:name=".ContactUs"
+            android:label="Contact Us"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".TempleSearchDistrict" />
-
-
-
-
         <activity
             android:name=".PoemUpdatePopup"
             android:theme="@style/MyMaterialTheme.Base" />
@@ -315,11 +297,9 @@
             android:name="com.google.android.place.API_KEY"
             android:value="@string/google_places_key" />
 
-        <activity android:name=".MapsActivity"
-         android:label="AVS" />
-
-
-
+        <activity
+            android:name=".MapsActivity"
+            android:label="AVS" />
         <activity
             android:name=".Akilam"
             android:label="@string/title_activity_akilam"

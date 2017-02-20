@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,12 +75,17 @@ public class HistoryAyyaVaikundar extends Fragment {
         }
     }
 
+    ScrollView scrollView;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history_ayya_vaikundar, container, false);
+
+        scrollView =(ScrollView)view.findViewById(R.id.scroll_frag_history_ayya);
 
         ayyaHistorytitle = (TextView) view.findViewById(R.id.ayya_histry_title);
         ayyaHistoryContent = (TextView) view.findViewById(R.id.ayya_history_content);
@@ -100,6 +106,8 @@ try {
             if (track < 9) {
                 track = track + 1;
             }
+
+            scrollView.fullScroll(ScrollView.FOCUS_UP);
             MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
 
             AyyaHistoryDAO dao = db.getayyaHistoryContent(track);
@@ -118,7 +126,7 @@ try {
             if (track > 1) {
                 track = track - 1;
             }
-
+            scrollView.fullScroll(ScrollView.FOCUS_UP);
             MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
             AyyaHistoryDAO dao = db.getayyaHistoryContent(track);
             ayyaHistorytitle.setText(dao.getTitle());

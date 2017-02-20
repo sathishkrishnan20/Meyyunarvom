@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ public class HistorySudalai extends Fragment {
 
     private int track =1;
 
+    ScrollView scrollView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,8 @@ public class HistorySudalai extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_history_sudalai, container, false);
 
+        scrollView =(ScrollView)view.findViewById(R.id.scrollView_history_sudalai);
+
 
 
         sudalaiHistorytitle = (TextView) view.findViewById(R.id.sudalai_titleid1);
@@ -88,7 +93,7 @@ public class HistorySudalai extends Fragment {
 
         try {
             MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-            String d="ddddd";
+
             SudalaiHistoryDAO dao = db.getsudalaiHistoryContent(track);
             sudalaiHistorytitle.setText(dao.getTitle());
             sudalaiHistoryContent.setText(dao.getContent());
@@ -101,9 +106,8 @@ public class HistorySudalai extends Fragment {
                     if (track < 11) {
                         track = track + 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-
-                    String d="ddddd";
                     SudalaiHistoryDAO dao = db.getsudalaiHistoryContent(track);
                     sudalaiHistorytitle.setText(dao.getTitle());
                     sudalaiHistoryContent.setText(dao.getContent());
@@ -120,7 +124,7 @@ public class HistorySudalai extends Fragment {
                     if (track > 1) {
                         track = track - 1;
                     }
-                    String d="ddddd";
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     SudalaiHistoryDAO dao = db.getsudalaiHistoryContent(track);
                     sudalaiHistorytitle.setText(dao.getTitle());

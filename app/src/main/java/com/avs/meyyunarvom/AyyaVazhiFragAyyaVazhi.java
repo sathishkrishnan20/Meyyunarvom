@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,18 +74,21 @@ public class AyyaVazhiFragAyyaVazhi extends Fragment {
 
     private int track =1;
 
+    ScrollView scrollView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view =inflater.inflate(R.layout.fragment_ayya_vazhi_frag_ayya_vazhi, container, false);
 
+        scrollView =(ScrollView)view.findViewById(R.id.scroll_ayyavazhi_frag);
         title = (TextView) view.findViewById(R.id.ayyavazhi_titleid1);
         content = (TextView) view.findViewById(R.id.ayyavazhi_contentid1);
         next = (Button) view.findViewById(R.id.ayyavazhinextbtn);
         previous = (Button) view.findViewById(R.id.ayyavazhipreviousbtn);
 
         try {
+
             MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
             AyyaVahiDAO dao = db.getAyyaVazhiContents(track);
             title.setText(dao.getTitle());
@@ -98,9 +102,8 @@ public class AyyaVazhiFragAyyaVazhi extends Fragment {
                     if (track <4 ) {
                         track = track + 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-
-
                     AyyaVahiDAO dao = db.getAyyaVazhiContents(track);
                     title.setText(dao.getTitle());
                     content.setText(dao.getContent());
@@ -117,6 +120,7 @@ public class AyyaVazhiFragAyyaVazhi extends Fragment {
                     if (track > 1) {
                         track = track - 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     AyyaVahiDAO dao = db.getAyyaVazhiContents(track);
                     title.setText(dao.getTitle());

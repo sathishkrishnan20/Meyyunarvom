@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,10 +73,17 @@ public class ArulFragSapthaKanniPadal extends Fragment {
     private int track = 1;
 
 
+
+    ScrollView scrollView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_arul_frag_saptha_kanni_padal, container, false);
+
+
+        scrollView =(ScrollView)view.findViewById(R.id.scrollView_sapthakanni);
+
 
         title = (TextView) view.findViewById(R.id.arul_sapthakanni_titleid1);
         content = (TextView) view.findViewById(R.id.arul_sapthakanni_contentid1);
@@ -97,6 +105,7 @@ public class ArulFragSapthaKanniPadal extends Fragment {
                     if (track < 10) {
                         track = track + 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     SapthakanniDAO dao = db.getSapthaKanniContents(track);
                     title.setText(dao.getTitle());
@@ -113,6 +122,7 @@ public class ArulFragSapthaKanniPadal extends Fragment {
                     if (track > 1) {
                         track = track - 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     SapthakanniDAO dao = db.getSapthaKanniContents(track);
                     title.setText(dao.getTitle());

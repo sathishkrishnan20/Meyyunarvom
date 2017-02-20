@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,11 +77,16 @@ public class ArulFragPathiram extends Fragment {
     private Button next, previous;
     private int track = 1;
 
+    ScrollView scrollView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_arul_frag_pathiram, container, false);
+
+        scrollView =(ScrollView)view.findViewById(R.id.ScrollView_pathiram);
+
 
         title = (TextView) view.findViewById(R.id.arul_pathiram_title);
         content = (TextView) view.findViewById(R.id.arul_pathiram_content);
@@ -102,6 +108,7 @@ public class ArulFragPathiram extends Fragment {
                     if (track < 8) {
                         track = track + 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
 
 
@@ -120,6 +127,7 @@ public class ArulFragPathiram extends Fragment {
                     if (track > 1) {
                         track = track - 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     PathiramDAO dao = db.getPathiramContents(track);
                     title.setText(dao.getTitle());

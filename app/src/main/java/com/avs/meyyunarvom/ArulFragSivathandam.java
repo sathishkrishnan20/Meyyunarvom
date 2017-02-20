@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +76,9 @@ public class ArulFragSivathandam extends Fragment {
 
     private int track =1;
 
+
+    ScrollView scrollView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,6 +87,8 @@ public class ArulFragSivathandam extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_arul_frag_sivathandam, container, false);
 
+
+        scrollView =(ScrollView)view.findViewById(R.id.scrollView_sivathandam);
 
 
         title = (TextView) view.findViewById(R.id.siva_titleid1);
@@ -104,6 +110,7 @@ public class ArulFragSivathandam extends Fragment {
                     if (track < 10) {
                         track = track + 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
 
 
@@ -124,6 +131,7 @@ public class ArulFragSivathandam extends Fragment {
                     if (track > 1) {
                         track = track - 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     SivaThandamDAO dao = db.getSivaThandamContents(track);
                     title.setText(dao.getTitle());

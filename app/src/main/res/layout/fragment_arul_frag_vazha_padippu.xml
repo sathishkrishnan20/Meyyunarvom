@@ -37,7 +37,7 @@
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:layout_marginBottom="20dp"
-                    android:textIsSelectable="true"
+                    android:textIsSelectable="false"
                     style="@style/AlertDialog.AppCompat.Light"
                     android:textSize="18sp"/>
 

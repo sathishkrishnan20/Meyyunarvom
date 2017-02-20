@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,9 @@ public class ViewPoem extends AppCompatActivity
     private RelativeLayout errorLayout;
     private ImageView errorImage;
 
+
+    ScrollView scrollView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +79,10 @@ public class ViewPoem extends AppCompatActivity
         title =(TextView) findViewById(R.id.title_for_poem);
         content=(TextView) findViewById(R.id.content_for_poem);
         postedBy=(TextView)findViewById(R.id.poem_added_by);
+
+        scrollView =(ScrollView)findViewById(R.id.scroll_poem);
+
+
 
         progressBar1.setVisibility(View.VISIBLE);
         errorLayout.setVisibility(View.VISIBLE);
@@ -240,6 +248,7 @@ public class ViewPoem extends AppCompatActivity
         if(TRACK < poemDataLength-1){
             TRACK++;
             resetFields();
+            scrollView.fullScroll(ScrollView.FOCUS_UP);
             getTempleData();
         }
     }
@@ -249,7 +258,9 @@ public class ViewPoem extends AppCompatActivity
         if(TRACK>0){
             TRACK--;
             resetFields();
+            scrollView.fullScroll(ScrollView.FOCUS_UP);
             getTempleData();
+
         }
     }
 

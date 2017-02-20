@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,12 +75,16 @@ public class ArulFragChattuNeetolai extends Fragment {
     private int track =1;
 
 
+    ScrollView scrollView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_arul_frag_chattu_neetolai, container, false);
+        scrollView =(ScrollView)view.findViewById(R.id.scrollView_chattu);
+
 
         title = (TextView) view.findViewById(R.id.chatu_titleid1);
         content = (TextView) view.findViewById(R.id.chatu_contentid1);
@@ -100,6 +105,7 @@ public class ArulFragChattuNeetolai extends Fragment {
                     if (track < 11) {
                         track = track + 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
 
 
@@ -119,6 +125,7 @@ public class ArulFragChattuNeetolai extends Fragment {
                     if (track > 1) {
                         track = track - 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     ChattuDAO dao = db.getChattuContents(track);
                     title.setText(dao.getTitle());

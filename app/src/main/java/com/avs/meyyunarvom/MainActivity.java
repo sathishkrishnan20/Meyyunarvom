@@ -271,13 +271,15 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
-        else if (id == R.id.about_us)
+        else if (id == R.id.contact_us_menu)
         {
-
+              Intent intent = new Intent(this, ContactUs.class);
+              startActivity(intent);
         }
-        else if (id == R.id.help_faq) {
+        else if (id == R.id.about_us_menu) {
 
-
+            Intent intent = new Intent(this, AboutUs.class);
+            startActivity(intent);
         }
 
 

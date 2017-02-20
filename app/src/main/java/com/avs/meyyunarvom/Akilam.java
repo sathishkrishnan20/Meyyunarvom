@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class Akilam extends AppCompatActivity
 
 
 
+    ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,9 @@ public class Akilam extends AppCompatActivity
         setContentView(R.layout.activity_akilam);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        scrollView =(ScrollView)findViewById(R.id.scrollView_akilam);
+
 
         mGesture = new GestureDetector(this, mOnGesture);
 
@@ -80,11 +85,7 @@ public class Akilam extends AppCompatActivity
         akilamContent =(TextView)findViewById(R.id.akilamcontentid);
         pageNo =(TextView)findViewById(R.id.page_no);
 
-
-
-
         spin =(MaterialSpinner)findViewById(R.id.spinnerakilam123);
-
         spin.setOnItemSelectedListener(this);
 
         MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
@@ -106,6 +107,7 @@ public class Akilam extends AppCompatActivity
         arrayList.add("தர்மநீதம்");
         arrayList.add("தெய்வநீதம்");
         arrayList.add("பெண்கள் நிலைமை");
+
         addTitleInSpinner();
     }
 
@@ -1638,6 +1640,7 @@ public class Akilam extends AppCompatActivity
     private void getContentByTrack()
     {
         try {
+            scrollView.fullScroll(ScrollView.FOCUS_UP);
             MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
             AkilathirattuDAO dao = db.getAkilamContent(track);
             akilamContent.setText(dao.getContent());
@@ -1694,6 +1697,7 @@ public class Akilam extends AppCompatActivity
                 if (track <533 ) {
                     track = track + 1;
                 }
+                scrollView.fullScroll(ScrollView.FOCUS_UP);
                 MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
                 AkilathirattuDAO dao = db.getAkilamContent(track);
                 akilamContent.setText(dao.getContent());
@@ -1711,6 +1715,7 @@ public class Akilam extends AppCompatActivity
                if (track > 1) {
                     track = track - 1;
                 }
+                scrollView.fullScroll(ScrollView.FOCUS_UP);
                 MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
                 AkilathirattuDAO dao = db.getAkilamContent(track);
                 akilamContent.setText(dao.getContent());
