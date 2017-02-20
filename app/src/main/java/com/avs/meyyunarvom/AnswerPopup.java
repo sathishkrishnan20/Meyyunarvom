@@ -189,6 +189,7 @@ public class AnswerPopup extends Activity implements View.OnClickListener
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent =new Intent(getApplicationContext(), Answers.class);
                                 startActivity(intent);
+                                finish();
                             }
                         });
 
@@ -239,14 +240,14 @@ public class AnswerPopup extends Activity implements View.OnClickListener
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnswerPopup.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("இந்த சந்தேகத்தை நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deleteQuestionByUser();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 

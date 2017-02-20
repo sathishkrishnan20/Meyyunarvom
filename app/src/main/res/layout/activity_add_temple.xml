@@ -207,23 +207,6 @@
             android:layout_marginTop="6dp" />
 </android.support.design.widget.TextInputLayout>
 
-   <android.support.design.widget.TextInputLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content">
-
-                    <MultiAutoCompleteTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/tdescphnoaddtemp"
-                        android:hint="தொடர்புக்கு"
-                        android:layout_marginLeft="85dp"
-                        android:layout_marginStart="85dp"
-                        android:layout_marginTop="6dp" />
-                </android.support.design.widget.TextInputLayout>
-
-
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -257,6 +240,23 @@
                         android:hint="பணிவிடை நேரம்"
                         android:layout_gravity="start"
                         android:gravity="top"
+                        android:layout_marginLeft="85dp"
+                        android:layout_marginStart="85dp"
+                        android:layout_marginTop="6dp" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <MultiAutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/tdescphnoaddtemp"
+                        android:hint="தொடர்புக்கு"
                         android:layout_marginLeft="85dp"
                         android:layout_marginStart="85dp"
                         android:layout_marginTop="6dp" />

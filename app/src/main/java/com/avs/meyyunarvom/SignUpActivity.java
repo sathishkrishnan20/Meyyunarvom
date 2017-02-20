@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
@@ -17,7 +18,6 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -28,14 +28,31 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avs.db.Network;
+import com.avs.db.NotificationUtils;
 import com.avs.db.URL;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.firebase.client.Firebase;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
+
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.messaging.FirebaseMessaging;
+
+
+
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -62,12 +79,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private String password;
 
 
+    private static final String TAG = SignUpActivity.class.getSimpleName();
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
 
         mUserNameView = (EditText) findViewById(R.id.name);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -75,10 +96,83 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mPlaceView =(EditText) findViewById(R.id.place);
         register = (Button) findViewById(R.id.email_sign_up_button);
 
-
         register.setOnClickListener(this);
+
+/*
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // checking for type intent filter
+                if (intent.getAction().equals(URL.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(URL.TOPIC_GLOBAL);
+
+                    displayFirebaseRegId();
+
+                } else if (intent.getAction().equals(URL.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+
+                    String message = intent.getStringExtra("message");
+
+                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(getApplicationContext(), message,Toast.LENGTH_LONG).show();
+                    //txtMessage.setText(message);
+                }
+            }
+        };
+
+    //    displayFirebaseRegId();
+*/
     }
-                public void onClick(View v)
+    private void displayFirebaseRegId() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(URL.SHARED_PREF, 0);
+        String regId = pref.getString("regId", null);
+
+        Log.e(TAG, "Firebase reg id: " + regId);
+/*
+        if (!TextUtils.isEmpty(regId)) {
+            //txtRegId.setText("Firebase Reg Id: " + regId);
+           // mEmailView.setText(regId);
+            Toast.makeText(getApplicationContext(), regId, Toast.LENGTH_LONG).show();
+        }
+        else
+            mPlaceView.setText("Firebase Reg Id is not received yet!");
+  */  }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+/*
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(URL.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(URL.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        NotificationUtils.clearNotifications(getApplicationContext());
+
+
+*/
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
+    }
+
+
+    public void onClick(View v)
                 {
 
                     if(v.getId()==R.id.email_sign_up_button) {
@@ -106,6 +200,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                      }
 
                      if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty() && mAwesomeValidation.validate()) {
+
 
                          registerUser();
                      } else {
@@ -161,10 +256,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     public void onResponse(String response)
                     {
                         loading.dismiss();
+
                         Toast.makeText(SignUpActivity.this,response.split(";")[0],Toast.LENGTH_SHORT).show();
                         resetField();
                         Intent intent =new Intent(getApplicationContext(),LoginActivity.class);
-                        startActivity(intent);
+                       startActivity(intent);
 
                     }
                 },
@@ -222,7 +318,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mUserNameView.setText("");
     }
 
-
-        }
+}
 
 

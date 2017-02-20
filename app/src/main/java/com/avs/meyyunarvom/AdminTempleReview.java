@@ -11,14 +11,22 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +48,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -95,6 +104,8 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
     String tempName, tempPlace, tempSpl,tempSplDays,tempVehicle,tempAbout,tempAboutTime, tempPhNo;
     String tempDesc , tempAddress;
 
+    String templeBlob;
+
     private String loginUserName="";
     private String loginUserEmail="";
 
@@ -113,13 +124,38 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
     String locationByMap,latLngByMap;
     double  longitudeByMap,lattitudeByMap;
 
+
+
     private ProgressBar progressBar1;
+    private RelativeLayout actualLayout;
+    private ImageView errorImage;
+
+
+    //Temple District
+
+    private ListView lv;
+
+    // Listview Adapter
+    ArrayAdapter<String> adapter;
+
+    ArrayList templeDistrictList =new ArrayList();
+
+    private final String GET_URLDist = com.avs.db.URL.url + "/getTempleDistrict.php";
+    private int TRACKDist = 0;
+    private JSONObject jsonObjectDist;
+    private JSONArray resultDist;
+
+    String distResponse = "";
+    int distLength =0;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_temple_review);
-        checkConnection();
-        userCheck();
+        actualLayout = (RelativeLayout)findViewById(R.id.relative_admintemple);
+        errorImage = (ImageView)findViewById(R.id.error_image_admintemple);
         addedBy= (TextView)findViewById(R.id.addedBy);
 
         templeName = (EditText) findViewById(R.id.admintempname);
@@ -152,7 +188,23 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
         buttonMoveNext = (Button) findViewById(R.id.admintempbuttonNext);
         buttonMovePrevious = (Button) findViewById(R.id.admintempbuttonPrev);
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_admintemple);
+        progressBar1.setVisibility(View.VISIBLE);
+        actualLayout.setVisibility(View.GONE);
+        errorImage.setVisibility(View.GONE);
 
+        lv = (ListView) findViewById(R.id.list_viewexdistadmin);
+        lv.setVisibility(View.GONE);
+        //inputSearch = (EditText) findViewById(R.id.inputSearchdist);
+
+
+
+        userCheck();
+
+         if(checkConnection()) {
+             getDistrictsFromDB();
+             getTemplesFromDB();
+         }
 
         buttonMoveNext.setOnClickListener(this);
         buttonMovePrevious.setOnClickListener(this);
@@ -162,38 +214,208 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         editLatLng.setOnClickListener(this);
 
 
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_admintemple);
-        progressBar1.setVisibility(View.VISIBLE);
+        templeDistrict.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                lv.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        templeState.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lv.setVisibility(View.GONE);
+            }
+        });
+
+
+        templeDistrict.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                AdminTempleReview.this.adapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+        LinearLayout layout = (LinearLayout)findViewById(R.id.temple_linear);
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(lv.getVisibility()==View.VISIBLE)
+                {
+                    lv.setVisibility(View.GONE);
+                }
+                return true;
+            }
+        });
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String districtName = String.valueOf(templeDistrictList.get(position));
+                templeDistrict.setText(districtName);
+                lv.setVisibility(View.GONE);
+            }
+
+
+        });
 
 
 
-        getTemplesFromDB();
+        errorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(), AdminTempleReview.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
     }
 
+    JSONObject jsonObj;
+    JSONArray res;
 
-    private void checkConnection()
+    private String getDistrict(int position ,String response) {
+        String distName = "";
+        try {
+            //Getting object of given index
+            jsonObj = new JSONObject(response);
+            res = jsonObject.getJSONArray("result");
+
+            JSONObject json = result.getJSONObject(position);
+
+            //Fetching name from that object
+            distName = json.getString("tdist");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //Returning the name
+        return distName;
+    }
+
+
+    private boolean checkConnection()
     {
-        Network network=new Network();
+        Network network =new Network();
         if (!network.isOnline(AdminTempleReview.this))
         {
-            Intent intent = new Intent(AdminTempleReview.this,ConnectionError.class);
-            startActivity(intent);
+            errorImage.setVisibility(View.VISIBLE);
+            progressBar1.setVisibility(View.GONE);
+            return false;
         }
-
+        else {
+            return true;
+        }
     }
 
     private void userCheck()
     {
-
-
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
         SharedPreferences.Editor editor=userdetails.edit();
 
         loginUserName=userdetails.getString("name", null);
         loginUserEmail=userdetails.getString("email",null);
     }
+
+
+    public void getDistrictsFromDB() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_URLDist,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+
+                        distResponse = response;
+                        showJSONDist(response);
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //  progressBar1.setVisibility(View.GONE);
+                if (error.networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        // Show timeout error message
+                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                else
+                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue rq = Volley.newRequestQueue(this);
+        rq.add(stringRequest);
+
+
+    }
+
+
+    private void showJSONDist(String response)
+    {
+        try
+        {
+            jsonObjectDist = new JSONObject(response);
+            resultDist = jsonObjectDist.getJSONArray("result");
+
+            distLength = resultDist.length();
+            getSetdistData();
+        }
+        catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private void getSetdistData()
+    {
+        try {
+
+            templeDistrictList.clear();
+            for (int templeCount = 0; templeCount < distLength; templeCount++) {
+                JSONObject DistrictData = resultDist.getJSONObject(templeCount);
+                templeDistrictList.add(DistrictData.getString("tdist"));
+            }
+
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        adapter = new ArrayAdapter(this, R.layout.list_item_dist, R.id.dist_name, templeDistrictList);
+        lv.setAdapter(adapter);
+    }
+
+
+
 
 
     public void getTemplesFromDB() {
@@ -203,6 +425,9 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
                     @Override
                     public void onResponse(String response) {
 
+                        actualLayout.setVisibility(View.VISIBLE);
+                        errorImage.setVisibility(View.GONE);
+
                         showJSON(response);
 
 
@@ -211,6 +436,9 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar1.setVisibility(View.GONE);
+                actualLayout.setVisibility(View.GONE);
+                errorImage.setVisibility(View.VISIBLE);
+
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
@@ -232,8 +460,6 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
         RequestQueue rq = Volley.newRequestQueue(this);
         rq.add(stringRequest);
-
-
     }
 
     int templeDataLength=0;
@@ -253,7 +479,6 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         }
     }
 
-
     private void getTempleData()
     {
 
@@ -261,7 +486,6 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
             JSONObject templeData = result.getJSONObject(TRACK);
             tempId = templeData.getInt("id");
-
             userName = templeData.getString("name");
             userEmail = templeData.getString("email");
             userPlace= templeData.getString("place");
@@ -272,6 +496,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
             tImageUrl = templeData.getString("timage");
             latitude = templeData.getString("latitude");
             longitude = templeData.getString("longitude");
+            templeBlob = templeData.getString("temple_image");
             isPublish = templeData.getString("active_flag_publish");
 
             setTempleData();
@@ -367,7 +592,9 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 //Setting the Bitmap to ImageView
                 adminTempImage.setImageBitmap(bitmap);
+
                 imageUploadCount = 1;
+                getStringImage(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -380,36 +607,41 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        templeBlob = encodedImage;
         return encodedImage;
     }
 
 
 
-int mapRequest =0;
-
     public void onClick(View view) {
 
         if(view == buttonMoveNext){
-            resetFields();
+
             moveNext();
         }
         if(view == buttonMovePrevious){
-            resetFields();
             movePrevious();
         }
 
         if (view == chooseImage) {
+
             showFileChooser();
         }
 
 
         if(view == editLatLng)
         {
-           /* mapRequest =1;
+            latLng.setEnabled(true);
             Intent intent =new Intent(getApplicationContext(), MapsActivity.class);
             intent.putExtra("redirectPage","adminTemple");
+            intent.putExtra("adminTempleName",tname);
+            intent.putExtra("latAndmin", Double.parseDouble(latitude));
+            intent.putExtra("longAdmin",Double.parseDouble(longitude));
             startActivity(intent);
-            */
+
+
+
         }
 
         if(view ==deleteTemple)
@@ -418,30 +650,26 @@ int mapRequest =0;
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("பதியை நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deleteTempleFromAdminPage();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
                     dialog.cancel();
-
                 }
             });
             alertDialog.show();
-
         }
-
-
         if (view == uploadTemple) {
             StringBuilder templeData = new StringBuilder();
             StringBuilder templeFullAddress = new StringBuilder();
-
+          /*
             if (mapRequest == 1) {
                 Intent intent = getIntent();
                 locationByMap = intent.getStringExtra("location");
@@ -451,7 +679,7 @@ int mapRequest =0;
                 latLng.setText(lattitudeByMap + ",\n" + longitudeByMap);
             }
 
-
+*/
             tempName = templeName.getText().toString().trim();
             tempPlace = templePlace.getText().toString().trim();
 
@@ -535,6 +763,7 @@ int mapRequest =0;
                 Snackbar.make(view, "Enter Temple Name", Snackbar.LENGTH_SHORT).show();
 
             } else {
+    //            Toast.makeText(this, templeBlob,Toast.LENGTH_LONG).show();
                 uploadUpdate();
             }
         }
@@ -764,8 +993,9 @@ int mapRequest =0;
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-
+                               Intent intent =new Intent(getApplicationContext() , AdminTempleReview.class);
+                                startActivity(intent);
+                                finish();
                             }
                         });
 
@@ -793,7 +1023,7 @@ int mapRequest =0;
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
-                String tempImage = getStringImage(bitmap);
+              //  String tempImage = getStringImage(bitmap);
 
                 Map<String, String> params = new Hashtable<String, String>();
                 params.put(KEY_ID, String.valueOf(tempId));
@@ -802,7 +1032,7 @@ int mapRequest =0;
                 params.put(KEY_DIST, tempDistrict);
                 params.put(KEY_ADDRESS,tempAddress);
                 params.put(KEY_DESC, tempDesc);
-                params.put(KEY_IMAGE, tempImage);
+                params.put(KEY_IMAGE, templeBlob);
                 params.put(KEY_LATTITUDE, String.valueOf(lattitudeByMap));
                 params.put(KEY_LONGITIDE, String.valueOf(longitudeByMap));
                 return params;
@@ -840,14 +1070,14 @@ int mapRequest =0;
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminTempleReview.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("பதியை நிரந்தரமாக நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deletePermanently();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -868,6 +1098,7 @@ int mapRequest =0;
 
     private void resetFields()
     {
+        addedBy.setText("");
         templeName.setText("");
         templePlace.setText("");
         templeSpl.setText("");
@@ -889,8 +1120,9 @@ int mapRequest =0;
 
 
     private void moveNext(){
-        if(TRACK < templeDataLength){
+        if(TRACK < templeDataLength -1){
             TRACK++;
+            resetFields();
             getTempleData();
         }
     }
@@ -898,6 +1130,7 @@ int mapRequest =0;
     private void movePrevious(){
         if(TRACK>0){
             TRACK--;
+            resetFields();
             getTempleData();
         }
     }

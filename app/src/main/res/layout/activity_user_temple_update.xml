@@ -11,7 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
         android:paddingTop="4dp"
         android:orientation="vertical">
 
@@ -206,22 +205,6 @@
                             android:layout_marginTop="6dp" />
                     </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <MultiAutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:ems="10"
-                            android:id="@+id/tdescphnoupdatetemp"
-                            android:hint="தொடர்புக்கு"
-                            android:layout_marginLeft="85dp"
-                            android:layout_marginStart="85dp"
-                            android:layout_marginTop="6dp" />
-                    </android.support.design.widget.TextInputLayout>
-
 
 
                     <android.support.design.widget.TextInputLayout
@@ -263,7 +246,21 @@
                     </android.support.design.widget.TextInputLayout>
 
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <MultiAutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:ems="10"
+                            android:id="@+id/tdescphnoupdatetemp"
+                            android:hint="தொடர்புக்கு"
+                            android:layout_marginLeft="85dp"
+                            android:layout_marginStart="85dp"
+                            android:layout_marginTop="6dp" />
+                    </android.support.design.widget.TextInputLayout>
 
 
 
@@ -295,6 +292,20 @@
                         android:layout_weight="1"
                         android:id="@+id/timageviewupdatetemp" />
 
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="UPDATE TEMPLE"
+                        android:background = "#ec45a1"
+                        android:textAllCaps ="true"
+                        android:textColor = "#fff"
+                        android:textStyle = "bold"
+                        android:textSize = "18sp"
+                        android:isScrollContainer="true"
+                        android:id="@+id/tuploadbtnupdatetemp"/>
+
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -303,19 +314,6 @@
 
 
     </LinearLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="UPDATE TEMPLE"
-        android:background = "#ec45a1"
-        android:textAllCaps ="true"
-        android:textColor = "#fff"
-        android:textStyle = "bold"
-        android:textSize = "18sp"
-        android:isScrollContainer="true"
-        android:layout_marginTop="460dp"
-        android:id="@+id/tuploadbtnupdatetemp"/>
-
 
 
 

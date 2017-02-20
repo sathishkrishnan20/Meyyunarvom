@@ -19,7 +19,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,50 +81,72 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
     boolean restrictBtn = true;
 
+
+    private RelativeLayout actualLayout;
+    private ImageView errorImage;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_page);
-        checkConnection();
-        checkIsLogin();
-        spin = (MaterialSpinner) findViewById(R.id.spinneranswer);
 
+        actualLayout = (RelativeLayout)findViewById(R.id.relative_admindoubt);
+        errorImage = (ImageView)findViewById(R.id.error_image_admindoubt);
+        spin = (MaterialSpinner) findViewById(R.id.spinneranswer);
         answer = (EditText) findViewById(R.id.answerfordoubt);
         fullQuestion =(TextView)findViewById(R.id.fulldoubt_text);
 
 
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar_admindoubts);
+
+        if(checkConnection())
+            getQustions();
+
+        checkIsLogin();
+
         progressBar1.setVisibility(View.VISIBLE);
+        actualLayout.setVisibility(View.GONE);
+        errorImage.setVisibility(View.GONE);
+
+
 
         buttonSendAns = (Button) findViewById(R.id.Sendanswer);
-
-        //deleteBtn= (Button)findViewById(R.id.delete_question_by_admin);
         spin.setOnItemSelectedListener(this);
-
         buttonSendAns.setOnClickListener(this);
-       // deleteBtn.setOnClickListener(this);
-
-        Intent intent=getIntent();
 
 
-        getQustions();
+
+        errorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(), AdminPage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
     }
 
 
-    private void checkConnection()
+    private boolean checkConnection()
     {
         Network network =new Network();
         if (!network.isOnline(AdminPage.this))
         {
-            Intent intent = new Intent(this,ConnectionError.class);
-            startActivity(intent);
+            errorImage.setVisibility(View.VISIBLE);
+            progressBar1.setVisibility(View.GONE);
+            return false;
         }
-
+        else {
+            return true;
+        }
     }
 
-        private void checkIsLogin() {
+
+
+    private void checkIsLogin() {
         SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
         SharedPreferences.Editor editor = userdetails.edit();
 
@@ -148,10 +172,16 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete_temple_permanent_admin && !restrictBtn ) {
 
+            if(restrictSendButton==1)
+            {
+               Toast.makeText(this, "Please Select One Question", Toast.LENGTH_LONG).show();
+                return false;
+            }
+
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
             alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete the poem permanently");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setMessage("Are You Sure Want to Delete this Doubt");
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
@@ -159,7 +189,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -186,6 +216,8 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 {
                     @Override
                     public void onResponse(String response) {
+                        actualLayout.setVisibility(View.VISIBLE);
+                        errorImage.setVisibility(View.GONE);
 
                         showJSON(response);
 
@@ -194,7 +226,11 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 progressBar1.setVisibility(View.GONE);
+                actualLayout.setVisibility(View.GONE);
+                errorImage.setVisibility(View.VISIBLE);
+
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
@@ -405,11 +441,13 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
                         alertDialog.setTitle("Thank you");
                         alertDialog.setMessage(response.split(";")[0]);
-
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
+
                                 answer.setText("");
+                                Intent intent = new Intent(getApplicationContext(),AdminPage.class);
+                                startActivity(intent);
+                                finish();
                             }
                         });
 
@@ -478,8 +516,21 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                     public void onResponse(String response) {
                         loading.dismiss();
 
-                        Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
+                        alertDialog.setTitle("Thank you");
+                        alertDialog.setMessage(response.split(";")[0]);
+                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
 
+                                answer.setText("");
+                                Intent intent = new Intent(getApplicationContext(),AdminPage.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+
+                        alertDialog.show();
+                        //
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -527,11 +578,8 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         }
         if(restrictSendButton==1)
         {
-            //  Toast.makeText(this,"Please Select one Question to Answer",Toast.LENGTH_SHORT).show();
-
             Snackbar.make(v, "Please Select a Question", Snackbar.LENGTH_SHORT).show();
             return;
-
         }
 
         if(v==buttonSendAns)

@@ -12,18 +12,13 @@
 
 
 
-    <ProgressBar android:id="@+id/progressBar_admintemple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:foregroundGravity="center" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/temple_linear">
 
 
 
@@ -33,7 +28,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/relative_admintemple">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -157,7 +153,16 @@
                         android:layout_marginStart="85dp"
                         android:layout_marginTop="1dp" />
 
-</android.support.design.widget.TextInputLayout>
+                        <ListView
+                            android:id="@+id/list_viewexdistadmin"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:background="@color/white"
+                            android:layout_marginLeft="85dp"
+                            android:layout_marginStart="85dp"/>
+
+
+                    </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -249,23 +254,6 @@
                             android:layout_marginTop="6dp" />
                     </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <MultiAutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:ems="10"
-                            android:id="@+id/admintempdescphno"
-                            android:hint="தொடர்புக்கு"
-                            android:layout_marginLeft="85dp"
-                            android:layout_marginStart="85dp"
-                            android:layout_marginTop="6dp" />
-                    </android.support.design.widget.TextInputLayout>
-
-
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -304,8 +292,21 @@
                             android:layout_marginTop="6dp" />
                     </android.support.design.widget.TextInputLayout>
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-
+                        <MultiAutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:ems="10"
+                            android:id="@+id/admintempdescphno"
+                            android:hint="தொடர்புக்கு"
+                            android:layout_marginLeft="85dp"
+                            android:layout_marginStart="85dp"
+                            android:layout_marginTop="6dp" />
+                    </android.support.design.widget.TextInputLayout>
 
 
 
@@ -410,6 +411,23 @@
 
 
     </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/error_image_admintemple"
+        android:contentDescription="@string/error_network"
+        android:src="@drawable/network_error_1x"/>
+
+
+    <ProgressBar android:id="@+id/progressBar_admintemple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center" />
+
 
 
 </RelativeLayout>

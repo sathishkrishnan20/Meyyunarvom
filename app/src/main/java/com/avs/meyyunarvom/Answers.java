@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +61,6 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
     private JSONArray result;
     private fr.ganfra.materialspinner.MaterialSpinner spin;
 
-   // MaterialSpinner spin;
     ArrayList quesarray=new ArrayList();
     private static String URL = com.avs.db.URL.url + "/getDoubtsByUser.php";
 
@@ -90,13 +90,30 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
 
     String responseData="";
 
+
+    private RelativeLayout actualLayout;
+    private ImageView errorImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answers);
-        checkConnection();
+
+
+        actualLayout = (RelativeLayout)findViewById(R.id.actualLayout_doubt);
+        errorImage = (ImageView)findViewById(R.id.error_image_doubt);
+        //spin = (Spinner) findViewById(R.id.spinnerdoubt);
+        spin =(fr.ganfra.materialspinner.MaterialSpinner)findViewById(R.id.spinnerdoubt);
+        question = (EditText) findViewById(R.id.qustiondoubt);
+        buttonSend = (Button) findViewById(R.id.buttonSendquestion);
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_profiledoubts);
+
+        progressBar1.setVisibility(View.VISIBLE);
+        actualLayout.setVisibility(View.GONE);
+        errorImage.setVisibility(View.GONE);
+
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor = userdetails.edit();
 
         if(!userdetails.getBoolean("isLogin" ,false))
         {
@@ -105,46 +122,50 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
             startActivity(intent);
         }
 
-        checkIsLogin();
+        loginUserName=userdetails.getString("name", null);
+        loginUserEmail=userdetails.getString("email",null);
 
+        if(checkConnection())
+        getQustions();
 
-        //spin = (Spinner) findViewById(R.id.spinnerdoubt);
-        spin =(fr.ganfra.materialspinner.MaterialSpinner)findViewById(R.id.spinnerdoubt);
-        question = (EditText) findViewById(R.id.qustiondoubt);
-        buttonSend = (Button) findViewById(R.id.buttonSendquestion);
-
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_profiledoubts);
-        progressBar1.setVisibility(View.VISIBLE);
-
-
-
+        buttonSend.setOnClickListener(this);
         spin.setOnItemSelectedListener(this);
         materialDesignAnimatedDialog = NiftyDialogBuilder.getInstance(this);
-        getQustions();
-        buttonSend.setOnClickListener(this);
 
 
-  }
+
+        errorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(), Answers.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
 
 
     public void onBackPressed()
     {
-        finish();
-
+       Intent intent =new Intent(this, ProfilePage.class);
+       startActivity(intent);
     }
 
-
-
-    private void checkConnection()
+    private boolean checkConnection()
     {
         Network network =new Network();
         if (!network.isOnline(Answers.this))
         {
-            Intent intent = new Intent(Answers.this,ConnectionError.class);
-            startActivity(intent);
+            errorImage.setVisibility(View.VISIBLE);
+            progressBar1.setVisibility(View.GONE);
+            return false;
         }
-
+        else {
+            return true;
+        }
     }
+
 
     public void getQustions()
     {
@@ -153,6 +174,9 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
                     @Override
                     public void onResponse(String response) {
 
+
+                        actualLayout.setVisibility(View.VISIBLE);
+                        errorImage.setVisibility(View.GONE);
                         responseData =response;
                         showJSON(response);
 
@@ -163,10 +187,12 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
             public void onErrorResponse(VolleyError error) {
 
                 progressBar1.setVisibility(View.GONE);
+                actualLayout.setVisibility(View.GONE);
+                errorImage.setVisibility(View.VISIBLE);
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
+                        // Show timeout error message
                         Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
-
                     }
                 }
                 else
@@ -308,8 +334,12 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
                         alertDialog.setMessage(response.split(";")[0]);
 
                        alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                           Intent intent;
                            public void onClick(DialogInterface dialog, int which) {
                                if(response.split(";")[1].equals("success"))
+                               intent = new Intent(getApplicationContext(),Answers.class);
+                               startActivity(intent);
+                               finish();
                                question.setText("");
                            }
                        });
@@ -355,16 +385,6 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
     }
 
 
-
-    private void checkIsLogin()
-    {
-        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor = userdetails.edit();
-
-        loginUserName=userdetails.getString("name", null);
-        loginUserEmail=userdetails.getString("email",null);
-
-    }
 
     @Override
     public void onClick(View v) {

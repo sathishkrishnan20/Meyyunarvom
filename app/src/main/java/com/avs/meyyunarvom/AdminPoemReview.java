@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,14 +68,19 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
     private JSONArray result;
 
     int poemDataLength =0;
+
+    private RelativeLayout actualLayout;
+    private ImageView errorImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_poem_review);
 
 
-        checkConnection();
-        userCheck();
+        actualLayout = (RelativeLayout)findViewById(R.id.actualLayout_adminpoem);
+        errorImage = (ImageView)findViewById(R.id.error_image_adminpoem);
+
 
         addedBy =(TextView)findViewById(R.id.addedBypoem);
         poemTitle = (EditText)findViewById(R.id.admin_title_add_poem);
@@ -83,6 +90,19 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
         nextButton=(Button)findViewById(R.id.admin_buttonNext_forpoem);
         prevButton =(Button)findViewById(R.id.admin_buttonPrev_forpoem);
+
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_adminpoem);
+        progressBar1.setVisibility(View.VISIBLE);
+        actualLayout.setVisibility(View.GONE);
+        errorImage.setVisibility(View.GONE);
+
+
+        userCheck();
+
+        if(checkConnection())
+        getPoemsFromDB();
+
+
         nextButton.setOnClickListener(this);
         prevButton.setOnClickListener(this);
         deleteButton.setOnClickListener(this);
@@ -90,25 +110,33 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
         deleteButton.setOnClickListener(this);
         uploadButton.setOnClickListener(this);
 
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_adminpoem);
-        progressBar1.setVisibility(View.VISIBLE);
 
+        errorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(), AdminPoemReview.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-        getPoemsFromDB();
 
 
     }
 
 
-    private void checkConnection()
+    private boolean checkConnection()
     {
-        Network network=new Network();
+        Network network =new Network();
         if (!network.isOnline(AdminPoemReview.this))
         {
-            Intent intent = new Intent(AdminPoemReview.this,ConnectionError.class);
-            startActivity(intent);
+            errorImage.setVisibility(View.VISIBLE);
+            progressBar1.setVisibility(View.GONE);
+            return false;
         }
-
+        else {
+            return true;
+        }
     }
 
     private void userCheck()
@@ -130,6 +158,10 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onResponse(String response) {
 
+
+                        actualLayout.setVisibility(View.VISIBLE);
+                        errorImage.setVisibility(View.GONE);
+
                         showJSON(response);
 
 
@@ -137,7 +169,11 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 progressBar1.setVisibility(View.GONE);
+                actualLayout.setVisibility(View.GONE);
+                errorImage.setVisibility(View.VISIBLE);
+
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
@@ -286,7 +322,9 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
+                               Intent intent =new Intent(getApplicationContext(), AdminPoemReview.class);
+                                startActivity(intent);
+                                finish();
 
                             }
                         });
@@ -375,8 +413,9 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
-
+                                Intent intent =new Intent(getApplicationContext(), AdminPoemReview.class);
+                                startActivity(intent);
+                                finish();
                             }
                         });
 
@@ -465,7 +504,9 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Write your code here to execute after dialog closed
+                                Intent intent =new Intent(getApplicationContext(), AdminPoemReview.class);
+                                startActivity(intent);
+                                finish();
 
                             }
                         });
@@ -530,7 +571,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("பதிவை நிரந்தரமாக நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
@@ -538,7 +579,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -565,11 +606,11 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
         poemContentStr=poemContent.getText().toString();
 
         if(view == nextButton){
-            resetFields();
+
             moveNext();
         }
         if(view == prevButton){
-            resetFields();
+
             movePrevious();
         }
 
@@ -580,14 +621,14 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPoemReview.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("பதிவை நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deletePoemFromAdminPage();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -630,6 +671,7 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
     private void resetFields()
     {
+        addedBy.setText("");
         poemTitle.setText("");
         poemContent.setText("");
         userDetailsText="";
@@ -640,15 +682,17 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
 
     private void moveNext(){
-        if(TRACK < poemDataLength){
+        if(TRACK < poemDataLength -1 ){
             TRACK++;
+            resetFields();
             getPoemData();
         }
     }
 
     private void movePrevious(){
-        if(TRACK>0){
+        if(TRACK > 0){
             TRACK--;
+            resetFields();
             getPoemData();
         }
     }

@@ -8,12 +8,6 @@
     android:layout_marginBottom="16dp">
 
 
-    <ProgressBar android:id="@+id/progressBar_temple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:foregroundGravity="center" />
 
 
     <ScrollView
@@ -22,7 +16,8 @@
 
     <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+        android:id="@+id/actualLayout_userTemple">
 
 
     <RelativeLayout
@@ -96,6 +91,7 @@
     </RelativeLayout>
     </ScrollView>
 
+
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/material_design_android_floating_action_menu_temple"
         android:layout_width="wrap_content"
@@ -162,6 +158,23 @@
             fab:fab_label="Add"
             fab:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/error_image_userTemple"
+        android:contentDescription="@string/error_network"
+        android:src="@drawable/network_error_1x"/>
+
+
+    <ProgressBar android:id="@+id/progressBar_temple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center" />
+
 
 
 </RelativeLayout>

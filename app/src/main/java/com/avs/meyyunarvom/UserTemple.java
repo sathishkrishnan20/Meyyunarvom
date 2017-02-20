@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,33 +79,55 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
 
     ArrayList<String> templeDetailsArrayList = new ArrayList<>();
 
+    private RelativeLayout actualLayout;
+    private ImageView errorImage;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_temple);
 
-
-        checkConnection();
-        checkIsLogin();
-        mGesture = new GestureDetector(this, mOnGesture);
-
-        templeName =(TextView) findViewById(R.id.tname_usertemple);
-        templePlace =(TextView) findViewById(R.id.tplace_usertemple);
-        postedBy=(TextView)findViewById(R.id.temple_added_by_admin);
-        templeImageUT =(ImageView)findViewById(R.id.temple_photo);
-
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
-        progressBar1.setVisibility(View.VISIBLE);
+        actualLayout = (RelativeLayout)findViewById(R.id.actualLayout_userTemple);
+        errorImage = (ImageView)findViewById(R.id.error_image_userTemple);
 
         materialDesignFAM = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu_temple);
         floatingActionButtonAdd = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_add_temple);
         floatingActionButtonEdit = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_edit_temple);
         floatingActionButtonDelete = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_delete_temple);
+        templeName =(TextView) findViewById(R.id.tname_usertemple);
+        templePlace =(TextView) findViewById(R.id.tplace_usertemple);
+        postedBy=(TextView)findViewById(R.id.temple_added_by_admin);
+        templeImageUT =(ImageView)findViewById(R.id.temple_photo);
+        mGesture = new GestureDetector(this, mOnGesture);
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_temple);
+
+
+        progressBar1.setVisibility(View.VISIBLE);
+        actualLayout.setVisibility(View.GONE);
+        errorImage.setVisibility(View.GONE);
+
+
+        checkIsLogin();
+
+        if(checkConnection())
+           getUserTempleFromDB();
+
+
 
         floatingActionButtonAdd.setOnClickListener(this);
         floatingActionButtonEdit.setOnClickListener(this);
         floatingActionButtonDelete.setOnClickListener(this);
-        getUserTempleFromDB();
+
+        errorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(), UserTemple.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
     }
@@ -112,22 +135,26 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onBackPressed()
     {
-        Intent intent = new Intent(this, ProfilePage.class);
+        Intent intent =new Intent(this, ProfilePage.class);
         startActivity(intent);
-
     }
 
 
-    private void checkConnection()
+    private boolean checkConnection()
     {
         Network network =new Network();
         if (!network.isOnline(UserTemple.this))
         {
-            Intent intent = new Intent(UserTemple.this,ConnectionError.class);
-            startActivity(intent);
+            errorImage.setVisibility(View.VISIBLE);
+            progressBar1.setVisibility(View.GONE);
+            return false;
         }
-
+        else {
+            return true;
+        }
     }
+
+
     private void checkIsLogin()
     {
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
@@ -142,7 +169,11 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onResponse(String response) {
 
+                        actualLayout.setVisibility(View.VISIBLE);
+                        errorImage.setVisibility(View.GONE);
+
                         showJSON(response);
+
 
                     }
                 }, new Response.ErrorListener() {
@@ -150,6 +181,9 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             public void onErrorResponse(VolleyError error) {
 
                 progressBar1.setVisibility(View.GONE);
+                actualLayout.setVisibility(View.GONE);
+                errorImage.setVisibility(View.VISIBLE);
+
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
@@ -191,7 +225,8 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
 
             if(templeDataLength == 0) {
                 restrictButton = 1;
-                Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
+                templeName.setText("இங்கு தங்களது எந்தவொரு பதியையும் காணமுடியவில்லை");
+                //Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
                 progressBar1.setVisibility(View.GONE);
 
             }
@@ -207,7 +242,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-
+String templeImageBlob;
     private void getTempleData()
     {
         try {
@@ -224,6 +259,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             templeDescStr = templeData.getString("tdesc");
             templeLattitude =templeData.getString("latitude");
             templeLongitude =templeData.getString("longitude");
+            templeImageBlob =templeData.getString("temple_image");
 
             templeDetailsArrayList.clear();
             templeDetailsArrayList.add(String.valueOf(templeId));
@@ -363,13 +399,13 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
         }
         else if(v == floatingActionButtonEdit && restrictButton == 0)
         {
-
             Intent intent =new Intent(this,MapsActivity.class);
             intent.putExtra("redirectPage", "userTempleUpdate");
             intent.putExtra("userTemple",templeNameStr);
             intent.putExtra("latUser", Double.parseDouble(templeLattitude));
             intent.putExtra("longUser",Double.parseDouble(templeLongitude));
             intent.putExtra("templeDetailsArrayList", templeDetailsArrayList);
+            intent.putExtra("templeImageBlob", templeImageBlob);
             startActivity(intent);
 
         }
@@ -380,14 +416,14 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserTemple.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("இந்த பதியை நீக்க வேண்டுமா ");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deleteFromHere();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -418,14 +454,14 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserTemple.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("இந்த பதியை  நிரந்தரமாக நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deleteTemplePermanentlyByUser();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -484,6 +520,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(getApplicationContext() , UserTemple.class);
                                 startActivity(intent);
+                                finish();
 
                             }
                         });
@@ -571,6 +608,7 @@ public class UserTemple extends AppCompatActivity implements View.OnClickListene
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent =new Intent(getApplicationContext(), UserTemple.class);
                                 startActivity(intent);
+                                finish();
                                 // Write your code here to execute after dialog closed
                             }
                         });

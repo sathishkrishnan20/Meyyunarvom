@@ -9,11 +9,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,7 +48,7 @@ public class ViewPoem extends AppCompatActivity
 
 
     private TextView title, content, postedBy;
-    private Button prevButton,nextButton;
+
 
     private int TRACK = 0;
     private JSONObject jsonObject;
@@ -57,31 +60,29 @@ public class ViewPoem extends AppCompatActivity
     String titleStr, contentStr, userDetailsStr;
     private final String GET_URL = com.avs.db.URL.url + "/getPoem.php";
 
+    private RelativeLayout errorLayout;
+    private ImageView errorImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_poem);
-        checkConnection();
-        mGesture = new GestureDetector(this, mOnGesture);
 
+        errorLayout = (RelativeLayout)findViewById(R.id.error_layout_poem);
+        errorImage = (ImageView)findViewById(R.id.error_image_poem);
+        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_poem);
+        mGesture = new GestureDetector(this, mOnGesture);
         title =(TextView) findViewById(R.id.title_for_poem);
         content=(TextView) findViewById(R.id.content_for_poem);
         postedBy=(TextView)findViewById(R.id.poem_added_by);
 
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_poem);
         progressBar1.setVisibility(View.VISIBLE);
+        errorLayout.setVisibility(View.VISIBLE);
+        errorImage.setVisibility(View.GONE);
 
-
-
-
-        /*
-        prevButton =(Button)findViewById(R.id.buttonPrev_forpoem);
-        nextButton=(Button)findViewById(R.id.buttonNext_forpoem);
-
-        prevButton.setOnClickListener(this);
-        nextButton.setOnClickListener(this);
-*/
-        getPoemsFromDB();
+        if(checkConnection()) {
+            getPoemsFromDB();
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_for_addpoem);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +91,15 @@ public class ViewPoem extends AppCompatActivity
                 Intent intent =new Intent(getApplicationContext(), AddPoem.class);
                // intent.putExtra("redirectPage","temple");
                 startActivity(intent);
+            }
+        });
+
+        errorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(), ViewPoem.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -104,15 +114,18 @@ public class ViewPoem extends AppCompatActivity
     }
 
 
-    private void checkConnection()
+    private boolean checkConnection()
     {
         Network network =new Network();
         if (!network.isOnline(ViewPoem.this))
         {
-            Intent intent = new Intent(ViewPoem.this,ConnectionError.class);
-            startActivity(intent);
+            errorImage.setVisibility(View.VISIBLE);
+            progressBar1.setVisibility(View.GONE);
+            return false;
         }
-
+      else {
+            return true;
+        }
     }
 
 
@@ -122,6 +135,8 @@ public class ViewPoem extends AppCompatActivity
                 {
                     @Override
                     public void onResponse(String response) {
+                        errorLayout.setVisibility(View.GONE);
+                        errorImage.setVisibility(View.GONE);
 
                         showJSON(response);
 
@@ -131,14 +146,14 @@ public class ViewPoem extends AppCompatActivity
             public void onErrorResponse(VolleyError error) {
 
                 progressBar1.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
+                errorImage.setVisibility(View.VISIBLE);
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
-
                     }
                 }
-                else
-                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+
             }
 
 

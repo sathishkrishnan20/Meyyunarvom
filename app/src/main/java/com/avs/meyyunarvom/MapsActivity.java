@@ -1,6 +1,8 @@
 package com.avs.meyyunarvom;
 
 import android.*;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -140,9 +142,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
        @Override
        public void onBackPressed() {
 
-           if(redirectPage.equals("temple")) {
-               Intent intent = new Intent(this, Temples.class);
-               startActivity(intent);
+         /*  if(redirectPage.equals("temple")) {
+               //Intent intent = new Intent(this, Temples.class);
+               //startActivity(intent);
+               finish();
            }
 
            if(redirectPage.equals("adminTemple")) {
@@ -153,9 +156,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
            }
            if(redirectPage.equals("userTempleUpdate"))
            {
-               Intent intent = new Intent(this, UserTemple.class);
-               startActivity(intent);
-           }
+               //Intent intent = new Intent(this, UserTemple.class);
+               //startActivity(intent);
+               finish();
+           } */
+           finish();
        }
 
 
@@ -265,22 +270,33 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 if(redirectPage.equals("adminTemple")) {
-                    Intent intent = new Intent(this, AdminTempleReview.class);
+                  /*  Intent intent = new Intent(this, AdminTempleReview.class);
                     intent.putExtra("location", strReturnedAddress.toString());
                     intent.putExtra("lattitude", latitude);
                     intent.putExtra("longitude", longitude);
                     intent.putExtra("latLng", latlong);
-                    startActivity(intent);
+                    startActivity(intent);   */
+
+                    ClipboardManager clipboardManager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Lattitude longitude", latlong);
+                    clipboardManager.setPrimaryClip(clip);
+                    Toast.makeText(this, "Lattitude Longitude Copied", Toast.LENGTH_LONG).show();
+                    finish();
+
                 }
 
                 if(redirectPage.equals("userTempleUpdate"))
                 {
+
+
                     Intent intent = new Intent(this, UserTempleUpdate.class);
+                    intent.putExtra("redirectPageForAddTemple", getIntent().getStringExtra("redirectPageForAddTemple"));
                     intent.putExtra("location", strReturnedAddress.toString());
                     intent.putExtra("lattitude", latitude);
                     intent.putExtra("longitude", longitude);
                     intent.putExtra("latLng", latlong);
                     intent.putExtra("templeDetails", templeDetailsForUpdatePage);
+                    intent.putExtra("templeImageBlob", getIntent().getStringExtra("templeImageBlob"));
                     startActivity(intent);
                 }
 
@@ -410,6 +426,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                latitude = intent.getDoubleExtra("latUser", 9.92520007);
                longitude = intent.getDoubleExtra("longUser", 78.1197751);
                LocationByLatLngUserUpdate();
+
+           }
+           else if(redirectPage.equals("adminTemple"))
+           {
+            Intent intent = getIntent();
+            templeName = intent.getStringExtra("adminTempleName");
+            latitude = intent.getDoubleExtra("latAndmin", 9.92520007);
+            longitude = intent.getDoubleExtra("longAdmin", 78.1197751);
+            LocationByLatLngUserUpdate();
 
            }
            else {
