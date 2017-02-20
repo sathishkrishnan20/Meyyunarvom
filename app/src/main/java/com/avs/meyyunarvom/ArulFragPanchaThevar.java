@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,9 @@ public class ArulFragPanchaThevar extends Fragment {
     private Button next, previous;
     private int track = 1;
 
+
+    ScrollView scrollView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +83,9 @@ public class ArulFragPanchaThevar extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_arul_frag_pancha_thevar, container, false);
+
+        scrollView =(ScrollView)view.findViewById(R.id.scrollView_panchathevar);
+
 
         title = (TextView) view.findViewById(R.id.arul_panchathevar_titleid1);
         content = (TextView) view.findViewById(R.id.arul_panchathevar_contentid1);
@@ -100,6 +107,7 @@ public class ArulFragPanchaThevar extends Fragment {
                     if (track < 6) {
                         track = track + 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     PanchaThevarDAO dao = db.getPanchaThevarContents(track);
                     title.setText(dao.getTitle());
@@ -116,6 +124,7 @@ public class ArulFragPanchaThevar extends Fragment {
                     if (track > 1) {
                         track = track - 1;
                     }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                     MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
                     PanchaThevarDAO dao = db.getPanchaThevarContents(track);
                     title.setText(dao.getTitle());

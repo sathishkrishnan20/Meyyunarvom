@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/arul_sapthakanni_titleid1"
-            android:id="@+id/scrollView">
+            android:id="@+id/scrollView_sapthakanni">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -43,7 +43,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="45dp"
-                    android:textIsSelectable="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:textIsSelectable="false"
                     style="@style/AlertDialog.AppCompat.Light"
                     android:textSize="18sp"
                     android:id="@+id/arul_sapthakanni_contentid1" />

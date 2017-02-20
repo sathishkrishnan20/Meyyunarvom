@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_contact_us"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.avs.meyyunarvom.ContactUs">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+
+        android:src="@drawable/logonew"
+        android:id="@+id/image_logo"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_us"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:id="@+id/contact"
+        android:layout_below="@+id/image_logo"
+        android:textColor="@color/DarkBlack"/>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/con"
+        android:layout_below="@+id/contact">
+
+
+    <MultiAutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:inputType="textPersonName"
+        android:id="@+id/addSubject"
+        android:layout_marginTop="10dp"
+        android:hint="Subject"
+        android:ellipsize="start"
+        android:gravity="center"
+        android:layout_below="@+id/contact"
+        android:background="@drawable/edittext_style"/>
+
+</android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sub"
+        android:layout_below="@+id/con">
+
+    <MultiAutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:inputType="textPersonName"
+        android:id="@+id/addBody"
+        android:layout_marginTop="10dp"
+        android:hint="Body"
+        android:ellipsize="start"
+        android:scrollbars="vertical"
+        android:gravity="center"
+        android:layout_below="@+id/addSubject"
+        android:background="@drawable/edittext_style"/>
+
+</android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/sub"
+        android:isScrollContainer="true"
+        android:id="@+id/sendEmail"/>
+
+
+</RelativeLayout>
+</ScrollView>

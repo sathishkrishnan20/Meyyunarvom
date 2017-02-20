@@ -40,6 +40,26 @@
                 android:text="ayya3" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                style="@style/ImageTitle"
+                android:text="ayya4" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                style="@style/ImageTitle"
+                android:text="ayya5" />
+        </RelativeLayout>
+
+
     </ViewFlipper>
 
 

@@ -11,10 +11,22 @@
         android:id="@+id/relsudalai_his_id">
 
 
+        <TextView
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:background="@color/colordoubt"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:id="@+id/thingal_titleid1" />
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView">
+            android:layout_below="@+id/thingal_titleid1"
+            android:id="@+id/scrollView_thingalpatham">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -25,24 +37,11 @@
                 <TextView
                     android:text=""
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="1dp"
-                    android:paddingStart="3dp"
-                    android:paddingEnd="1dp"
-                    android:gravity="center"
-                    android:background="@color/colordoubt"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:id="@+id/thingal_titleid1" />
-
-                <TextView
-                    android:text=""
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginLeft="3dp"
                     android:layout_marginBottom="45dp"
-                    android:textIsSelectable="true"
+                    android:textIsSelectable="false"
                     style="@style/AlertDialog.AppCompat.Light"
                     android:textSize="@dimen/fragcontent"
                     android:id="@+id/thingal_contentid1" />
