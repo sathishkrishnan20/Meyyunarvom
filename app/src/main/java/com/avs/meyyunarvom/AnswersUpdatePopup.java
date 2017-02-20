@@ -114,6 +114,7 @@ public class AnswersUpdatePopup extends Activity implements View.OnClickListener
                                     questionChange.setText("");
                                     Intent intent = new Intent(getApplicationContext(), Answers.class);
                                     startActivity(intent);
+                                    finish();
                                 }
                             }
                         });

@@ -11,13 +11,6 @@
     tools:context="com.avs.meyyunarvom.AdminPoemReview">
 
 
-    <ProgressBar android:id="@+id/progressBar_adminpoem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:foregroundGravity="center" />
-
 
 
 
@@ -27,7 +20,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/actualLayout_adminpoem">
 
 
 
@@ -182,7 +176,23 @@
         </RelativeLayout>
     </ScrollView>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/error_image_adminpoem"
+        android:contentDescription="@string/error_network"
+        android:src="@drawable/network_error_1x"/>
+
+
+    <ProgressBar android:id="@+id/progressBar_adminpoem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center" />
 
 
 
-            </RelativeLayout>
+
+
+</RelativeLayout>

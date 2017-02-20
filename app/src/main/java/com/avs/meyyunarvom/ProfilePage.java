@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,58 +37,44 @@ import java.util.Map;
 
 public class ProfilePage extends AppCompatActivity {
 
-    private TextView userProfile, userPhNo, userDoubts, userTemple, userPoem, logOut;
-    private ImageView userEdit;
+
     String loginUserName, loginUserEmail;
 
-    private JSONObject jsonObject;
-    private JSONArray result;
-    int userData;
-
-    private ProgressBar progressBar1;
-    private final String GET_URL = com.avs.db.URL.url + "/getUserDetaills.php";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-
-    private GoogleApiClient client;
-
-    boolean restrictionBtn = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
-        checkConnection();
-        checkIsLogin();
+
+
+        TextView userProfile = (TextView) findViewById(R.id.user_profile_name);
+        TextView userPhNo = (TextView) findViewById(R.id.user_profile_ph_no);
+        TextView userDoubts = (TextView) findViewById(R.id.user_add_doubt);
+        TextView userTemple = (TextView) findViewById(R.id.user_add_temple);
+        TextView userPoem = (TextView) findViewById(R.id.user_add_poem);
+        ImageView userEdit = (ImageView) findViewById(R.id.user_edit);
+        TextView logOut = (TextView) findViewById(R.id.user_logout);
+
+
 
         SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
-        SharedPreferences.Editor editor = userdetails.edit();
 
         if (!userdetails.getBoolean("isLogin", false)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
 
-        userProfile = (TextView) findViewById(R.id.user_profile_name);
-        userPhNo = (TextView) findViewById(R.id.user_profile_ph_no);
-        userDoubts = (TextView) findViewById(R.id.user_add_doubt);
-        userTemple = (TextView) findViewById(R.id.user_add_temple);
-        userPoem = (TextView) findViewById(R.id.user_add_poem);
-        userEdit = (ImageView) findViewById(R.id.user_edit);
-        logOut = (TextView) findViewById(R.id.user_logout);
+        loginUserName=userdetails.getString("name", null);
+        loginUserEmail=userdetails.getString("email",null);
 
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar_profile);
-        progressBar1.setVisibility(View.VISIBLE);
+        userProfile.setText(loginUserName);
+        userPhNo.setText(loginUserName);
 
 
-
-        getUserDetailsFromDB();
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!restrictionBtn) {
+
                     SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
                     SharedPreferences.Editor editor = userdetails.edit();
                     if (userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin")) {
@@ -103,7 +90,7 @@ public class ProfilePage extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Your are already Logged out", Toast.LENGTH_SHORT).show();
                     }
 
-                }
+
             }
         });
 
@@ -148,20 +135,14 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                if(!restrictionBtn){
+
                 Intent intent=new Intent(getApplicationContext(), UserUpdateDetails.class);
-                intent.putExtra("userName", userNameDb);
-                intent.putExtra("userEmail", userEmailDb);
-                intent.putExtra("userPlace", userPlaceDb);
-                intent.putExtra("userPassword", userPasswordDb);
                 startActivity(intent);
-               }
+
             }
         });
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
     @Override
@@ -171,46 +152,11 @@ public class ProfilePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("ProfilePage Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
 
 
 
-    private void checkConnection()
-    {
-        Network network =new Network();
-        if (!network.isOnline(ProfilePage.this))
-        {
-            Intent intent = new Intent(ProfilePage.this,ConnectionError.class);
-            startActivity(intent);
-        }
 
-    }
-
-
-    private void checkIsLogin()
-    {
-        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor = userdetails.edit();
-
-        loginUserName=userdetails.getString("name", null);
-        loginUserEmail=userdetails.getString("email",null);
-
-    }
-
+/*
 
     public void getUserDetailsFromDB() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_URL,
@@ -218,7 +164,8 @@ public class ProfilePage extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-
+                        actualLayout.setVisibility(View.VISIBLE);
+                        errorImage.setVisibility(View.GONE);
                         showJSON(response);
 
 
@@ -227,6 +174,8 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressBar1.setVisibility(View.GONE);
+                actualLayout.setVisibility(View.GONE);
+                errorImage.setVisibility(View.VISIBLE);
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
@@ -317,25 +266,6 @@ public class ProfilePage extends AppCompatActivity {
     }
 
 
+*/
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 }

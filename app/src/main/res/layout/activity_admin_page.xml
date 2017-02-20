@@ -15,15 +15,9 @@
 
    <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+       android:layout_height="wrap_content"
+       android:id="@+id/relative_admindoubt">
 
-
-       <ProgressBar android:id="@+id/progressBar_admindoubts"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_centerHorizontal="true"
-           android:layout_marginTop="60dp"
-           android:foregroundGravity="center" />
 
        <TextView
         android:text="Question"
@@ -100,5 +94,22 @@
 
    </RelativeLayout>
 </ScrollView>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/error_image_admindoubt"
+        android:contentDescription="@string/error_network"
+        android:src="@drawable/network_error_1x"/>
+
+    <ProgressBar android:id="@+id/progressBar_admindoubts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center" />
+
+
 
 </RelativeLayout>

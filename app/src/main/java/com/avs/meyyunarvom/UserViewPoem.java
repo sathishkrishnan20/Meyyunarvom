@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,61 +69,83 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
 
 
     public String KEY_ID ="id";
-    int poemId =0;
+      int poemId =0;
+
+
+      private LinearLayout actualLayout;
+      private ImageView errorImage, userViewNotAddedImage;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_view_poem);
-        checkConnection();
-        checkIsLogin();
-        mGesture = new GestureDetector(this, mOnGesture);
 
+        actualLayout = (LinearLayout) findViewById(R.id.actualLayout_user_poem);
+        errorImage = (ImageView)findViewById(R.id.error_image_user_poem);
+
+        userViewNotAddedImage =(ImageView) findViewById(R.id.poem_photo);
+        userViewNotAddedImage.setVisibility(View.GONE);
         title =(TextView) findViewById(R.id.title_for_poem_user);
         content=(TextView) findViewById(R.id.content_for_poem_user);
         postedBy=(TextView)findViewById(R.id.poem_added_by_admin);
+        mGesture = new GestureDetector(this, mOnGesture);
+
+
 
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar_profilepoem);
-        progressBar1.setVisibility(View.VISIBLE);
-
-        /*
-        prevButton =(Button)findViewById(R.id.buttonPrev_forpoem);
-        nextButton=(Button)findViewById(R.id.buttonNext_forpoem);
-
-        prevButton.setOnClickListener(this);
-        nextButton.setOnClickListener(this);
-        */
         materialDesignFAM = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
         floatingActionButtonAdd = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_add_poem);
         floatingActionButtonEdit = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_edit_poem);
         floatingActionButtonDelete = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_delete_poem);
 
+        progressBar1.setVisibility(View.VISIBLE);
+        actualLayout.setVisibility(View.GONE);
+        errorImage.setVisibility(View.GONE);
+
+        checkIsLogin();
+        if(checkConnection())
+        getPoemsFromDB();
+
+
+
         floatingActionButtonAdd.setOnClickListener(this);
         floatingActionButtonEdit.setOnClickListener(this);
         floatingActionButtonDelete.setOnClickListener(this);
-        getPoemsFromDB();
+
+
+        errorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getApplicationContext(), UserViewPoem.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 
     @Override
     public void onBackPressed()
     {
-        Intent intent = new Intent(this, ProfilePage.class);
-        startActivity(intent);
-
+       finish();
     }
 
+      private boolean checkConnection()
+      {
+          Network network =new Network();
+          if (!network.isOnline(UserViewPoem.this))
+          {
+              errorImage.setVisibility(View.VISIBLE);
+              progressBar1.setVisibility(View.GONE);
+              return false;
+          }
+          else {
+              return true;
+          }
+      }
 
-    private void checkConnection()
-    {
-        Network network =new Network();
-        if (!network.isOnline(UserViewPoem.this))
-        {
-            Intent intent = new Intent(UserViewPoem.this,ConnectionError.class);
-            startActivity(intent);
-        }
-
-    }
     private void checkIsLogin()
     {
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
@@ -138,6 +163,9 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(String response) {
 
+                        actualLayout.setVisibility(View.VISIBLE);
+                        errorImage.setVisibility(View.GONE);
+
                         showJSON(response);
 
                     }
@@ -145,7 +173,11 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onErrorResponse(VolleyError error) {
 
+
                 progressBar1.setVisibility(View.GONE);
+                actualLayout.setVisibility(View.GONE);
+                errorImage.setVisibility(View.VISIBLE);
+
                 if (error.networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
                         // Show timeout error message
@@ -189,7 +221,11 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
 
             if(poemDataLength==0) {
                 restrictButton = 1;
-                Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
+                title.setText("பதிவுகள்");
+                userViewNotAddedImage.setVisibility(View.VISIBLE);
+                content.setText("இங்கு தங்களது எந்தவொரு பதிவையும் காணமுடியவில்லை");
+
+                //Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
                 progressBar1.setVisibility(View.GONE);
 
             }
@@ -363,14 +399,14 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("இந்த பதிவை நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deleteFromHere();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -404,14 +440,14 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
             alertDialog.setTitle("நன்றி");
             alertDialog.setMessage("இந்த பதிவை நிரந்தரமாக நீக்க வேண்டுமா");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     // Write your code here to execute after dialog closed
                     //answer.setText("");
                     deletePoemPermanentlyByUser();
                 }
             });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -474,6 +510,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(getApplicationContext() , UserViewPoem.class);
                                 startActivity(intent);
+                                finish();
                             }
                         });
 
@@ -554,7 +591,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                         loading.dismiss();
                         isCanceled =false;
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserViewPoem.this);
-                        alertDialog.setTitle("Thank you");
+                        alertDialog.setTitle("நன்றி");
                         alertDialog.setMessage(response.split(";")[0]);
 
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -562,16 +599,11 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                                 // Write your code here to execute after dialog closed
                                 Intent intent = new Intent(getApplicationContext() , UserViewPoem.class);
                                 startActivity(intent);
-
+                                finish();
                             }
                         });
 
                         alertDialog.show();
-
-                        //   Toast.makeText(AddTemple.this, response.split(";")[0], Toast.LENGTH_SHORT).show();
-                        //Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        //startActivity(i);
-
                     }
                 },
                 new Response.ErrorListener() {

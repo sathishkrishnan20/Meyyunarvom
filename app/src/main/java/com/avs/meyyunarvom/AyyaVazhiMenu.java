@@ -37,7 +37,6 @@ public class AyyaVazhiMenu extends AppCompatActivity implements HistoryAyyaVaiku
         adapter.addFragment(new HistoryAyyaVaikundar(), "அய்யா வரலாறு");
         adapter.addFragment(new AyyaVazhiFragAyyaVazhi(), "அய்யா வழி");
 
-        //  adapter.addFragment(new AkilathirattuAmmanai(), "கல்யாண");
 
         viewPager.setAdapter(adapter);
     }

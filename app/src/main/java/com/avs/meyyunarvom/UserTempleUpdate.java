@@ -33,7 +33,10 @@ import com.avs.db.URL;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
@@ -82,6 +85,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
 
     private String UPLOAD_URL = URL.url + "/updateTempleByUser.php";
 
+    String templeImageBlob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +131,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
         lattitude = intent.getDoubleExtra("lattitude",0.0);
         longitude = intent.getDoubleExtra("longitude", 0.0);
         latLng = intent.getStringExtra("latLng");
+        templeImageBlob = intent.getStringExtra("templeImageBlob");
 
         templeDetailsList =intent.getStringArrayListExtra("templeDetails");
 
@@ -192,13 +197,14 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("redirectPage", "userTempleUpdate");
-        intent.putExtra("userTemple",tempName);
-        intent.putExtra("latUser", lattitude);
-        intent.putExtra("longUser",longitude);
-        intent.putExtra("templeDetailsArrayList", templeDetailsList);
-        startActivity(intent);
+        Intent intent = new Intent(this, UserTemple.class);
+        //intent.putExtra("redirectPage", "userTempleUpdate");
+        // intent.putExtra("userTemple",tempName);
+        // intent.putExtra("latUser", lattitude);
+        // intent.putExtra("longUser",longitude);
+        // intent.putExtra("templeDetailsArrayList", templeDetailsList);
+         startActivity(intent);
+        finish();
     }
 
     private void checkConnection()
@@ -215,8 +221,6 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
 
     private void userCheck()
     {
-
-
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
         SharedPreferences.Editor editor=userdetails.edit();
 
@@ -242,6 +246,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
                 //Setting the Bitmap to ImageView
                 image.setImageBitmap(bitmap);
                 imageUploadCount = 1;
+                templeImageBlob =  getStringImage(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -253,9 +258,10 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
+
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
+
 
 
     boolean isCanceled =false;
@@ -302,7 +308,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
                         alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(response.split(";")[1].equals("success")) {
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), UserTemple.class);
                                     startActivity(intent);
                                 }
                             }
@@ -331,7 +337,8 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
-                String tempImage = getStringImage(bitmap);
+
+               // String tempImage = getStringImage(bitmap);
 
                 Map<String, String> params = new Hashtable<String, String>();
                 params.put(KEY_ID,tempId);
@@ -340,7 +347,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
                 params.put(KEY_DIST, tempDistrict);
                 params.put(KEY_ADDRESS,tempAddress);
                 params.put(KEY_DESC, tempDesc);
-                params.put(KEY_IMAGE, tempImage);
+                params.put(KEY_IMAGE, templeImageBlob);
                 params.put(KEY_LATTITUDE, lattitude.toString());
                 params.put(KEY_LONGITIDE, longitude.toString());
                 return params;

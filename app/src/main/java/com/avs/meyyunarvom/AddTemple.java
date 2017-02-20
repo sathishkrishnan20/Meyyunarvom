@@ -300,9 +300,20 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
                      alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                          public void onClick(DialogInterface dialog, int which) {
 
+
                              if(response.split(";")[1].equals("success")) {
-                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                 startActivity(intent);
+                                // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                /// startActivity(intent);
+                                 if(getIntent().getStringExtra("redirectPageForAddTemple").equals("mainTemple")) {
+                                     Intent intent = new Intent(getApplicationContext(), Temples.class);
+                                     startActivity(intent);
+                                 }
+                                 if(getIntent().getStringExtra("redirectPageForAddTemple").equals("userTemple"))
+                                 {
+                                     Intent intent = new Intent(getApplicationContext(), UserTemple.class);
+                                     startActivity(intent);
+                                 }
+
                              }
                              // Write your code here to execute after dialog closed
 

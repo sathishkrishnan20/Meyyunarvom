@@ -8,13 +8,6 @@
     tools:context="com.avs.meyyunarvom.ViewPoem">
 
 
-    <ProgressBar android:id="@+id/progressBar_poem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:foregroundGravity="center" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,17 +41,47 @@
                     android:layout_marginTop="5dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginBottom="20dp"
-                    android:textIsSelectable="true"
+                    android:textIsSelectable="false"
                     style="@style/AlertDialog.AppCompat.Light"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:id="@+id/content_for_poem"/>
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/content_for_poem" >
+
+             <TableRow>
+
+
+                 <ImageView
+                     android:text=""
+                     android:layout_weight="1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginRight="20dp"
+                     android:layout_marginEnd="20dp"
+                     android:layout_marginTop="5dp"
+                     android:src="@drawable/addbyimg"
+                     android:paddingLeft="3dp"
+                     android:paddingRight="3dp"
+                     android:layout_below="@+id/content_for_poem"
+                     android:layout_alignParentRight="true"
+                     android:layout_alignParentEnd="true"
+                     android:layout_alignParentBottom="true"
+                     android:textIsSelectable="false"
+                     style="@style/AlertDialog.AppCompat.Light"
+                     android:textSize="15sp"
+                     android:id="@+id/poem_added_byv"/>
 
 
 
 
                 <TextView
                     android:text=""
+                    android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
@@ -75,7 +98,8 @@
                     style="@style/AlertDialog.AppCompat.Light"
                     android:textSize="15sp"
                     android:id="@+id/poem_added_by"/>
-
+             </TableRow>
+</TableLayout>
             </RelativeLayout>
         </ScrollView>
 
@@ -84,64 +108,45 @@
     </LinearLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:id="@+id/error_layout_poem">
 
-
-
-
-    <!--
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="20dp"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:id="@+id/error_image_poem"
+            android:contentDescription="@string/error_network"
+            android:src="@drawable/network_error_1x"/>
+
+    </RelativeLayout>
 
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:textAppearanceSmall"
-                android:text="Previous"
-                android:layout_weight="1"
-                android:background="#ec45a1"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginEnd="1dp"
-                android:layout_marginRight="1dp"
-                android:id="@+id/buttonPrev_forpoem" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:textAppearanceSmall"
-                android:text="Next"
-                android:layout_weight="1"
-                android:background="#ec45a1"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:id="@+id/buttonNext_forpoem" />
+    <ProgressBar android:id="@+id/progressBar_poem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center" />
 
 
-
-        </LinearLayout>
-
-    -->
     <android.support.design.widget.CoordinatorLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_for_addpoem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="40dp"
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </android.support.design.widget.CoordinatorLayout>
+
 
 </RelativeLayout>
