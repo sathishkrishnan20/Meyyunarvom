@@ -238,17 +238,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-
-        <activity android:name=".AboutUs"
+        <activity
+            android:name=".AboutUs"
             android:label="About Us"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-        <activity android:name=".ContactUs"
+        <activity
+            android:name=".ContactUs"
             android:label="Contact Us"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden">
@@ -304,7 +303,7 @@
             android:name=".Akilam"
             android:label="@string/title_activity_akilam"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".DoubtsManual"></activity>
     </application>
 
 </manifest>

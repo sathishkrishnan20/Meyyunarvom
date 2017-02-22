@@ -72,6 +72,7 @@ public class TempleSearchDistrict extends AppCompatActivity {
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 // When user changed the Text
                 TempleSearchDistrict.this.adapter.getFilter().filter(cs);
+
             }
 
             @Override
@@ -91,13 +92,22 @@ public class TempleSearchDistrict extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Toast.makeText(getApplicationContext(),String.valueOf(position)+arrayList.get(position),Toast.LENGTH_LONG).show();
-                Intent intent1 = new Intent(getApplicationContext(), Temples.class);
 
-                String districtName = String.valueOf(templeDistrictList.get(position));
-                intent1.putExtra("districtName",districtName);
-                intent1.putExtra("isClicked",true);
-                startActivity(intent1);
+                for(int distCount =0; distCount <adapter.getCount();distCount++ )
+                {
+                    if(adapter.getItem(distCount).equals(adapter.getItem(position)))
+                    {
+                        //String districtName = String.valueOf(templeDistrictList.get(position));
+                        Intent intent1 = new Intent(getApplicationContext(), Temples.class);
+                        String districtName= adapter.getItem(position);
+                        //Toast.makeText(getApplicationContext(),districtName,Toast.LENGTH_SHORT).show();
+                        intent1.putExtra("districtName",districtName);
+                        intent1.putExtra("isClicked",true);
+                        startActivity(intent1);
+                    }
+                }
+
+
             }
         });
 
