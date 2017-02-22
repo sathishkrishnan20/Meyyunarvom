@@ -67,7 +67,7 @@ public class ProfilePage extends AppCompatActivity {
         loginUserEmail=userdetails.getString("email",null);
 
         userProfile.setText(loginUserName);
-        userPhNo.setText(loginUserName);
+        userPhNo.setText(loginUserEmail);
 
 
 

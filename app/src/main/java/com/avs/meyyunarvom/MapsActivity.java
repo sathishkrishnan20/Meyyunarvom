@@ -246,7 +246,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Geocoder gc = new Geocoder(this);
         try {
             List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
-            String latlong= ""+latitude+ ","+longitude;
+            String latlong= ""+latitude+","+longitude;
             if(addresses != null) {
                 Address returnedAddress = addresses.get(0);
                 //strReturnedAddress = new StringBuilder("Address:\n");

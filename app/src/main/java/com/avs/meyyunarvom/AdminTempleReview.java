@@ -269,11 +269,16 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String districtName = String.valueOf(templeDistrictList.get(position));
-                templeDistrict.setText(districtName);
-                lv.setVisibility(View.GONE);
+                for(int distCount =0; distCount <adapter.getCount();distCount++ )
+                {
+                    if(adapter.getItem(distCount).equals(adapter.getItem(position)))
+                    {
+                        String districtName= adapter.getItem(position);
+                        templeDistrict.setText(districtName);
+                        lv.setVisibility(View.GONE);
+                    }
+                }
             }
-
 
         });
 
@@ -553,7 +558,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
             lattitudeByMap = Double.valueOf(latitude);
             longitudeByMap = Double.valueOf(longitude);
 
-            latLng.setText(latitude+", "+"\n"+longitude+"\n");
+            latLng.setText(latitude+","+longitude);
 
 
             templeSpl.setText(templeDesc[0]);
@@ -615,6 +620,8 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
 
     public void onClick(View view) {
+
+        latLng.setEnabled(false);
 
         if(view == buttonMoveNext){
 
@@ -688,11 +695,22 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
             tempVehicle = templeVehicle.getText().toString().trim();
             tempPhNo = templePhNo.getText().toString().trim();
             tempAbout = templeAbout.getText().toString().trim();
+            tempAbout = templeAbout.getText().toString().trim();
             tempAboutTime = templeAboutTime.getText().toString().trim();
+
             tempAddressLine = templeAddressLine.getText().toString().trim();
             tempDistrict = templeDistrict.getText().toString().trim();
             tempState = templeState.getText().toString().trim();
             tempCountry = templeCountry.getText().toString().trim();
+
+            lattitudeByMap = Double.parseDouble(latLng.getText().toString().split(",")[0]);
+            longitudeByMap = Double.parseDouble(latLng.getText().toString().split(",")[1]);
+
+            if(latLng.length() < 5)
+            {
+                Snackbar.make(view, "Enter Correct Lattitude Longitude Number", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
 
 
             //  templeName.setError("Enter Temple Name"); return;}

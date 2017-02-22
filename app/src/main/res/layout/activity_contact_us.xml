@@ -14,14 +14,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-
-        android:src="@drawable/logonew"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/DarkBlack"
+        android:text="அய்யா துணை"
         android:id="@+id/image_logo"/>
-
-
 
     <TextView
         android:layout_width="match_parent"

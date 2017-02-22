@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     ImageButton addTemple;
     ImageButton temples;
     ImageButton ayyavazhi;
+    ImageButton vazhipattuMurai;
 
 
     private static final int SWIPE_MIN_DISTANCE = 120;
@@ -63,14 +64,13 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        history=(ImageButton)findViewById(R.id.historyid);
-        akilaThirattu=(ImageButton)findViewById(R.id.akilathirattuid);
-        doubts=(ImageButton)findViewById(R.id.doubtid);
-        addTemple=(ImageButton)findViewById(R.id.addtempleid);
-        temples=(ImageButton)findViewById(R.id.templeid);
-
-        ayyavazhi=(ImageButton)findViewById(R.id.ayyavazhiid);
-
+        history=(ImageButton)findViewById(R.id.historyid);  //history
+        akilaThirattu=(ImageButton)findViewById(R.id.akilathirattuid);  //akilamMenu
+        doubts=(ImageButton)findViewById(R.id.doubtid);  //doubt
+        temples=(ImageButton)findViewById(R.id.templeid);  //pathikal
+        vazhipattuMurai =(ImageButton)findViewById(R.id.vazhipattuid); //vazhipattumurai
+        ayyavazhi=(ImageButton)findViewById(R.id.ayyavazhiid);  //ayyavazhi
+        addTemple=(ImageButton)findViewById(R.id.addtempleid);  //poem
 
         mContext = this;
         mViewFlipper = (ViewFlipper) this.findViewById(R.id.view_flipper);
@@ -140,14 +140,14 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
-   /*     doubts.setOnClickListener(new View.OnClickListener() {
+       doubts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), Answers.class);
+                Intent intent=new Intent(getApplicationContext(), DoubtsManual.class);
                 startActivity(intent);
             }
         });
-*/
+
 
         addTemple.setOnClickListener(new View.OnClickListener()
         {
@@ -182,6 +182,18 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+/*
+        vazhipattuMurai.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent=new Intent(getApplicationContext(), AyyaVazhiMenu.class);
+                startActivity(intent);
+
+            }
+        });
+*/
 
 
     }
