@@ -311,6 +311,8 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
                                     Intent intent = new Intent(getApplicationContext(), UserTemple.class);
                                     startActivity(intent);
                                 }
+                                else
+                                    Toast.makeText(UserTempleUpdate.this,"oops! Please try again later",Toast.LENGTH_SHORT).show();
                             }
                         });
 

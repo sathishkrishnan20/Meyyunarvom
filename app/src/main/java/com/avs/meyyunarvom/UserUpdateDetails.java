@@ -341,6 +341,8 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                                     removeFromLocal();
 
                                 }
+                                else
+                                    Toast.makeText(UserUpdateDetails.this,"oops! Please try again later",Toast.LENGTH_SHORT).show();
                             }
                         });
 

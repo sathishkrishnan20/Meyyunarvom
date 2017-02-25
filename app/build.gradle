@@ -19,7 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
@@ -35,6 +35,8 @@ dependencies {
     compile files('libs/mail.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/activation.jar')
+
+    compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.google.android.gms:play-services-appindexing:9.8.0'
@@ -49,11 +51,10 @@ dependencies {
     compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.github.clans:fab:1.6.2'
-    testCompile 'junit:junit:4.12'
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'com.basgeekball:awesome-validation:2.0'
-
-    compile 'com.firebase:firebase-client-android:2.5.1+'
-    compile 'com.mcxiaoke.volley:library:1.0.19'
+    //compile 'com.firebase:firebase-client-android:2.5.1.+'
+    testCompile 'junit:junit:4.12'
 }
+
 

@@ -3,61 +3,250 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_doubts_manual"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.avs.meyyunarvom.DoubtsManual">
-
-<LinearLayout
-    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/content_text"
+
+
+    <!--    <android.support.v7.widget.RecyclerView
+           android:id="@+id/recycler_view"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+   -->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_green_dark"
-        android:clickable="true"
-        android:drawableRight="@drawable/ic_action_expand"
-        android:onClick="toggle_contents"
-        android:padding="10dp"
-        android:text="@string/kaliHistory"
-        android:textColor="@android:color/white" />
+        android:orientation="vertical">
 
-    <!--content to hide/show -->
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
-        android:padding="10dp"
-        android:text="@string/kaliHistoryContent"
-        android:textColor="@android:color/white" />
+      <TextView
+           android:id="@+id/doubt_title1"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@color/colorPrimary"
+           android:clickable="true"
+           android:drawableRight="@drawable/ic_action_expand_doubt"
+           android:onClick="toggle_contents"
+           android:padding="10dp"
+           android:text="@string/doubt1_ulakam_title"
+           android:textColor="@android:color/white" />
 
-
-    <TextView
-        android:id="@+id/content1_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_green_dark"
-        android:clickable="true"
-
-        android:onClick="toggle_contents"
-        android:padding="10dp"
-        android:text="@string/temples"
-        android:textColor="@android:color/white" />
-
-    <!--content to hide/show -->
-    <TextView
-        android:id="@+id/title1_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:background="@android:color/holo_blue_dark"
-        android:padding="10dp"
-        android:text="@string/kaliHistoryContent"
-        android:textColor="@android:color/white" />
+       <TextView
+           android:id="@+id/doubt_content1"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@android:color/holo_blue_dark"
+           android:padding="10dp"
+           android:text="@string/doubt1_ulakam_content"
+           android:textColor="@android:color/white" />
 
 
+       <TextView
+           android:id="@+id/doubt_title2"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="@color/colorPrimaryDark"
+           android:clickable="true"
+           android:drawableRight="@drawable/ic_action_expand_doubt"
+           android:onClick="toggle_contents"
+           android:padding="10dp"
+           android:text="@string/doubt2_iraivanoruvane_title"
+           android:textColor="@android:color/white" />
+
+       <TextView
+           android:id="@+id/doubt_content2"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+
+           android:background="@android:color/holo_blue_dark"
+           android:padding="10dp"
+           android:text="@string/doubt2_iraivanoruvane_content"
+           android:textColor="@android:color/white" />
 
 
-</LinearLayout>
+
+        <TextView
+            android:id="@+id/doubt_title3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt3_uyiruruvanathu_title"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt3_uyiruruvanathu_content"
+            android:textColor="@android:color/white" />
+
+
+        <TextView
+            android:id="@+id/doubt_title4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt4_avatharam_title"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt4_avatharam_content"
+            android:textColor="@android:color/white" />
+
+
+        <TextView
+            android:id="@+id/doubt_title5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorhis"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt5_kaliyanvaram_title"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt5_kaliyanvaram_content"
+            android:textColor="@android:color/white" />
+
+
+        <TextView
+            android:id="@+id/doubt_title6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt6_kalki_title"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt6_kalki_content"
+            android:textColor="@android:color/white" />
+
+
+
+        <TextView
+            android:id="@+id/doubt_title7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt7_impathi_title"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt7_impathi_content"
+            android:textColor="@android:color/white" />
+
+
+        <TextView
+            android:id="@+id/doubt_title8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorhis"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt8_padaipu_title"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt8_padaippu_content"
+            android:textColor="@android:color/white" />
+
+
+
+
+        <TextView
+            android:id="@+id/doubt_title9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt9_tharmayugam_title"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt9_tharmayugam_content"
+            android:textColor="@android:color/white" />
+
+
+        <TextView
+            android:id="@+id/doubt_title10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:drawableRight="@drawable/ic_action_expand_doubt"
+            android:onClick="toggle_contents"
+            android:padding="10dp"
+            android:text="@string/doubt10_kandatheyvam"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/doubt_content10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:padding="10dp"
+            android:text="@string/doubt10_kandatheyvam_content"
+            android:textColor="@android:color/white" />
+
+
+
+
+
+
+    </LinearLayout>
 </ScrollView>

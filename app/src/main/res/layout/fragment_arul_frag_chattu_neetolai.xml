@@ -32,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/chatu_titleid1"
-            android:id="@+id/scrollView_chattu">
+            android:id="@+id/scrollView_chattu"
+            android:layout_marginBottom="49dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"

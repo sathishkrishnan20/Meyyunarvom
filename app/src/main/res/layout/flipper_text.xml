@@ -18,7 +18,8 @@
 
             <TextView
                 style="@style/ImageTitle"
-                android:text="Ayya1" />
+                android:textSize="12sp"
+                android:text="@string/ayya_flip1" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -28,7 +29,8 @@
 
             <TextView
                 style="@style/ImageTitle"
-                android:text="ayya2" />
+                android:textSize="12sp"
+                android:text="@string/ayya_flip2" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -37,7 +39,8 @@
 
             <TextView
                 style="@style/ImageTitle"
-                android:text="ayya3" />
+                android:textSize="12sp"
+                android:text="@string/ayya_flip3" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -46,7 +49,8 @@
 
             <TextView
                 style="@style/ImageTitle"
-                android:text="ayya4" />
+                android:textSize="12sp"
+                android:text="@string/ayya_flip4" />
         </RelativeLayout>
 
 
@@ -56,7 +60,8 @@
 
             <TextView
                 style="@style/ImageTitle"
-                android:text="ayya5" />
+                android:textSize="12sp"
+                android:text="@string/ayya_flip5" />
         </RelativeLayout>
 
 

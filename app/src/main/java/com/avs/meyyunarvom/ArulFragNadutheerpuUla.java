@@ -7,6 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.avs.db.MeyyunarvomDB;
+import com.avs.db.NadutheerppuDAO;
+import com.avs.db.PanchaThevarDAO;
 
 
 /**
@@ -60,11 +68,78 @@ public class ArulFragNadutheerpuUla extends Fragment {
         }
     }
 
+    private TextView title, content;
+    private Button next, previous;
+    private int track = 1;
+    ScrollView scrollView;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        View view = inflater.inflate(R.layout.fragment_arul_frag_nadutheerpu_ula, container, false);
+
+        scrollView =(ScrollView)view.findViewById(R.id.scrollView_nadutheerpu);
+
+
+        title = (TextView) view.findViewById(R.id.arul_nadutheerpu_titleid1);
+        content = (TextView) view.findViewById(R.id.arul_nadutheerpu_contentid1);
+        previous = (Button) view.findViewById(R.id.arul_nadutheerpupreviousbtn);
+        next = (Button) view.findViewById(R.id.arul_nadutheerpunextbtn);
+
+
+        try {
+            MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
+            NadutheerppuDAO dao = db.getNadutheerpuContents(track);
+            title.setText(dao.getTitle());
+            content.setText(dao.getContent());
+
+
+            next.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View view) {
+
+                    if (track < 4) {
+                        track = track + 1;
+                    }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
+                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
+                    NadutheerppuDAO dao = db.getNadutheerpuContents(track);
+                    title.setText(dao.getTitle());
+                    content.setText(dao.getContent());
+                }
+
+            });
+
+            previous.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    if (track > 1) {
+                        track = track - 1;
+                    }
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
+                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
+                    NadutheerppuDAO dao = db.getNadutheerpuContents(track);
+                    title.setText(dao.getTitle());
+                    content.setText(dao.getContent());
+                }
+            });
+
+        }catch (Exception e)
+        {
+            Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+        }
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_arul_frag_nadutheerpu_ula, container, false);
+        return view;        // Inflate the layout for this fragment
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

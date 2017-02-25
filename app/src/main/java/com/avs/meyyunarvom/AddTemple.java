@@ -315,6 +315,8 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
                                  }
 
                              }
+                             else
+                                 Toast.makeText(AddTemple.this, "oops! Please try again", Toast.LENGTH_LONG).show();
                              // Write your code here to execute after dialog closed
 
                          }

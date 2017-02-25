@@ -141,6 +141,8 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
                                     poemContent.setText("");
                                     finish();
                                 }
+                                else
+                                    Toast.makeText(AddPoem.this, "oops! Please try again", Toast.LENGTH_LONG).show();
                             }
                         });
 

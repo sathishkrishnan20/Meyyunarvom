@@ -182,18 +182,18 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-/*
+
         vazhipattuMurai.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent intent=new Intent(getApplicationContext(), AyyaVazhiMenu.class);
+                Intent intent=new Intent(getApplicationContext(), VazhpattuMurai.class);
                 startActivity(intent);
 
             }
         });
-*/
+
 
 
     }

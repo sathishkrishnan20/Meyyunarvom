@@ -289,13 +289,13 @@ String templeImageBlob;
 
             if (postedByStr.equals("N"))
             {
-                String str="Not Published.. we will publish soon";
+                String str="தங்களது பதி இன்னும் இணைக்கப்படவில்லை. விரைவில் இணைக்கப்படும்";
                 postedBy.setText(str);
                 postedBy.setTextColor(getResources().getColor(R.color.red));
             }
             else if (postedByStr.equals("Y"))
             {
-                String str="Your Temple Published Successfully";
+                String str="தங்களது பதி இணைக்கப்பட்டு விட்டது. நன்றி";
                 postedBy.setText(str);
                 postedBy.setTextColor(getResources().getColor(R.color.green));
             }
