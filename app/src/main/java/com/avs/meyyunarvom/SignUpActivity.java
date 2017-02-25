@@ -32,7 +32,7 @@ import com.avs.db.NotificationUtils;
 import com.avs.db.URL;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
-import com.firebase.client.Firebase;
+//import com.firebase.client.Firebase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -125,7 +125,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         };
 
     //    displayFirebaseRegId();
-*/
+
     }
     private void displayFirebaseRegId() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(URL.SHARED_PREF, 0);
@@ -182,8 +182,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                      place = mPlaceView.getText().toString().trim();
                      password = mPasswordView.getText().toString();
 
-                    AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
-                    mAwesomeValidation.addValidation(SignUpActivity.this, R.id.name, "[a-zA-Z ]+", R.string.err_name);
+                  //  AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
+                    //mAwesomeValidation.addValidation(SignUpActivity.this, R.id.name, "[a-zA-Z ]+", R.string.err_name);
 
 
                      Network network=new Network();
@@ -199,8 +199,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                          return;
                      }
 
-                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty() && mAwesomeValidation.validate()) {
-
+                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty() /*&& mAwesomeValidation.validate()*/) {
 
                          registerUser();
                      } else {

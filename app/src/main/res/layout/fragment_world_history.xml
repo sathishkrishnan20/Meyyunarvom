@@ -2,16 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.avs.meyyunarvom.HistorySivayimar">
+    tools:context="com.avs.meyyunarvom.WorldHistory">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:text="சிவாயிமார் வரலாறு"
+            android:text="திருவாசகம் -2"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
@@ -23,7 +22,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView_history_sivayimar">
+            android:id="@+id/scrollView_history_kannimar">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -32,13 +31,13 @@
 
 
                 <TextView
-                    android:text="@string/sivayimarkal_history_desc"
+                    android:text="@string/thiruvasakam_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
-                    android:layout_marginBottom="3dp"
+                    android:layout_marginBottom="5dp"
                     android:textIsSelectable="false"
                     style="@style/AlertDialog.AppCompat.Light"
                     android:textSize="15sp"/>
@@ -48,6 +47,5 @@
             </RelativeLayout>
         </ScrollView>
     </LinearLayout>
-
 
 </FrameLayout>

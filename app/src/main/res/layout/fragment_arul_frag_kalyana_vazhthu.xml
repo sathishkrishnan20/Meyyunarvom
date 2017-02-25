@@ -35,7 +35,7 @@
                     android:text="@string/kalyanavazhthucontent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:layout_marginBottom="20dp"

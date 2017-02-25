@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ScrollView_pathiram"
+        android:layout_marginBottom="49dp"
         android:layout_below="@+id/arul_pathiram_title">
 
         <RelativeLayout
@@ -39,10 +40,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
-                android:layout_marginBottom="45dp"
+
                 android:textIsSelectable="false"
                 style="@style/AlertDialog.AppCompat.Light"
                 android:textSize="18sp"

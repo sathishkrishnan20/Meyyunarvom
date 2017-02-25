@@ -56,7 +56,7 @@ public class ArulnoolMenu extends AppCompatActivity implements
         adapter.addFragment(new ArulFragSapthaKanniPadal(), "சப்த கன்னிமார் பாடல்");
         adapter.addFragment(new ArulFragThingalPatham(), "திங்கள் பதம்");
         adapter.addFragment(new ArulFragPanchaThevar(), "பஞ்சதேவர் உற்பத்தி");
-        adapter.addFragment(new ArulFragNadutheerpuUla(), "Nadutheerpu Ula");
+        adapter.addFragment(new ArulFragNadutheerpuUla(), "நடுத்தீர்வை உலா");
         adapter.addFragment(new ArulFragKalyanaVazhthu(), "கல்யாண வாழ்த்து");
 
         viewPager.setAdapter(adapter);

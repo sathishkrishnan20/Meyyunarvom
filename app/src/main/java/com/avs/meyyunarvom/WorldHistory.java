@@ -7,25 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.avs.db.AyyaHistoryDAO;
-import com.avs.db.MeyyunarvomDB;
-import com.avs.db.SudalaiHistoryDAO;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HistorySudalai.OnFragmentInteractionListener} interface
+ * {@link WorldHistory.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HistorySudalai#newInstance} factory method to
+ * Use the {@link WorldHistory#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HistorySudalai extends Fragment {
+public class WorldHistory extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +29,7 @@ public class HistorySudalai extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public HistorySudalai() {
+    public WorldHistory() {
         // Required empty public constructor
     }
 
@@ -47,25 +39,17 @@ public class HistorySudalai extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HistorySudalai.
+     * @return A new instance of fragment WorldHistory.
      */
     // TODO: Rename and change types and number of parameters
-    public static HistorySudalai newInstance(String param1, String param2) {
-        HistorySudalai fragment = new HistorySudalai();
+    public static WorldHistory newInstance(String param1, String param2) {
+        WorldHistory fragment = new WorldHistory();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
-
-    private TextView sudalaiHistorytitle, sudalaiHistoryContent;
-    private Button next, previous;
-
-    private int track =1;
-
-    ScrollView scrollView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,67 +63,8 @@ public class HistorySudalai extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_history_sudalai, container, false);
-
-        scrollView =(ScrollView)view.findViewById(R.id.scrollView_history_sudalai);
-
-
-
-        sudalaiHistorytitle = (TextView) view.findViewById(R.id.sudalai_titleid1);
-        sudalaiHistoryContent = (TextView) view.findViewById(R.id.sudalai_contentid1);
-        next = (Button) view.findViewById(R.id.sudalainextbtn);
-        previous = (Button) view.findViewById(R.id.sudalaipreviousbtn);
-
-        try {
-            MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-
-            SudalaiHistoryDAO dao = db.getsudalaiHistoryContent(track);
-            sudalaiHistorytitle.setText(dao.getTitle());
-            sudalaiHistoryContent.setText(dao.getContent());
-
-
-            next.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View view) {
-
-                    if (track < 17) {
-                        track = track + 1;
-                    }
-                    scrollView.fullScroll(ScrollView.FOCUS_UP);
-                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-                    SudalaiHistoryDAO dao = db.getsudalaiHistoryContent(track);
-                    sudalaiHistorytitle.setText(dao.getTitle());
-                    sudalaiHistoryContent.setText(dao.getContent());
-
-                }
-
-            });
-
-            previous.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-                    if (track > 1) {
-                        track = track - 1;
-                    }
-                    scrollView.fullScroll(ScrollView.FOCUS_UP);
-                    MeyyunarvomDB db = new MeyyunarvomDB(getActivity());
-                    SudalaiHistoryDAO dao = db.getsudalaiHistoryContent(track);
-                    sudalaiHistorytitle.setText(dao.getTitle());
-                    sudalaiHistoryContent.setText(dao.getContent());
-
-                }
-            });
-
-
-        } catch (Exception e)
-        {
-            Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
-        }
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_world_history, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

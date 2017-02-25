@@ -116,6 +116,8 @@ public class AnswersUpdatePopup extends Activity implements View.OnClickListener
                                     startActivity(intent);
                                     finish();
                                 }
+                                else
+                                    Toast.makeText(AnswersUpdatePopup.this, response.split(";")[0], Toast.LENGTH_LONG).show();
                             }
                         });
 

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,7 +55,8 @@ public class ProfilePage extends AppCompatActivity {
         ImageView userEdit = (ImageView) findViewById(R.id.user_edit);
         TextView logOut = (TextView) findViewById(R.id.user_logout);
 
-
+       final ProgressBar pg = (ProgressBar)findViewById(R.id.progPro);
+        pg.setVisibility(View.GONE);
 
         SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
 
@@ -75,20 +77,43 @@ public class ProfilePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
-                    SharedPreferences.Editor editor = userdetails.edit();
-                    if (userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin")) {
-                        editor.remove("name");
-                        editor.remove("email");
-                        editor.remove("isLogin");
-                        editor.apply();
-                        boolean commit = editor.commit();
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(getApplicationContext(), "Logout Succesfully", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Your are already Logged out", Toast.LENGTH_SHORT).show();
+                pg.setVisibility(View.VISIBLE);
+                CountDownTimer countDownTimerStatic = new CountDownTimer(1000, 16) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
                     }
+
+                    @Override
+                    public void onFinish() {
+
+                        SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
+                        SharedPreferences.Editor editor = userdetails.edit();
+                        if (userdetails.contains("name") && userdetails.contains("email") && userdetails.contains("isLogin")) {
+                            editor.remove("name");
+                            editor.remove("email");
+                            editor.remove("isLogin");
+                            editor.apply();
+                            boolean commit = editor.commit();
+                            pg.setVisibility(View.GONE);
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(getApplicationContext(), "Logout Succesfully", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            pg.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(), "Your are already Logged out", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+                };
+                countDownTimerStatic.start();
+
+
+
+
+
 
 
             }

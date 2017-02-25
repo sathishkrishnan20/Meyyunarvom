@@ -371,7 +371,7 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
                 Map<String,String> params=new Hashtable<String, String>();
                 params.put(TAG_EMAIL,loginUserEmail);
                 params.put(TAG_QUESTION,userquestion);
-                params.put(TAG_ANSWER,"Your Question was not Answered yet, We Will Answer Soon");
+                params.put(TAG_ANSWER,"தங்களது சந்தேகத்திற்கு இன்னும் பதிலளிக்கவில்லை, விரைவில் பதிலளிப்போம்");
                 return params;
             }
         };

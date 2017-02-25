@@ -312,6 +312,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             // TODO Auto-generated catch block
             e.printStackTrace();
             progressBar1.setVisibility(View.GONE);
+            if(e.toString().equals("java.io.IOException: Service not Available"))
+            {
+                Toast.makeText(this,"Please Restart Device and try Again: " + e.toString() ,Toast.LENGTH_LONG).show();
+            }
+            else
             Toast.makeText(this,"Cannot get Address  "+ e.toString() ,Toast.LENGTH_LONG).show();
         }
     }
@@ -513,7 +518,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION) && ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
-            Toast.makeText(getApplicationContext(), "This App Needs a Permission", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "This App Needs a Permission", Toast.LENGTH_LONG).show();
         }
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ACCESS_FINE_PERMISSIONS);
@@ -530,10 +535,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 //Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show();
             } else {
                 //Displaying another toast if permission is not granted
-                Toast.makeText(this, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Oops! you denied the permission", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -544,7 +549,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 //Displaying a toast
-                Toast.makeText(this, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show();
             } else {
                 //Displaying another toast if permission is not granted
                 Toast.makeText(this, "Oops you denied the permission", Toast.LENGTH_LONG).show();

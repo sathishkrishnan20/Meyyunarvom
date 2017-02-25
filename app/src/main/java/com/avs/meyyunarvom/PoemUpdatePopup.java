@@ -164,6 +164,8 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
                                     poemContent.setText("");
                                     finish();
                                 }
+                                else
+                                    Toast.makeText(PoemUpdatePopup.this, "oops! Please try again", Toast.LENGTH_LONG).show();
                             }
                         });
 

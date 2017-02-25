@@ -230,6 +230,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
+        <activity android:name=".DoubtsManual"
+            android:label="@string/doubts"
+            android:parentActivityName=".MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
+
+
+        <activity android:name=".VazhpattuMurai"
+            android:label="@string/vazhipattumurai"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
         <activity
             android:name=".AdminLogin"
             android:label="Admin"
@@ -303,7 +321,7 @@
             android:name=".Akilam"
             android:label="@string/title_activity_akilam"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DoubtsManual"></activity>
+
     </application>
 
 </manifest>
