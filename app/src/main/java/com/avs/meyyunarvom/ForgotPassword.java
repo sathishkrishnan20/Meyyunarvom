@@ -24,9 +24,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avs.db.Network;
 import com.avs.db.URL;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener
 {
@@ -64,7 +67,14 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         {
             curentName = curName.getText().toString().trim();
             currentEmail=curEmail.getText().toString().trim();
-            newPassword = newPass.getText().toString();
+            newPassword = newPass.getText().toString().trim();
+
+
+            AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
+            mAwesomeValidation.addValidation(ForgotPassword.this, R.id.nameforpass, "[a-zA-Z .]+", R.string.err_name);
+
+
+
 
             Network network =new Network();
             if (!network.isOnline(ForgotPassword.this)) {
@@ -72,18 +82,19 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 return;
             }
 
-            if (!curentName.isEmpty() && !currentEmail.isEmpty()&& !newPassword.isEmpty()) {
-                updatePassword();
-            } else {
+            if (curentName.isEmpty() && currentEmail.isEmpty()&& newPassword.isEmpty()) {
                 Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_SHORT)
                         .show();
-            }
+                return;
 
-
+            } if(mAwesomeValidation.validate())
+                     updatePassword();
 
         }
 
     }
+
+
 
     boolean isCanceled =false;
 public void updatePassword()

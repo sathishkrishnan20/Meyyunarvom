@@ -64,8 +64,8 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
         }
 
-        userCheck();
-
+        loginUserName=userdetails.getString("name", null);
+        loginUserEmail=userdetails.getString("email",null);
 
 
         Intent intent = getIntent();
@@ -100,17 +100,6 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
             startActivity(intent);
         }
 
-    }
-
-    private void userCheck()
-    {
-
-
-        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor=userdetails.edit();
-
-        loginUserName=userdetails.getString("name", null);
-        loginUserEmail=userdetails.getString("email",null);
     }
 
 
@@ -234,7 +223,7 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
             }
 
             if (poemTitleStr.isEmpty()) {
-                Snackbar.make(v, "Please add the Title for poem", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, "தலைப்பை உள்ளிடுக", Snackbar.LENGTH_SHORT)
                         .show();
                 return;
 
@@ -245,7 +234,7 @@ public class PoemUpdatePopup extends AppCompatActivity implements View.OnClickLi
                 uploadPoem();
             }
             else {
-                Snackbar.make(v, "Please Add the Poem", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, "பதிவை உள்ளிடுக", Snackbar.LENGTH_SHORT)
                         .show();
 
             }

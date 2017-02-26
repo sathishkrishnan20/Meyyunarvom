@@ -23,19 +23,5 @@
         android:layout_centerVertical="true"
         android:foregroundGravity="center" />
 
-<!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#cc3b60a7"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/buttonCur"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:text="Get" />
-
-        </LinearLayout>    -->
 </RelativeLayout>

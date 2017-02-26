@@ -49,8 +49,6 @@ public class Akilam extends AppCompatActivity
 
     ArrayAdapter<String> akilamTitleArraySpinner;
 
-   // String [] titleArray ={"kappu", "vaippu", "kkkkk"};
-
     ArrayList<String> arrayList =new ArrayList<String>();
 
     private int dropDownDay= 1;

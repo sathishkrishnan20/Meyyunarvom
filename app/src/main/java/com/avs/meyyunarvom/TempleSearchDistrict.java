@@ -47,7 +47,6 @@ public class TempleSearchDistrict extends AppCompatActivity {
 
 
     private final String GET_URL = com.avs.db.URL.url + "/getTempleDistrict.php";
-    private int TRACK = 0;
     private JSONObject jsonObject;
     private JSONArray result;
 

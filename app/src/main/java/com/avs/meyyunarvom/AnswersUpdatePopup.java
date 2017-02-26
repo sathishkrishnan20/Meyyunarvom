@@ -122,9 +122,6 @@ public class AnswersUpdatePopup extends Activity implements View.OnClickListener
                         });
 
                         alertDialog.show();
-                        //Toast.makeText(Answers.this, response.split(";")[0], Toast.LENGTH_LONG).show();
-                        //Intent i=new Intent(getApplicationContext(),MainActivity.class);
-                        // startActivity(i);
 
                     }
                 }, new Response.ErrorListener() {
@@ -173,11 +170,9 @@ public class AnswersUpdatePopup extends Activity implements View.OnClickListener
             updateQuestion = questionChange.getText().toString();
 
             if (!updateQuestion.isEmpty()) {
-               // Toast.makeText(this,"sssss"+position, Toast.LENGTH_LONG).show();
-
                 uploadUpdatedQuestion();
             } else {
-                Snackbar.make(v, "Please fill the Question", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, "சந்தேகத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT)
                         .show();
             }
 

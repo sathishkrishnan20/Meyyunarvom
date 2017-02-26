@@ -262,20 +262,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-        SQLiteDatabase db;
 
         int id = item.getItemId();
 
-        if (id == R.id.admin)
+        if (id == R.id.profile)
         {
             Intent intent=new Intent(getApplicationContext(),AdminLogin.class);
             startActivity(intent);
-        }
 
-        else if (id == R.id.profile)
-        {
-            Intent intent=new Intent(getApplicationContext(),ProfilePage.class);
-            startActivity(intent);
+            /*Intent intent=new Intent(getApplicationContext(),ProfilePage.class);
+            startActivity(intent);  */
         }
 
         else if(id==R.id.profilelogin)

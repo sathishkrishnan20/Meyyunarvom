@@ -51,22 +51,6 @@
         android:layout_marginTop="5dp"
         android:textSize="18sp"
         android:id="@+id/fulldoubt_text"/>
-<!--
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:background="@color/btn_unpress_color"
-        android:layout_margin="10dp"
-        android:padding="5dp"
-        android:textSize="20sp"
-        android:layout_alignEnd="@id/fulldoubt_text"
-        android:layout_alignRight="@id/fulldoubt_text"
-        android:id="@+id/delete_question_by_admin"
-        android:layout_below="@id/fulldoubt_text"
-        android:text="Delete" />
--->
-
-
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

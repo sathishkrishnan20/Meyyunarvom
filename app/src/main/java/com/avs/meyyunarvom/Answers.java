@@ -102,7 +102,6 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
 
         actualLayout = (RelativeLayout)findViewById(R.id.actualLayout_doubt);
         errorImage = (ImageView)findViewById(R.id.error_image_doubt);
-        //spin = (Spinner) findViewById(R.id.spinnerdoubt);
         spin =(fr.ganfra.materialspinner.MaterialSpinner)findViewById(R.id.spinnerdoubt);
         question = (EditText) findViewById(R.id.qustiondoubt);
         buttonSend = (Button) findViewById(R.id.buttonSendquestion);
@@ -345,9 +344,6 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
                        });
 
                         alertDialog.show();
-                        //Toast.makeText(Answers.this, response.split(";")[0], Toast.LENGTH_LONG).show();
-                        //Intent i=new Intent(getApplicationContext(),MainActivity.class);
-                       // startActivity(i);
 
                     }
                 }, new Response.ErrorListener() {
@@ -395,8 +391,6 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
         if (v == buttonSend) {
 
             if (loginUserEmail == null) {
-                //Toast.makeText(this,"You are Not logged in. Please Login",Toast.LENGTH_SHORT).show();
-                //return;
                 Snackbar.make(v, "You are Not logged in. Please Login", Snackbar.LENGTH_SHORT)
                         .show();
                 return;
@@ -406,7 +400,7 @@ public class Answers extends AppCompatActivity implements View.OnClickListener,A
 
                 uploadQuestion();
             } else {
-                Snackbar.make(v, "Please fill the Question", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, "சந்தேகத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT)
                         .show();
             }
         }

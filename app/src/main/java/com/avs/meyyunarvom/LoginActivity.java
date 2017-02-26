@@ -31,12 +31,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avs.db.Network;
 import com.avs.db.URL;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
 
 /**
@@ -140,7 +143,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         loading.setTitle("Please Wait..");
         loading.setMessage("Loading.........");
-        //pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
         loading.setIndeterminate(false);
         loading.setCancelable(false);
 

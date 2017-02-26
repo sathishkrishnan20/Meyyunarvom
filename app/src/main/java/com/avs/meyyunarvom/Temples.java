@@ -88,7 +88,6 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
     String tImageUrl = "";
     private int templeDataLength;
 
-    //  private final String GET_URL ="http://192.168.1.4/Meyyunarvom/getTemple.php";
     private int TRACK = 0;
 
     private JSONObject jsonObject;
@@ -663,7 +662,6 @@ try {
     setTempleAbout.setText(templeDesc[4]);
     setTempleAboutTime.setText(templeDesc[5]);
 
-   //setTempleDesc.setText("சிறப்புகள்       :"+templeDesc[0]+"\nதிருவிழா        :"+templeDesc[1]+"\nவாகனங்கள்  :"+templeDesc[2]+"\nதொடர்புக்கு   :"+templeDesc[3]+"\nபதியை பற்றி :"+templeDesc[4]);
     Picasso.with(getApplicationContext()).load(tImageUrl).error(R.drawable.error).placeholder(R.drawable.placeholder).resize(600,360).into(imageView); //this is optional the image to display while the url image is downloading.error(0)         //this is also optional if some error has occurred in downloading the image this image would be displayed
 }
 catch(Exception e)

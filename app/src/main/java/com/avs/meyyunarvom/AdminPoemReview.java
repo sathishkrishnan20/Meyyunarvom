@@ -97,8 +97,6 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
         errorImage.setVisibility(View.GONE);
 
 
-        userCheck();
-
         if(checkConnection())
         getPoemsFromDB();
 
@@ -138,18 +136,6 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
             return true;
         }
     }
-
-    private void userCheck()
-    {
-
-
-        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor=userdetails.edit();
-
-        loginUserName=userdetails.getString("name", null);
-        loginUserEmail=userdetails.getString("email",null);
-    }
-
 
     public void getPoemsFromDB() {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_URL,
@@ -421,9 +407,6 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
                         alertDialog.show();
 
-                        //   Toast.makeText(AddTemple.this, response.split(";")[0], Toast.LENGTH_SHORT).show();
-                        //Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        //startActivity(i);
 
                     }
                 },
@@ -643,13 +626,6 @@ public class AdminPoemReview extends AppCompatActivity implements View.OnClickLi
 
         if (view == uploadButton) {
 
-            if (loginUserEmail == null) {
-                //Toast.makeText(this,"You are Not logged in. Please Login",Toast.LENGTH_SHORT).show();
-                //return;
-                Snackbar.make(view, "You are Not logged in. Please Login", Snackbar.LENGTH_SHORT)
-                        .show();
-                return;
-            }
 
             if (poemTitleStr.isEmpty()) {
                 Snackbar.make(view, "Please add the Title for poem", Snackbar.LENGTH_SHORT)

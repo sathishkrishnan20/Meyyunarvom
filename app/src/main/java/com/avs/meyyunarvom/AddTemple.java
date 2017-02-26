@@ -58,7 +58,6 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
     private EditText templeAddressLine, templeDistrict, templeState, templeCountry;
 
 
-   private MultiAutoCompleteTextView templeDesc;
    private Button chooseImage;
    private ImageView image;
    private Button uploadImage;
@@ -66,8 +65,6 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
    private Bitmap bitmap;
 
    private String UPLOAD_URL = URL.url + "/setTempleByUser.php";
-
-   // private String UPLOAD_URL = "http://192.168.1.4/Meyyunarvom/setTemple.php";
 
 
    private int PICK_IMAGE_REQUEST = 1;
@@ -81,12 +78,9 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
     private String KEY_ADDRESS = "taddress";
     private String KEY_LATTITUDE = "latitude";
     private String KEY_LONGITIDE = "longitude";
-   private String KEY_IMAGE_ENCODE = "tencode";
 
    private String loginUserEmail,loginUserName;
 
-   String loginuser;
-   SQLiteDatabase db;
 
    int imageUploadCount = 0;
     String[] locationSplit = new String[4];
@@ -99,15 +93,15 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
       checkConnection();
 
        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-       SharedPreferences.Editor editor = userdetails.edit();
-
        if(!userdetails.getBoolean("isLogin" ,false))
        {
            Toast.makeText(this,"Please login and Contiue",Toast.LENGTH_SHORT).show();
            Intent intent =new Intent(this,LoginActivity.class);
            startActivity(intent);
        }
-       userCheck();
+       loginUserName=userdetails.getString("name", null);
+       loginUserEmail=userdetails.getString("email",null);
+
 
        templeName = (EditText) findViewById(R.id.tnameaddtemp);
        templePlace = (EditText) findViewById(R.id.tplaceaddtemp);
@@ -180,6 +174,8 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
            tempCountry = locationSplit[3];
            templeCountry.setText(locationSplit[3]);
        }
+
+       templePhNo.setText(loginUserEmail);
    }
 
    public void onBackPressed()
@@ -208,17 +204,6 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
    }
 
-
-   private void userCheck()
-   {
-
-
-      SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-      SharedPreferences.Editor editor=userdetails.edit();
-
-         loginUserName=userdetails.getString("name", null);
-         loginUserEmail=userdetails.getString("email",null);
-   }
 
 
 
@@ -259,12 +244,10 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
    boolean isCanceled =false;
 
    private void uploadImage() {
-     // final ProgressDialog loading = ProgressDialog.show(this, "Uploading", "Please Wait....", false, false);
       final ProgressDialog loading =new ProgressDialog(AddTemple.this);
       loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
       loading.setTitle("Please Wait..");
       loading.setMessage("Loading.........");
-      //pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
       loading.setIndeterminate(false);
       loading.setCancelable(false);
 
@@ -302,8 +285,6 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
 
                              if(response.split(";")[1].equals("success")) {
-                                // Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                /// startActivity(intent);
                                  if(getIntent().getStringExtra("redirectPageForAddTemple").equals("mainTemple")) {
                                      Intent intent = new Intent(getApplicationContext(), Temples.class);
                                      startActivity(intent);
@@ -317,16 +298,11 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
                              }
                              else
                                  Toast.makeText(AddTemple.this, "oops! Please try again", Toast.LENGTH_LONG).show();
-                             // Write your code here to execute after dialog closed
 
                          }
                      });
 
                      alertDialog.show();
-
-                 //   Toast.makeText(AddTemple.this, response.split(";")[0], Toast.LENGTH_SHORT).show();
-                    //Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    //startActivity(i);
 
                  }
               },
@@ -334,7 +310,6 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
          @Override
          public void onErrorResponse(VolleyError error) {
             loading.dismiss();
-            //Toast.makeText(AddTemple.this, error.toString(), Toast.LENGTH_LONG).show();
              if (error.networkResponse == null) {
                  if (error.getClass().equals(TimeoutError.class)) {
                      // Show timeout error message
@@ -404,42 +379,44 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
 
 
           if(tempName.length()==0){
-              Snackbar.make(view, "Enter Temple Name", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(view, "பதியின் பெயரை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
             return;}
 
             //  templeName.setError("Enter Temple Name"); return;}
           if (tempPlace.length()==0) {
-              Snackbar.make(view, "Enter Temple Place", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(view, "பதியின் ஊரை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
               return;
           }
 
           if(tempSpl.length()==0) {
               // templeSplDays.setError("Enter Spl Days");
-              Snackbar.make(view, "Enter Temple Spl", Snackbar.LENGTH_SHORT).show();
-              return;
+             // Snackbar.make(view, "பதியின் சிறப்புகளை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+              //return;
+              tempSpl = "இல்லை";
           }
 
           if(tempSplDays.length()==0) {
               // templeSplDays.setError("Enter Spl Days");
-              Snackbar.make(view, "Enter Temple SplDays", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(view, "பதியின் திருவிழாக்களை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
               return;
           }
 
           if(tempVehicle.length()==0) {
               // templeSplDays.setError("Enter Vehicle");return;}
-              Snackbar.make(view, "Enter Temple Vehicle", Snackbar.LENGTH_SHORT).show();
-              return;
+             // Snackbar.make(view, "பதியின் வாகனங்களை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+             // return;
+              tempVehicle = "இல்லை";
           }
 
           if(tempAbout.length()==0) {
             //  templeAbout.setError("Enter something about temple"); return; }
-              Snackbar.make(view, "Enter Temple panividaiyalar name", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(view, "பதியின் பணிவிடையாளர் பெயரை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
               return;
           }
 
           if(tempAboutTime.length()==0) {
               //  templeAbout.setError("Enter something about temple"); return; }
-              Snackbar.make(view, "Enter Temple panivaidai neram", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(view, "பதியின் பணிவிடை நேரம் உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
               return;
           }
 
@@ -449,11 +426,32 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
               return;
           }
 
-          if(tempDistrict.length()<5) {
+          if(tempAddressLine.length()==0 || tempAddressLine.length()<2) {
               //templePhNo.setError("Enter Correct Mobile No");return;
-              Snackbar.make(view, "Enter District", Snackbar.LENGTH_SHORT).show();
+              Snackbar.make(view, "பதியின் முகவரியை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
               return;
           }
+
+          if(tempDistrict.length()<2) {
+              //templePhNo.setError("Enter Correct Mobile No");return;
+              Snackbar.make(view, "பதியின் மாவட்டத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+          if(tempState.length()==0 || tempState.length()<2) {
+              //templePhNo.setError("Enter Correct Mobile No");return;
+              Snackbar.make(view, "பதியின் மாநிலத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+          if(tempCountry.length()==0 || tempCountry.length()<2) {
+              //templePhNo.setError("Enter Correct Mobile No");return;
+              Snackbar.make(view, "பதியின் நாட்டை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+              return;
+          }
+
+
+
 
           templeData.append(tempSpl+"%%");
           templeData.append(tempSplDays+"%%");

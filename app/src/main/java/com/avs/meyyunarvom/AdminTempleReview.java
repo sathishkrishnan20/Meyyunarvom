@@ -195,11 +195,8 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
         lv = (ListView) findViewById(R.id.list_viewexdistadmin);
         lv.setVisibility(View.GONE);
-        //inputSearch = (EditText) findViewById(R.id.inputSearchdist);
 
 
-
-        userCheck();
 
          if(checkConnection()) {
              getDistrictsFromDB();
@@ -296,28 +293,6 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
 
     }
 
-    JSONObject jsonObj;
-    JSONArray res;
-
-    private String getDistrict(int position ,String response) {
-        String distName = "";
-        try {
-            //Getting object of given index
-            jsonObj = new JSONObject(response);
-            res = jsonObject.getJSONArray("result");
-
-            JSONObject json = result.getJSONObject(position);
-
-            //Fetching name from that object
-            distName = json.getString("tdist");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //Returning the name
-        return distName;
-    }
-
-
     private boolean checkConnection()
     {
         Network network =new Network();
@@ -330,15 +305,6 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         else {
             return true;
         }
-    }
-
-    private void userCheck()
-    {
-        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor=userdetails.edit();
-
-        loginUserName=userdetails.getString("name", null);
-        loginUserEmail=userdetails.getString("email",null);
     }
 
 
@@ -676,17 +642,7 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
         if (view == uploadTemple) {
             StringBuilder templeData = new StringBuilder();
             StringBuilder templeFullAddress = new StringBuilder();
-          /*
-            if (mapRequest == 1) {
-                Intent intent = getIntent();
-                locationByMap = intent.getStringExtra("location");
-                lattitudeByMap = intent.getDoubleExtra("lattitude", 0.0);
-                longitudeByMap = intent.getDoubleExtra("longitude", 0.0);
-                latLngByMap = intent.getStringExtra("latLng");
-                latLng.setText(lattitudeByMap + ",\n" + longitudeByMap);
-            }
 
-*/
             tempName = templeName.getText().toString().trim();
             tempPlace = templePlace.getText().toString().trim();
 
@@ -755,11 +711,31 @@ public class AdminTempleReview extends AppCompatActivity implements View.OnClick
                 return;
             }
 
-            if (tempDistrict.length() < 5) {
+            if(tempAddressLine.length()==0 || tempAddressLine.length()<2) {
                 //templePhNo.setError("Enter Correct Mobile No");return;
-                Snackbar.make(view, "Enter District", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் முகவரியை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
+
+            if(tempDistrict.length()<2) {
+                //templePhNo.setError("Enter Correct Mobile No");return;
+                Snackbar.make(view, "பதியின் மாவட்டத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(tempState.length()==0 || tempState.length()<2) {
+                //templePhNo.setError("Enter Correct Mobile No");return;
+                Snackbar.make(view, "பதியின் மாநிலத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(tempCountry.length()==0 || tempCountry.length()<2) {
+                //templePhNo.setError("Enter Correct Mobile No");return;
+                Snackbar.make(view, "பதியின் நாட்டை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+
 
             templeData.append(tempSpl + "%%");
             templeData.append(tempSplDays + "%%");

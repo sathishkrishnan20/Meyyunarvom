@@ -30,10 +30,6 @@ import java.util.Hashtable;
 import java.util.Map;
 
 
-/**
- * Created by SATHISH on 1/2/2017.
- */
-
 public class AnswerPopup extends Activity implements View.OnClickListener
 {
 
@@ -85,7 +81,6 @@ public class AnswerPopup extends Activity implements View.OnClickListener
             jsonObject = new JSONObject(response);
             result = jsonObject.getJSONArray("result");
 
-
             JSONObject json = result.getJSONObject(position);
 
             //Fetching name from that object
@@ -106,7 +101,6 @@ public class AnswerPopup extends Activity implements View.OnClickListener
         try {
 
 
-            //Getting object of given index
             jsonObject = new JSONObject(response);
             result = jsonObject.getJSONArray("result");
 
