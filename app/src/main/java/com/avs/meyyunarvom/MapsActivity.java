@@ -142,24 +142,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
        @Override
        public void onBackPressed() {
 
-         /*  if(redirectPage.equals("temple")) {
-               //Intent intent = new Intent(this, Temples.class);
-               //startActivity(intent);
-               finish();
-           }
-
-           if(redirectPage.equals("adminTemple")) {
-
-               Intent intent = new Intent(this, AdminTempleReview.class);
-               startActivity(intent);
-
-           }
-           if(redirectPage.equals("userTempleUpdate"))
-           {
-               //Intent intent = new Intent(this, UserTemple.class);
-               //startActivity(intent);
-               finish();
-           } */
            finish();
        }
 
@@ -270,13 +252,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
 
                 if(redirectPage.equals("adminTemple")) {
-                  /*  Intent intent = new Intent(this, AdminTempleReview.class);
-                    intent.putExtra("location", strReturnedAddress.toString());
-                    intent.putExtra("lattitude", latitude);
-                    intent.putExtra("longitude", longitude);
-                    intent.putExtra("latLng", latlong);
-                    startActivity(intent);   */
-
                     ClipboardManager clipboardManager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("Lattitude longitude", latlong);
                     clipboardManager.setPrimaryClip(clip);
@@ -300,7 +275,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     startActivity(intent);
                 }
 
-              //  myAddress.setText(strReturnedAddress.toString());
             }
 
             else {
@@ -510,7 +484,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 loginUserNm = userdetails.getString("name", null);
                 loginUsermail = userdetails.getString("email", null);
             }
-
 
 
 

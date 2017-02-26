@@ -21,7 +21,6 @@ public class AdminMenu extends AppCompatActivity {
 
 
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("LoginAdmin",0);
-        SharedPreferences.Editor editor = userdetails.edit();
         if(!userdetails.getBoolean("isLoginAdmin" ,false))
         {
             Toast.makeText(this,"Please login and Contiue",Toast.LENGTH_SHORT).show();

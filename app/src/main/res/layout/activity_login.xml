@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_action_person"
                     android:drawableTint="#FF4081"
-                    android:hint="Mobile Number"
+                    android:hint="Number (Without Country Code)"
                     android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -83,7 +83,6 @@
                     android:drawableLeft="@drawable/ic_action_secure"
                     android:drawableTint="#FF4081"
                     android:hint="Password"
-                    android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_see_password"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"

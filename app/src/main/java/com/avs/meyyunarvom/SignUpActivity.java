@@ -6,13 +6,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.text.InputType;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -34,9 +45,16 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 //import com.firebase.client.Firebase;
 
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
+
 
 
 import android.content.BroadcastReceiver;
@@ -49,6 +67,18 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.Api;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationServices;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 
 
@@ -58,7 +88,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 {
 
 
-    private AutoCompleteTextView mEmailView;
+    private int REQUEST_CODE_ACCESS_FINE_PERMISSIONS = 124;
+    private int REQUEST_CODE_ACCESS_COARSE_PERMISSIONS = 120;
+
+
+    private AutoCompleteTextView mEmailView, mCountryCodeView;
     private EditText mUserNameView;
     private EditText mPlaceView;
     private EditText mPasswordView;
@@ -73,8 +107,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
+
+
     private String name;
-    private String email;
+    private String email, countryCode;
     private String place;
     private String password;
 
@@ -82,6 +118,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = SignUpActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
+    private GoogleApiClient googleApiClient;
 
 
     @Override
@@ -95,80 +132,61 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mPasswordView = (EditText) findViewById(R.id.password);
         mPlaceView =(EditText) findViewById(R.id.place);
         register = (Button) findViewById(R.id.email_sign_up_button);
+        mCountryCodeView = (AutoCompleteTextView) findViewById(R.id.countryCode);
+
+
+        mCountryCodeView.setText(getCountryCode());
 
         register.setOnClickListener(this);
 
-/*
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
+  }
 
-                // checking for type intent filter
-                if (intent.getAction().equals(URL.REGISTRATION_COMPLETE)) {
-                    // gcm successfully registered
-                    // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(URL.TOPIC_GLOBAL);
+    String CountryZipCode="";
 
-                    displayFirebaseRegId();
 
-                } else if (intent.getAction().equals(URL.PUSH_NOTIFICATION)) {
-                    // new push notification is received
+    private String getCountryCode()
+    {
+        TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
-                    String message = intent.getStringExtra("message");
-
-                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
-                    Toast.makeText(getApplicationContext(), message,Toast.LENGTH_LONG).show();
-                    //txtMessage.setText(message);
-                }
+        String CountryID= tm.getSimCountryIso().toUpperCase();
+        String[] rl=this.getResources().getStringArray(R.array.CountryCodes);
+        for (int i=0; i<rl.length; i++){
+            String[] g=rl[i].split(",");
+            if(g[1].trim().equals(CountryID.trim())){
+                CountryZipCode=g[0];
+                break;
             }
-        };
-
-    //    displayFirebaseRegId();
-
-    }
-    private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(URL.SHARED_PREF, 0);
-        String regId = pref.getString("regId", null);
-
-        Log.e(TAG, "Firebase reg id: " + regId);
-/*
-        if (!TextUtils.isEmpty(regId)) {
-            //txtRegId.setText("Firebase Reg Id: " + regId);
-           // mEmailView.setText(regId);
-            Toast.makeText(getApplicationContext(), regId, Toast.LENGTH_LONG).show();
         }
-        else
-            mPlaceView.setText("Firebase Reg Id is not received yet!");
-  */  }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-/*
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(URL.REGISTRATION_COMPLETE));
-
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(URL.PUSH_NOTIFICATION));
-
-        // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
-
-
-*/
-
-
+        return CountryZipCode;
+      //  return tm.getSimCountryIso();
     }
 
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        super.onPause();
+    private boolean isValidPhoneNumber(CharSequence phoneNumber) {
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            return Patterns.PHONE.matcher(phoneNumber).matches();
+        }
+        return false;
+    }
+
+    private boolean validateUsing_libphonenumber(String countryCode, String phNumber) {
+        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+        String isoCode = phoneNumberUtil.getRegionCodeForCountryCode(Integer.parseInt(countryCode));
+        Phonenumber.PhoneNumber phoneNumber = null;
+        try {
+            phoneNumber = phoneNumberUtil.parse(phNumber, isoCode);
+        } catch (NumberParseException e) {
+            System.err.println(e);
+        }
+
+        boolean isValid = phoneNumberUtil.isValidNumber(phoneNumber);
+        if (isValid) {
+            String internationalFormat = phoneNumberUtil.format(phoneNumber, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL);
+            //Toast.makeText(this, "Phone Number is Valid " + internationalFormat, Toast.LENGTH_LONG).show();
+            return true;
+        } else {
+            //Toast.makeText(this, "Phone Number is Invalid " + phoneNumber, Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 
 
@@ -180,33 +198,66 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                      name= mUserNameView.getText().toString().trim();
                      email = mEmailView.getText().toString().trim();
                      place = mPlaceView.getText().toString().trim();
-                     password = mPasswordView.getText().toString();
-
-                  //  AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
-                    //mAwesomeValidation.addValidation(SignUpActivity.this, R.id.name, "[a-zA-Z ]+", R.string.err_name);
+                     password = mPasswordView.getText().toString().trim();
+                     countryCode =mCountryCodeView.getText().toString().trim();
 
 
-                     Network network=new Network();
-                     if (!network.isOnline(SignUpActivity.this)) {
-                         Toast.makeText(SignUpActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();
-                         return;
-                     }
+
+                        Network network=new Network();
+                        if (!network.isOnline(SignUpActivity.this)) {
+                            Toast.makeText(SignUpActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                          AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
+                          mAwesomeValidation.addValidation(SignUpActivity.this, R.id.name, "[a-zA-Z .]+", R.string.err_name);
+                          mAwesomeValidation.addValidation(SignUpActivity.this, R.id.place, "[a-zA-Z .]+", R.string.err_place);
 
 
-                     if(password.length() < 6 || password.length() > 16)
+                        try {
+                            if (countryCode.length() > 0 && email.length() > 0) {
+
+                                if (isValidPhoneNumber(email)) {
+                                    boolean status = validateUsing_libphonenumber(countryCode, email);
+                                    if (!status) {
+
+                                        mEmailView.setError("Please Enter valid Mobile Number");
+                                        return;
+
+                                    }
+                                } else {
+                                    mEmailView.setError("Invalid Mobile Number");
+                                    return;
+                                }
+                            } else {
+
+                                Snackbar.make(v, "Please enter Mobile Number", Snackbar.LENGTH_LONG)
+                                        .show();
+                                return;
+
+                            }
+                        } catch (Exception e)
+                        {
+                            mCountryCodeView.setError("Please Enter valid Country Code");
+                            return;
+                        }
+
+                     if(password.length() < 6 || password.length() > 16 )
                      {
                          mPasswordView.setError("Password Length Should be 6 to 16 characters");
                          return;
                      }
 
-                     if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty() /*&& mAwesomeValidation.validate()*/) {
+                     if (name.isEmpty() && place.isEmpty()) {
 
-                         registerUser();
-                     } else {
                          Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_LONG)
                                  .show();
+                         return;
                      }
-
+                     if(mAwesomeValidation.validate())
+                     {
+                         registerUser();
+                     }
 
                  }
             }
@@ -316,6 +367,88 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mPlaceView.setText("");
         mUserNameView.setText("");
     }
+
+
+    /*
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // checking for type intent filter
+                if (intent.getAction().equals(URL.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(URL.TOPIC_GLOBAL);
+
+                    displayFirebaseRegId();
+
+                } else if (intent.getAction().equals(URL.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+
+                    String message = intent.getStringExtra("message");
+
+                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(getApplicationContext(), message,Toast.LENGTH_LONG).show();
+                    //txtMessage.setText(message);
+                }
+            }
+        };
+
+    //    displayFirebaseRegId();
+
+    }
+    private void displayFirebaseRegId() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(URL.SHARED_PREF, 0);
+        String regId = pref.getString("regId", null);
+
+        Log.e(TAG, "Firebase reg id: " + regId);
+
+        if (!TextUtils.isEmpty(regId)) {
+            //txtRegId.setText("Firebase Reg Id: " + regId);
+           // mEmailView.setText(regId);
+            Toast.makeText(getApplicationContext(), regId, Toast.LENGTH_LONG).show();
+        }
+        else
+            mPlaceView.setText("Firebase Reg Id is not received yet!");
+
+
+
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(URL.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(URL.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        NotificationUtils.clearNotifications(getApplicationContext());
+
+
+
+
+
+}
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
+    }
+    */
+
+
+
+
+
+
 
 }
 

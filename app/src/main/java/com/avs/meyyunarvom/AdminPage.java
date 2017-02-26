@@ -100,18 +100,15 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
 
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar_admindoubts);
 
-        if(checkConnection())
-            getQustions();
-
-        checkIsLogin();
-
         progressBar1.setVisibility(View.VISIBLE);
         actualLayout.setVisibility(View.GONE);
         errorImage.setVisibility(View.GONE);
-
-
-
         buttonSendAns = (Button) findViewById(R.id.Sendanswer);
+
+        if(checkConnection())
+            getQustions();
+
+
         spin.setOnItemSelectedListener(this);
         buttonSendAns.setOnClickListener(this);
 
@@ -145,15 +142,6 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
     }
 
 
-
-    private void checkIsLogin() {
-        SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
-        SharedPreferences.Editor editor = userdetails.edit();
-
-        loginUserNm = userdetails.getString("name", null);
-        loginUsermail = userdetails.getString("email", null);
-
-    }
 
 
 
@@ -570,12 +558,6 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         answerstr=answer.getText().toString().trim();
 
 
-        if (loginUsermail==null)
-        {
-            // Toast.makeText(this,"",Toast.LENGTH_SHORT).show();
-            Snackbar.make(v, "You are not logged in. Please Login", Snackbar.LENGTH_SHORT).show();
-            return;
-        }
         if(restrictSendButton==1)
         {
             Snackbar.make(v, "Please Select a Question", Snackbar.LENGTH_SHORT).show();
@@ -595,34 +577,6 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                 Snackbar.make(v, "Please fill the Question", Snackbar.LENGTH_SHORT).show();
             }
         }
-/*
-        if (v == deleteBtn)
-        {
-
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminPage.this);
-            alertDialog.setTitle("Thank you");
-            alertDialog.setMessage("Are You Sure Want to Delete");
-            alertDialog.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // Write your code here to execute after dialog closed
-                    //answer.setText("");
-                    deleteQuestion();
-                }
-            });
-            alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.cancel();
-
-                }
-            });
-            alertDialog.show();
-
-
-
-        }
-*/
     }
 
 

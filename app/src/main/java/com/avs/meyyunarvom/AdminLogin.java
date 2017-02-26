@@ -74,7 +74,6 @@ public class AdminLogin extends AppCompatActivity implements View.OnClickListene
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         loading.setTitle("Please Wait..");
         loading.setMessage("Loading.........");
-        //pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
         loading.setIndeterminate(false);
         loading.setCancelable(false);
 
@@ -190,11 +189,6 @@ public class AdminLogin extends AppCompatActivity implements View.OnClickListene
         .show();
         }
      }
-
-
-
-
-
-
+    
 
 }

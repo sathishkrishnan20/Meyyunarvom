@@ -10,11 +10,6 @@
     tools:context="com.avs.meyyunarvom.SignUpActivity">
 
 
-    <!--    <ImageView
-         android:layout_width="match_parent"
-         android:layout_height="140dp"
-         android:src="@mipmap/banner2"/>
-   Login progress -->
 
     <ProgressBar
         android:id="@+id/login_progress"
@@ -87,27 +82,46 @@
 
 
 
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="85dp"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/countryCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:drawableLeft="@drawable/ic_action_phone"
+                android:drawableTint="#FF4081"
+                android:inputType="number"
+                android:hint="County Code"
+
+                android:maxLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
 
 
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:drawableLeft="@drawable/ic_action_phone"
-                    android:drawableTint="#FF4081"
-
                     android:hint="Mobile Number"
+                    android:drawableTint="#FF4081"
                     android:inputType="number"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
-
+     </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

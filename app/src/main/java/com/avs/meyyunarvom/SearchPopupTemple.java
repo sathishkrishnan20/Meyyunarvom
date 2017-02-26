@@ -54,7 +54,6 @@ public class SearchPopupTemple extends AppCompatActivity {
         int height = displayMetrics.heightPixels;
 
         getWindow().setLayout((int) ((width * 0.9)), (int) (height * 0.9));
-       // Toast.makeText(this, String.valueOf(width) + " " + String.valueOf(height), Toast.LENGTH_LONG).show();
 
 
         inputSearch.addTextChangedListener(new TextWatcher() {

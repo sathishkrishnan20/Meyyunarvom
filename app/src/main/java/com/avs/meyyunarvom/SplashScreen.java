@@ -2,7 +2,7 @@ package com.avs.meyyunarvom;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
+import com.avs.db.MeyyunarvomDB;
 
 
 /**
@@ -17,10 +17,13 @@ public class SplashScreen extends Activity
 
         setContentView(R.layout.splash);
 
+
+         new MeyyunarvomDB(getApplicationContext());
+
         Thread timerThread = new Thread(){
             public void run(){
                 try{
-                    sleep(2000);
+                    sleep(4000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{

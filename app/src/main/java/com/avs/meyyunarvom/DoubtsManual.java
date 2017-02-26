@@ -13,14 +13,13 @@ import android.widget.ToggleButton;
 
 public class DoubtsManual extends AppCompatActivity {
 
-    private TextView txtContent;
+
     private Animation animationUp;
     private Animation animationDown;
 
     TextView doubtTitle1,doubtTitle2,doubtTitle3,doubtTitle4,doubtTitle5,doubtTitle6,doubtTitle7,doubtTitle8,doubtTitle9,doubtTitle10;
 
     TextView doubtContent1,doubtContent2,doubtContent3,doubtContent4,doubtContent5,doubtContent6,doubtContent7,doubtContent8,doubtContent9,doubtContent10;
-    private RecyclerView recyclerView;
     private final int COUNTDOWN_RUNNING_TIME = 500;
 
     @Override

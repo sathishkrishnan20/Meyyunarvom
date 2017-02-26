@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -27,6 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avs.db.Network;
 import com.avs.db.URL;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,9 +37,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
+
 public class UserUpdateDetails extends AppCompatActivity implements View.OnClickListener{
 
-    private AutoCompleteTextView mEmailView;
+    private TextView mEmailView;
     private EditText mUserNameView;
     private EditText mPlaceView;
     private EditText mPasswordView;
@@ -46,9 +50,9 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
     private static String UPDATE_URL = URL.url+"/updateUserDetails.php";
     private final String GET_URL = com.avs.db.URL.url + "/getUserDetaills.php";
 
-    private static String oldEmail="oldemail";
+
     private static String dname="name";
-    private static String demail="email";
+    private static String dEmail="email";
     private static String dplace="place";
     private static String dpassword="password";
 
@@ -76,7 +80,7 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
 
 
         mUserNameView = (EditText) findViewById(R.id.name_user_edit);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email_user_edit);
+        mEmailView = (TextView) findViewById(R.id.email_user_edit);
         mPasswordView = (EditText) findViewById(R.id.password_user_edit);
         mPlaceView =(EditText) findViewById(R.id.place_user_edit);
         update = (Button) findViewById(R.id.user_update_button);
@@ -99,19 +103,7 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
         loginUserEmail=userdetails.getString("email",null);
 
         update.setOnClickListener(this);
-        /*
-        Intent intent =getIntent();
-        name = intent.getStringExtra("userName");
-        oldUserEmail =intent.getStringExtra("userEmail");
-        place =intent.getStringExtra("userPlace");
-        password =intent.getStringExtra("userPassword");
-        update.setOnClickListener(this);
 
-        mUserNameView.setText(name);
-        mEmailView.setText(oldUserEmail);
-        mPlaceView.setText(place);
-        mPasswordView.setText(password);
-*/
        if(checkConnection())
            getUserDetailsFromDB();
 
@@ -240,12 +232,13 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
     {
         try {
 
-            progressBar1.setVisibility(View.GONE);
-            mUserNameView.setText(userNameDb);
             mEmailView.setText(userEmailDb);
-            mPasswordView.setText(userPasswordDb);
+            mUserNameView.setText(userNameDb);
             mPlaceView.setText(userPlaceDb);
-          //  restrictionBtn = false;
+            mPasswordView.setText(userPasswordDb);
+            progressBar1.setVisibility(View.GONE);
+
+            //  restrictionBtn = false;
         }
         catch(Exception e)
         {
@@ -261,9 +254,8 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
         if(v==update) {
 
                 name= mUserNameView.getText().toString().trim();
-                email = mEmailView.getText().toString().trim();
                 place = mPlaceView.getText().toString().trim();
-                password = mPasswordView.getText().toString();
+                password = mPasswordView.getText().toString().trim();
 
                 Network network=new Network();
                 if (!network.isOnline(UserUpdateDetails.this)) {
@@ -271,18 +263,24 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
                     return;
                 }
 
-                if(password.length() < 6 || password.length() > 16)
+            AwesomeValidation mAwesomeValidation = new AwesomeValidation(BASIC);
+            mAwesomeValidation.addValidation(UserUpdateDetails.this, R.id.name_user_edit, "[a-zA-Z .]+", R.string.err_name);
+            mAwesomeValidation.addValidation(UserUpdateDetails.this, R.id.place_user_edit, "[a-zA-Z .]+", R.string.err_place);
+
+
+            if(password.length() < 6 || password.length() > 16)
                 {
                     mPasswordView.setError("Password Length Should be 6 to 16 characters");
                     return;
                 }
+                if (name.isEmpty() && email.isEmpty() && password.isEmpty() && place.isEmpty()) {
 
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !place.isEmpty()) {
-                    registerUser();
-                } else {
                     Snackbar.make(v, "Please enter the credentials!", Snackbar.LENGTH_LONG)
                             .show();
-                }
+                    return;
+
+                } if(mAwesomeValidation.validate())
+                        registerUser();
             }
 
         }
@@ -373,10 +371,9 @@ public class UserUpdateDetails extends AppCompatActivity implements View.OnClick
             {
                 Map <String,String> params=new HashMap<String,String>();
                 params.put(dname,name);
-                params.put(demail,email);
                 params.put(dplace, place);
                 params.put(dpassword,password);
-                params.put(oldEmail,loginUserEmail);
+                params.put(dEmail,loginUserEmail);
 
                 return params;
             }

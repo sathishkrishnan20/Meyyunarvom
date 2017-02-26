@@ -398,37 +398,37 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
 
             //  templeName.setError("Enter Temple Name"); return;}
             if (tempPlace.length()==0) {
-                Snackbar.make(view, "Enter Temple Place", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் ஊரை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
             if(tempSpl.length()==0) {
                 // templeSplDays.setError("Enter Spl Days");
-                Snackbar.make(view, "Enter Temple Spl", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் சிறப்புகளை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
             if(tempSplDays.length()==0) {
                 // templeSplDays.setError("Enter Spl Days");
-                Snackbar.make(view, "Enter Temple SplDays", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் திருவிழாக்களை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
             if(tempVehicle.length()==0) {
                 // templeSplDays.setError("Enter Vehicle");return;}
-                Snackbar.make(view, "Enter Temple Vehicle", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் வாகனங்களை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
             if(tempAbout.length()==0) {
                 //  templeAbout.setError("Enter something about temple"); return; }
-                Snackbar.make(view, "Enter panividaiyalar", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் பணிவிடையாளர் பெயரை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
             if(tempAboutTime.length()==0) {
                 //  templeAbout.setError("Enter something about temple"); return; }
-                Snackbar.make(view, "Enter panivaidai neram", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் பணிவிடை நேரம் உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
@@ -440,9 +440,28 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
                 return;
             }
 
-            if(tempDistrict.length()<5) {
+            if(tempAddressLine.length()==0 || tempAddressLine.length()<2) {
                 //templePhNo.setError("Enter Correct Mobile No");return;
-                Snackbar.make(view, "Enter District", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் முகவரியை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+
+
+            if(tempDistrict.length()==0 || tempDistrict.length()<2) {
+                Snackbar.make(view, "பதியின் மாவட்டத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(tempState.length()==0 || tempState.length()<2) {
+                //templePhNo.setError("Enter Correct Mobile No");return;
+                Snackbar.make(view, "பதியின் மாநிலத்தை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(tempCountry.length()==0 || tempCountry.length()<2) {
+                //templePhNo.setError("Enter Correct Mobile No");return;
+                Snackbar.make(view, "பதியின் நாட்டை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
                 return;
             }
 
@@ -462,7 +481,7 @@ public class UserTempleUpdate extends AppCompatActivity implements View.OnClickL
             tempDesc = templeData.toString();
 
             if(tempName.length()==0){
-                Snackbar.make(view, "Enter Temple Name", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "பதியின் பெயரை உள்ளிடுக", Snackbar.LENGTH_SHORT).show();
             }
             else {
                 uploadImage();

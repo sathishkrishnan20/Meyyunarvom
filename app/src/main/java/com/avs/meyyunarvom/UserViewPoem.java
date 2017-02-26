@@ -149,7 +149,6 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
     private void checkIsLogin()
     {
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor = userdetails.edit();
 
         loginUserName=userdetails.getString("name", null);
         loginUserEmail=userdetails.getString("email",null);
@@ -224,9 +223,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                 title.setText("பதிவுகள்");
                 userViewNotAddedImage.setVisibility(View.VISIBLE);
                 content.setText("இங்கு தங்களது எந்தவொரு பதிவையும் காணமுடியவில்லை");
-
-                //Toast.makeText(this,"You are not added Yet",Toast.LENGTH_LONG).show();
-                progressBar1.setVisibility(View.GONE);
+        progressBar1.setVisibility(View.GONE);
 
             }
             else {
@@ -279,6 +276,7 @@ public class UserViewPoem extends AppCompatActivity implements View.OnClickListe
                 String str="தங்களது பதிவு இணைக்கப்பட்டு விட்டது. நன்றி ";
                 postedBy.setText(str);
                 postedBy.setTextColor(getResources().getColor(R.color.green));
+
             }
 
         }

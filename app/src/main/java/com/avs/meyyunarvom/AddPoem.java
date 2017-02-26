@@ -49,7 +49,6 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
 
         checkConnection();
         SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor = userdetails.edit();
 
         if(!userdetails.getBoolean("isLogin" ,false))
         {
@@ -57,8 +56,9 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
             Intent intent =new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
+        loginUserName=userdetails.getString("name", null);
+        loginUserEmail=userdetails.getString("email",null);
 
-        userCheck();
 
 
         poemTitle =(EditText)findViewById(R.id.title_add_poem);
@@ -80,28 +80,14 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private void userCheck()
-    {
-
-
-        SharedPreferences userdetails=getApplicationContext().getSharedPreferences("Login",0);
-        SharedPreferences.Editor editor=userdetails.edit();
-
-        loginUserName=userdetails.getString("name", null);
-        loginUserEmail=userdetails.getString("email",null);
-    }
-
 
     boolean isCanceled =false;
-
     private void uploadPoem()
     {
-        //   final ProgressDialog loading=ProgressDialog.show(this,"Uploading","Please Wait....",false,false);
         final ProgressDialog loading =new ProgressDialog(AddPoem.this);
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         loading.setTitle("Please Wait..");
         loading.setMessage("Loading.........");
-        //pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
         loading.setIndeterminate(false);
         loading.setCancelable(false);
 
@@ -147,9 +133,6 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
                         });
 
                         alertDialog.show();
-                        //Toast.makeText(Answers.this, response.split(";")[0], Toast.LENGTH_LONG).show();
-                        //Intent i=new Intent(getApplicationContext(),MainActivity.class);
-                        // startActivity(i);
 
                     }
                 }, new Response.ErrorListener() {
@@ -209,7 +192,7 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
             }
 
             if (poemTitleStr.isEmpty()) {
-                Snackbar.make(v, "Please add the Title for poem", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, "தலைப்பை உள்ளிடுக", Snackbar.LENGTH_SHORT)
                         .show();
                 return;
 
@@ -220,7 +203,7 @@ public class AddPoem extends AppCompatActivity implements View.OnClickListener {
                 uploadPoem();
             }
             else {
-                Snackbar.make(v, "Please Add the Poem", Snackbar.LENGTH_SHORT)
+                Snackbar.make(v, "பதிவை உள்ளிடுக", Snackbar.LENGTH_SHORT)
                         .show();
 
             }
