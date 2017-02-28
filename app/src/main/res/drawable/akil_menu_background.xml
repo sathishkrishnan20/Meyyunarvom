@@ -4,11 +4,11 @@
     android:thickness="0dp"
     android:shape="rectangle">
     <stroke android:width="3dp"
-        android:color="#ababac"/>
+        android:color="#ffffff"/>
     <corners android:radius="5dp" />
     <gradient
-        android:startColor="#fc69f4"
-        android:centerColor="#f92cbf"
+        android:startColor="#ff6ce7"
+        android:centerColor="#ff80cc"
         android:endColor="#f26ffc"
         android:type="linear"
         android:angle="270"/>

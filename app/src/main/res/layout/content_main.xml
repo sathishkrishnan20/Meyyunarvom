@@ -83,7 +83,7 @@
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/ban5" />
+                        android:src="@mipmap/bann5" />
                 </RelativeLayout>
 
             </ViewFlipper>

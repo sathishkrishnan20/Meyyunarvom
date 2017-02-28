@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".ArulnoolMenu"
-            android:label="@string/akilathirattu"
+            android:label="@string/arulNool"
             android:parentActivityName=".AkilathirattuMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -104,7 +104,8 @@
         <activity
             android:name=".SignUpActivity"
             android:label="@string/title_activity_sign_up"
-            android:parentActivityName=".LoginActivity">
+            android:parentActivityName=".LoginActivity"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
@@ -317,9 +318,11 @@
         <activity
             android:name=".MapsActivity"
             android:label="AVS" />
+
+
         <activity
             android:name=".Akilam"
-            android:label="@string/title_activity_akilam"
+            android:label="@string/akilathirattu"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>

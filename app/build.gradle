@@ -50,12 +50,10 @@ dependencies {
     compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.github.clans:fab:1.6.2'
-    compile 'com.mobsandgeeks:android-saripaar:2.0.3'
+
     compile 'com.basgeekball:awesome-validation:2.0'
     //compile 'com.firebase:firebase-client-android:2.5.1.+'
     testCompile 'junit:junit:4.12'
 
     compile files('libphonenumber-8.3.1.jar')
 }
-
-
