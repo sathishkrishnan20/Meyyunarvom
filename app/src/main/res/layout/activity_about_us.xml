@@ -101,13 +101,13 @@
      android:layout_height="wrap_content"
      android:layout_marginTop="5dp"
      android:gravity="center"
-     android:lineSpacingMultiplier="1.5"
+     android:lineSpacingMultiplier="1.2"
      android:text="அய்யாவின் திருவடியில் அய்யாவழி பாடல் ஆசிரியர்\n AVS INTERNATIONAL GROUP நிர்வாகி"/>
 
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="7dp"
+    android:layout_margin="3dp"
     android:textSize="18sp"
     android:gravity="center"
     android:textColor="@color/DarkBlack"
@@ -116,14 +116,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="17dp"
         android:gravity="center"
-        android:text="AVS INTERNATIONAL GROUP ஆலோசகர்  "/>
+        android:text="AVS INTERNATIONAL GROUP பொருளாளர்"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
+        android:layout_margin="3dp"
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/DarkBlack"
@@ -134,14 +134,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
+        android:layout_margin="17dp"
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/DarkBlack"
         android:text="சதிஷ் கிருஷ்ணன்(வைராவிகிணறு)"/>
-
-
-
 
 </LinearLayout>
    </RelativeLayout>

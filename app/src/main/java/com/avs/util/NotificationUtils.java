@@ -1,8 +1,4 @@
-package com.avs.db;
-
-/**
- * Created by SATHISH on 2/18/2017.
- */
+package com.avs.util;
 
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -33,9 +29,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.avs.meyyunarvom.R;
+import com.avs.app.Config;
 
-public class NotificationUtils
-{
+/**
+ * Created by Ravi on 31/03/15.
+ */
+public class NotificationUtils {
+
     private static String TAG = NotificationUtils.class.getSimpleName();
 
     private Context mContext;
@@ -111,7 +111,7 @@ public class NotificationUtils
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(com.avs.db.URL.NOTIFICATION_ID, notification);
+        notificationManager.notify(Config.NOTIFICATION_ID, notification);
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
@@ -133,7 +133,7 @@ public class NotificationUtils
                 .build();
 
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(com.avs.db.URL.NOTIFICATION_ID_BIG_IMAGE, notification);
+        notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
     }
 
     /**
@@ -212,4 +212,3 @@ public class NotificationUtils
         return 0;
     }
 }
-
