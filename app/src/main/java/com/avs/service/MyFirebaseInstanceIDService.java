@@ -1,16 +1,15 @@
-package com.avs.db;
-
-/**
- * Created by SATHISH on 2/18/2017.
- */
-
+package com.avs.service;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+
+import com.avs.app.Config;
+
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = MyFirebaseInstanceIDService.class.getSimpleName();
@@ -27,7 +26,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         sendRegistrationToServer(refreshedToken);
 
         // Notify UI that registration has completed, so the progress indicator can be hidden.
-        Intent registrationComplete = new Intent(URL.REGISTRATION_COMPLETE);
+        Intent registrationComplete = new Intent(Config.REGISTRATION_COMPLETE);
         registrationComplete.putExtra("token", refreshedToken);
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
     }
@@ -38,9 +37,10 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void storeRegIdInPref(String token) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(URL.SHARED_PREF, 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("regId", token);
         editor.commit();
     }
 }
+

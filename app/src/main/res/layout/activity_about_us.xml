@@ -4,72 +4,151 @@
     android:id="@+id/activity_about_us"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@mipmap/splsh_about"
     tools:context="com.avs.meyyunarvom.AboutUs"
     android:orientation="vertical">
-<LinearLayout
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#d9d9da"
+        android:layout_marginBottom="20dp">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+
+
+
+   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="90dp"
-    android:orientation="vertical">
 
- <TextView
+       android:layout_marginBottom="3dp"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="18sp"
+    android:textAllCaps="true"
+    android:gravity="center"
+    android:textColor="@color/colorAccent"
+    android:text="அய்யா துணை"/>
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logonew"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="@string/about_us"
+       android:textColor="#ff00d9"
+       android:gravity="center"/>
+
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="5dp"
+           android:orientation="horizontal">
+
+
+           <ImageView
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:layout_marginStart="50dp"
+               android:src="@mipmap/fbicon"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="16sp"
+               android:layout_marginTop="4dp"
+               android:textColor="@color/DarkBlack"
+               android:text="/vairaiayya"/>
+
+           <ImageView
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:layout_marginStart="30dp"
+               android:src="@mipmap/whatsappicon"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="16sp"
+               android:layout_marginTop="4dp"
+               android:textColor="@color/DarkBlack"
+               android:text="+971 55 674 2415"/>
+
+
+       </LinearLayout>
+
+
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:textColor="#f58989"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="15dp"
+         android:text="என்றும் இறைபணியில்"/>
+
+       <TextView
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:layout_marginTop="20dp"
+     android:layout_marginTop="5dp"
      android:gravity="center"
-
-     android:text="அய்யாவின் திருவடியில் அய்யாவழி பாடல் ஆசிரியர்"/>
+     android:lineSpacingMultiplier="1.2"
+     android:text="அய்யாவின் திருவடியில் அய்யாவழி பாடல் ஆசிரியர்\n AVS INTERNATIONAL GROUP நிர்வாகி"/>
 
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="7dp"
+    android:layout_margin="3dp"
     android:textSize="18sp"
     android:gravity="center"
     android:textColor="@color/DarkBlack"
-    android:text="வைரை சு. முத்துக்குமார்   "/>
-<!--
+    android:text="வைரை சு. முத்துக்குமார் (துபாய்)  "/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="17dp"
         android:gravity="center"
-        android:textColor="@color/DarkBlack"
-        android:text="ஆலோசகர்  "/>
--->
+        android:text="AVS INTERNATIONAL GROUP பொருளாளர்"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
+        android:layout_margin="3dp"
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/DarkBlack"
-        android:text="அலெக்ஸ் (ஆலோசகர்)"/>
+        android:text="அலெக்ஸ் (கல்லிடை குறிச்சி)"/>
 
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"
+        android:layout_margin="17dp"
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/DarkBlack"
-        android:text="சதிஷ் கிருஷ்ணன்"/>
-
+        android:text="சதிஷ் கிருஷ்ணன்(வைராவிகிணறு)"/>
 
 </LinearLayout>
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:textColor="#ffffff"
-    android:text="developedBy @Sathish Krishnan. B.E"
-    android:layout_alignParentBottom="true"/>
+   </RelativeLayout>
+    </ScrollView>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:text="developedBy @Sathish Krishnan. B.E"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

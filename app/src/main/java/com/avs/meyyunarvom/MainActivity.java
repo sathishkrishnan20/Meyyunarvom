@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
     }
 
-   /* @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -251,12 +251,15 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+           Intent intent =new Intent(this, NotificationActivity.class);
+            startActivity(intent);
+
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-*/
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

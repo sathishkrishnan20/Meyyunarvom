@@ -52,7 +52,7 @@ public class ArulnoolMenu extends AppCompatActivity implements
         adapter.addFragment(new ArulNoolFragThanaNiraivuVasakam(), "தானநிறைவு வாசகம்");
         adapter.addFragment(new ArulFragChattuNeetolai(), "சாட்டு நீட்டோலை");
         adapter.addFragment(new ArulFragPathiram(), "பத்திரம்");
-        adapter.addFragment(new ArulFragSivathandam(), "சிவதாண்ட அதிகார பத்திரம்");
+        adapter.addFragment(new ArulFragSivathandam(), "சிவகாண்ட அதிகார பத்திரம்");
         adapter.addFragment(new ArulFragSapthaKanniPadal(), "சப்த கன்னிமார் பாடல்");
         adapter.addFragment(new ArulFragThingalPatham(), "திங்கள் பதம்");
         adapter.addFragment(new ArulFragPanchaThevar(), "பஞ்சதேவர் உற்பத்தி");

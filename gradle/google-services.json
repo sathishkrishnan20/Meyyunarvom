@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "521829726132",
+    "firebase_url": "https://meyyunarvom.firebaseio.com",
+    "project_id": "meyyunarvom",
+    "storage_bucket": "meyyunarvom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521829726132:android:d43e70f77503fb8e",
+        "android_client_info": {
+          "package_name": "com.avs.meyyunarvom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521829726132-fmbbfm0an8t5415lqcv4q68qjpb1nh57.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvHv0l19QMdtM20GcnCYZJ8VtS4q8IaX8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

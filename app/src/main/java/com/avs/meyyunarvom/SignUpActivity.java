@@ -1,29 +1,15 @@
 package com.avs.meyyunarvom;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.InputType;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -38,43 +24,26 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.avs.app.Config;
 import com.avs.db.Network;
-import com.avs.db.NotificationUtils;
 import com.avs.db.URL;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
-//import com.firebase.client.Firebase;
-
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
 
 
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationServices;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
@@ -87,6 +56,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener
 {
 
+    String fireBaseId= "";
 
     private int REQUEST_CODE_ACCESS_FINE_PERMISSIONS = 124;
     private int REQUEST_CODE_ACCESS_COARSE_PERMISSIONS = 120;
@@ -136,6 +106,39 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
         mCountryCodeView.setText(getCountryCode());
+
+
+/*
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // checking for type intent filter
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+
+                    displayFirebaseRegId();
+
+                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+
+                    String message = intent.getStringExtra("message");
+
+                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+
+//                    txtMessage.setText(message);
+                }
+            }
+        };
+*/
+
+        displayFirebaseRegId();
+
+
+
+
 
         register.setOnClickListener(this);
 
@@ -342,6 +345,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 params.put(demail,email);
                 params.put(dplace, place);
                 params.put(dpassword,password);
+                params.put("firebaseid",fireBaseId);
 
                 return params;
             }
@@ -369,83 +373,45 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    /*
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                // checking for type intent filter
-                if (intent.getAction().equals(URL.REGISTRATION_COMPLETE)) {
-                    // gcm successfully registered
-                    // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(URL.TOPIC_GLOBAL);
-
-                    displayFirebaseRegId();
-
-                } else if (intent.getAction().equals(URL.PUSH_NOTIFICATION)) {
-                    // new push notification is received
-
-                    String message = intent.getStringExtra("message");
-
-                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
-                    Toast.makeText(getApplicationContext(), message,Toast.LENGTH_LONG).show();
-                    //txtMessage.setText(message);
-                }
-            }
-        };
-
-    //    displayFirebaseRegId();
-
-    }
     private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(URL.SHARED_PREF, 0);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
 
         Log.e(TAG, "Firebase reg id: " + regId);
 
         if (!TextUtils.isEmpty(regId)) {
-            //txtRegId.setText("Firebase Reg Id: " + regId);
-           // mEmailView.setText(regId);
-            Toast.makeText(getApplicationContext(), regId, Toast.LENGTH_LONG).show();
+  //          Toast.makeText(this, "FireBase Id" + regId, Toast.LENGTH_LONG).show();
+        fireBaseId = regId;
         }
         else
-            mPlaceView.setText("Firebase Reg Id is not received yet!");
+            Toast.makeText(this, "You have Not Recieved Yet",Toast.LENGTH_LONG).show();
 
+    }
 
+/*
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-
+        // register GCM registration complete receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(URL.REGISTRATION_COMPLETE));
+                new IntentFilter(Config.REGISTRATION_COMPLETE));
 
         // register new push message receiver
         // by doing this, the activity will be notified each time a new message arrives
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(URL.PUSH_NOTIFICATION));
+                new IntentFilter(Config.PUSH_NOTIFICATION));
 
         // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
-
-
-
-
-
-}
+        com.avs.util.NotificationUtils.clearNotifications(getApplicationContext());
+    }
 
     @Override
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
     }
-    */
-
-
-
+*/
 
 
 
