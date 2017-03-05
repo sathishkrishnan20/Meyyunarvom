@@ -37,6 +37,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/main_app_name"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -333,10 +334,10 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyCAy2c1srqBjsaqYPC-BolMfxowoQttsnE" />
         <meta-data
             android:name="com.google.android.place.API_KEY"
-            android:value="@string/google_places_key" />
+            android:value="AIzaSyCAy2c1srqBjsaqYPC-BolMfxowoQttsnE" />
 
         <activity
             android:name=".MapsActivity"

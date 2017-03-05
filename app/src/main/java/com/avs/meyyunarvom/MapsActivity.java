@@ -152,6 +152,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
         // Add a marker in Sydney and move the camera
         LatLng madurai = new LatLng(9.92520007, 78.1197751);
         mMap.addMarker(new MarkerOptions().position(madurai).draggable(true).title("madurai"));

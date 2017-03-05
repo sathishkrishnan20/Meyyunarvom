@@ -127,7 +127,7 @@
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/DarkBlack"
-        android:text="அலெக்ஸ் (கல்லிடை குறிச்சி)"/>
+        android:text="C.அலெக்ஸ் (கல்லிடை குறிச்சி)"/>
 
 
 
@@ -138,7 +138,7 @@
         android:textSize="18sp"
         android:gravity="center"
         android:textColor="@color/DarkBlack"
-        android:text="சதிஷ் கிருஷ்ணன்(வைராவிகிணறு)"/>
+        android:text="C.சதிஷ் கிருஷ்ணன்\n(வைராவிகிணறு)"/>
 
 </LinearLayout>
    </RelativeLayout>

@@ -48,15 +48,15 @@ public class VazhpattuMurai extends AppCompatActivity {
 
                 public void onClick(View view) {
 
-                    if (track < 22) {
+                    if (track < 26) {
                         track = track + 1;
-                    }
-                    scrollView.fullScroll(ScrollView.FOCUS_UP);
-                    MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
-                    VazhipattuMuraiDAO dao = db.getVazhipattuMuraiContents(track);
-                    title.setText(dao.getTitle());
-                    content.setText(dao.getContent());
 
+                        scrollView.fullScroll(ScrollView.FOCUS_UP);
+                        MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
+                        VazhipattuMuraiDAO dao = db.getVazhipattuMuraiContents(track);
+                        title.setText(dao.getTitle());
+                        content.setText(dao.getContent());
+                    }
                 }
 
             });
@@ -68,12 +68,13 @@ public class VazhpattuMurai extends AppCompatActivity {
 
                     if (track > 1) {
                         track = track - 1;
+
+                        scrollView.fullScroll(ScrollView.FOCUS_UP);
+                        MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
+                        VazhipattuMuraiDAO dao = db.getVazhipattuMuraiContents(track);
+                        title.setText(dao.getTitle());
+                        content.setText(dao.getContent());
                     }
-                    scrollView.fullScroll(ScrollView.FOCUS_UP);
-                    MeyyunarvomDB db = new MeyyunarvomDB(getApplicationContext());
-                    VazhipattuMuraiDAO dao = db.getVazhipattuMuraiContents(track);
-                    title.setText(dao.getTitle());
-                    content.setText(dao.getContent());
 
                 }
             });

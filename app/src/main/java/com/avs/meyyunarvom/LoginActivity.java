@@ -120,6 +120,10 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             email = mEmailView.getText().toString().trim();
             password = mPasswordView.getText().toString();
 
+
+            if(email.substring(0,1).equals("0"))
+                email =email.substring(1);
+
             Network network =new Network();
             if (!network.isOnline(LoginActivity.this)) {
                 Toast.makeText(LoginActivity.this, "No Network Connection", Toast.LENGTH_SHORT).show();

@@ -205,6 +205,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                      countryCode =mCountryCodeView.getText().toString().trim();
 
 
+                     if(email.substring(0,1).equals("0")) {
+                         email = email.substring(1);
+                     }
+
 
                         Network network=new Network();
                         if (!network.isOnline(SignUpActivity.this)) {

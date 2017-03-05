@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
     <TextView
-        android:text="@string/uchipadippu"
+        android:text="@string/ukapadippu"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center"
