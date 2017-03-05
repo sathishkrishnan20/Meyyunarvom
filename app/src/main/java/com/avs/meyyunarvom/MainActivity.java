@@ -270,18 +270,16 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.profile)
         {
-            Intent intent=new Intent(getApplicationContext(),AdminLogin.class);
+            Intent intent=new Intent(getApplicationContext(),ProfilePage.class);
             startActivity(intent);
-
-            /*Intent intent=new Intent(getApplicationContext(),ProfilePage.class);
-            startActivity(intent);  */
         }
 
-        else if(id==R.id.profilelogin)
+        else if(id==R.id.adminlogin)
         {
-            Intent intent=new Intent(this,LoginActivity.class);
+            Intent intent=new Intent(this,AdminLogin.class);
             startActivity(intent);
         }
+
         else if (id == R.id.contact_us_menu)
         {
               Intent intent = new Intent(this, ContactUs.class);
