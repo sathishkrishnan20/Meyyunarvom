@@ -216,8 +216,6 @@ public class MainActivity extends AppCompatActivity
 
             }
 
-
-
             //super.onBackPressed();
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
@@ -287,7 +285,10 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.about_us_menu) {
 
-            Intent intent = new Intent(this, AboutUs.class);
+           // Intent intent = new Intent(this, AboutUs.class);
+          //  startActivity(intent);
+
+            Intent intent = new Intent(this, AvsSongs.class);
             startActivity(intent);
         }
 

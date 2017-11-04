@@ -266,8 +266,7 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
       loading.show();
 
       if(isCanceled) {
-
-         return;
+          return;
       }
 
       StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
@@ -345,9 +344,6 @@ public class AddTemple extends AppCompatActivity implements View.OnClickListener
      RequestQueue rq = Volley.newRequestQueue(this);
       rq.add(stringRequest);
    }
-
-
-
 
    @Override
    public void onClick(View view) {

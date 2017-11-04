@@ -1,22 +1,20 @@
 package com.avs.meyyunarvom;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
+import android.support.v7.widget.SearchView;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -32,12 +30,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.avs.db.Network;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.widget.RelativeLayout.LayoutParams;
+
+import java.util.ArrayList;
+
+import static android.view.View.VISIBLE;
 
 
 public class ViewPoem extends AppCompatActivity
@@ -67,6 +67,14 @@ public class ViewPoem extends AppCompatActivity
 
     ScrollView scrollView;
 
+    ArrayList<String> userUniqueArry =new ArrayList<String>();
+
+    private MenuItem searchMenuItem;
+    private SearchView mSearchView;
+    ArrayAdapter adapter;
+    private ListView lv;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,17 +87,37 @@ public class ViewPoem extends AppCompatActivity
         title =(TextView) findViewById(R.id.title_for_poem);
         content=(TextView) findViewById(R.id.content_for_poem);
         postedBy=(TextView)findViewById(R.id.poem_added_by);
+        lv = (ListView)findViewById(R.id.listViewPoem);
+        lv.setVisibility(View.GONE);
 
         scrollView =(ScrollView)findViewById(R.id.scroll_poem);
-
-
-
         progressBar1.setVisibility(View.VISIBLE);
         errorLayout.setVisibility(View.VISIBLE);
         errorImage.setVisibility(View.GONE);
 
         if(checkConnection()) {
             getPoemsFromDB();
+/*            DbUtil db=new DbUtil();
+            // JSONObject jsonObject =
+            String s= db.getUrl(ViewPoem.this, GET_URL);
+            Toast.makeText(this, "coming" + s, Toast.LENGTH_LONG).show();
+
+                if(db.getUrl(ViewPoem.this, GET_URL))
+                {
+                    errorLayout.setVisibility(View.GONE);
+                    errorImage.setVisibility(View.GONE);
+                    Toast.makeText(this, "data is coming" + s, Toast.LENGTH_LONG).show();
+                  //  showJSON(jsonObject.getString("data"));
+                }
+                else if(!db.getUrl(ViewPoem.this, GET_URL))
+                {
+                     progressBar1.setVisibility(View.GONE);
+                     errorLayout.setVisibility(View.VISIBLE);
+                     errorImage.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, "error is coming" + s, Toast.LENGTH_LONG).show();
+
+                }
+*/
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_for_addpoem);
@@ -179,6 +207,8 @@ public class ViewPoem extends AppCompatActivity
 
     private void showJSON(String response)
     {
+        errorLayout.setVisibility(View.GONE);
+        errorImage.setVisibility(View.GONE);
         try
         {
             jsonObject = new JSONObject(response);
@@ -203,6 +233,8 @@ public class ViewPoem extends AppCompatActivity
 
             titleStr =  templeData.getString("title");
             contentStr = templeData.getString("content");
+
+
             userDetailsStr= "Added By\n    "+    templeData.getString("name");
             userDetailsStr= userDetailsStr+"\n    "+templeData.getString("place");
             userDetailsStr= userDetailsStr+"\n    "+templeData.getString("updated_at");
@@ -224,14 +256,40 @@ public class ViewPoem extends AppCompatActivity
             progressBar1.setVisibility(View.GONE);
                title.setText(titleStr);
                content.setText(contentStr);
-                postedBy.setText(userDetailsStr);
+               postedBy.setText(userDetailsStr);
+               getUserUniqueNames();
 
              }
         catch(Exception e)
         {
-            Toast.makeText(getApplicationContext(),"Error Occured While Loading the data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Error Occured While Loading the data" +e.toString(), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+
+    private void getUserUniqueNames() {
+
+        ArrayList<String> userArry =new ArrayList<String>();
+
+        try {
+
+            for(int userCount =0; userCount < result.length(); userCount++ ) {
+                JSONObject userNameData = result.getJSONObject(userCount);
+                userArry.add(userNameData.getString("name"));
+            }
+
+            for(String s : userArry) {
+                if(!userUniqueArry.contains(s)) {
+                    userUniqueArry.add(s);
+                }
+            }
+
+
+        } catch (JSONException e)
+        {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -255,7 +313,7 @@ public class ViewPoem extends AppCompatActivity
 
     private void movePrevious(){
 
-        if(TRACK>0){
+        if(TRACK > 0){
             TRACK--;
             resetFields();
             scrollView.fullScroll(ScrollView.FOCUS_UP);
@@ -317,6 +375,127 @@ public class ViewPoem extends AppCompatActivity
             return false;
         }
     };
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.view_poem_menu, menu);
+
+        searchMenuItem = menu.findItem(R.id.action_search_poem);
+        mSearchView = (SearchView) searchMenuItem.getActionView();
+
+/*
+        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                adapter = new ArrayAdapter<String>(Temples.this,android.R.layout.simple_list_item_1, searchArrayListWithoutCount);
+                lv.setAdapter(adapter);
+                lv.setVisibility(View.VISIBLE);
+            }
+        });
+
+*/
+        lv.setVisibility(View.VISIBLE);
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String searchText) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String searchText) {
+
+                // userUniqueArry.clear();
+               // searchArrayListWithoutCount.clear();
+
+               /* for(int i =0 ;i < userUniqueArry.size();i++){
+                    if(templePlaceList.get(i).toString().contains(searchText)) {
+                        search_result_arraylist.add(templePlaceList.get(i).toString());
+                        searchArrayListWithoutCount.add(templePlaceListWithoutCount.get(i).toString());
+                    }
+                }
+                if(searchArrayListWithoutCount.isEmpty())
+                {
+                    isSearchResultEmpty = true;
+                    searchArrayListWithoutCount.add("Sorry We Cannot Find Any temples");
+                    lv.setAdapter(adapter);
+                    //   lv.setVisibility(VISIBLE);
+
+                }
+                else {
+                    isSearchResultEmpty = false;
+                    adapter = new ArrayAdapter<String>(Temples.this,android.R.layout.simple_list_item_1, searchArrayListWithoutCount);
+                    lv.setAdapter(adapter);
+
+                }
+                */
+                return false;
+            }
+
+
+        });
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                for(int distCount =0; distCount <adapter.getCount();distCount++ )
+                {
+                    if(adapter.getItem(distCount).equals(adapter.getItem(position)))
+                    {
+                        String districtName= adapter.getItem(position).toString();
+                        Toast.makeText(ViewPoem.this,districtName,Toast.LENGTH_SHORT).show();
+                        lv.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+        });
+
+
+
+        return true;
+    }
+
+    private boolean restriction =true;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(restriction)
+            return false;
+
+
+        if(id ==R.id.action_search_poem)
+        {
+            mSearchView.setVisibility(VISIBLE);
+            adapter = new ArrayAdapter<String>(ViewPoem.this,android.R.layout.simple_list_item_1, userUniqueArry);
+            lv.setAdapter(adapter);
+            //isSearchButonPressed =true;
+            lv.setVisibility(View.VISIBLE);
+        }
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

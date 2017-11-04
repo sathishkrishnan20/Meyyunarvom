@@ -122,6 +122,12 @@
             android:contentDescription="@string/error_network"
             android:src="@drawable/network_error_1x"/>
 
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewPoem"/>
+
     </RelativeLayout>
 
 

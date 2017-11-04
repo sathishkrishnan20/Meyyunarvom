@@ -56,7 +56,7 @@ public class ProfilePage extends AppCompatActivity {
         TextView logOut = (TextView) findViewById(R.id.user_logout);
 
        final ProgressBar pg = (ProgressBar)findViewById(R.id.progPro);
-        pg.setVisibility(View.GONE);
+       pg.setVisibility(View.GONE);
 
         SharedPreferences userdetails = getApplicationContext().getSharedPreferences("Login", 0);
 
@@ -158,16 +158,13 @@ public class ProfilePage extends AppCompatActivity {
         userEdit.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
                 Intent intent=new Intent(getApplicationContext(), UserUpdateDetails.class);
                 startActivity(intent);
 
             }
         });
-
-
     }
 
     @Override

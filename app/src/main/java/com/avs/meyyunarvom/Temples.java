@@ -123,13 +123,13 @@ public class Temples extends AppCompatActivity //implements View.OnClickListener
     private ImageView err;
     private boolean isSearchButonPressed = false;
 
-
+    private boolean isSearchResultEmpty = false;
     ArrayList search_result_arraylist = new ArrayList();
     ArrayList searchArrayListWithoutCount = new ArrayList();
     ArrayAdapter adapter;
     private MenuItem searchMenuItem;
     private SearchView mSearchView;
-    private boolean isSearchResultEmpty = false;
+
 
 
     NotificationManager mNotifyManager;

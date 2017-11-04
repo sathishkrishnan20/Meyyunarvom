@@ -261,8 +261,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                  .show();
                          return;
                      }
-                     if(mAwesomeValidation.validate())
-                     {
+                     if(mAwesomeValidation.validate()) {
                          registerUser();
                      }
 

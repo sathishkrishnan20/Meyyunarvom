@@ -16,12 +16,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-  <!--  <permission
+    <!--
+    <permission
         android:name="com.avs.meyyunarvom.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.avs.meyyunarvom.permission.C2D_MESSAGE" />
--->
-
+    -->
 
 
     <!--
@@ -37,7 +37,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/main_app_name"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme">
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -47,21 +46,16 @@
             </intent-filter>
         </activity>
 
-
-
-
         <service android:name="com.avs.service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name="com.avs.service.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
 
         <activity
             android:name=".MainActivity"
@@ -137,8 +131,6 @@
                 android:name="android.support.PARENT_PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
-
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
@@ -280,15 +272,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-        <activity android:name=".NotificationActivity"
+        <activity
+            android:name=".NotificationActivity"
             android:label="Notification"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-            </activity>
-
+        </activity>
         <activity
             android:name=".ContactUs"
             android:label="Contact Us"
@@ -346,7 +337,7 @@
             android:name=".Akilam"
             android:label="@string/akilathirattu"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".AvsSongs"></activity>
     </application>
 
 </manifest>
